@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 @interface TouchTrackerViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UILabel *xDisplay;
+@property (weak, nonatomic) IBOutlet UILabel *yDisplay;
 
 @end
