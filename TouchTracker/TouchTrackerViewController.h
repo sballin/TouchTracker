@@ -13,5 +13,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *xDisplay;
 @property (weak, nonatomic) IBOutlet UILabel *yDisplay;
+@property (weak, nonatomic) IBOutlet UITextView *textDisplay;
 
 @end
