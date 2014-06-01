@@ -7,23 +7,33 @@
 //
 
 #import "TouchTrackerViewController.h"
+#import "TouchDrawView.h"
+#import "TouchTrackerAppDelegate.h"
 
 @interface TouchTrackerViewController ()
-
+//@property (nonatomic, strong) UIView *myView;
 @end
 
 @implementation TouchTrackerViewController
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-}
+@synthesize xDisplay = _xDisplay, yDisplay = _yDisplay;
+//@synthesize myView = _myView;
 
-- (void)didReceiveMemoryWarning
+//- (void)loadView
+//{
+//    [self setView:[[TouchDrawView alloc] initWithFrame:CGRectZero]];
+//}
+
+- (void)touchesBegan:(NSSet *)touches
+           withEvent:(UIEvent *)event
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    //[self loadView];
+    for (UITouch *t in touches)
+    {
+        CGPoint location = [t locationInView:[[TouchDrawView alloc] initWithFrame:CGRectZero]];
+        self.xDisplay.text = [NSString stringWithFormat:@"x: %g", location.x];
+        self.yDisplay.text = [NSString stringWithFormat:@"y: %g", location.y];
+    }
 }
 
 @end
