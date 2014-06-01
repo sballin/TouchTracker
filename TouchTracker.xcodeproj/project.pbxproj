@@ -23,6 +23,7 @@
 		14B72281193AF2830059E7BD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14B7227F193AF2830059E7BD /* InfoPlist.strings */; };
 		14B72283193AF2830059E7BD /* TouchTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B72282193AF2830059E7BD /* TouchTrackerTests.m */; };
 		14B72291193AF6250059E7BD /* TouchDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B72290193AF6250059E7BD /* TouchDrawView.m */; };
+		14B72298193B37C50059E7BD /* TouchTrackerBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B72297193B37C50059E7BD /* TouchTrackerBrain.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,9 @@
 		14B72282193AF2830059E7BD /* TouchTrackerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouchTrackerTests.m; sourceTree = "<group>"; };
 		14B7228F193AF6250059E7BD /* TouchDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchDrawView.h; sourceTree = "<group>"; };
 		14B72290193AF6250059E7BD /* TouchDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchDrawView.m; sourceTree = "<group>"; };
+		14B72295193B34240059E7BD /* TouchTracker.mobileprovision */ = {isa = PBXFileReference; lastKnownFileType = file; name = TouchTracker.mobileprovision; path = ../../../../Downloads/TouchTracker.mobileprovision; sourceTree = "<group>"; };
+		14B72296193B37C50059E7BD /* TouchTrackerBrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchTrackerBrain.h; sourceTree = "<group>"; };
+		14B72297193B37C50059E7BD /* TouchTrackerBrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchTrackerBrain.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +129,8 @@
 				14B72290193AF6250059E7BD /* TouchDrawView.m */,
 				14B7226C193AF2830059E7BD /* TouchTrackerViewController.h */,
 				14B7226D193AF2830059E7BD /* TouchTrackerViewController.m */,
+				14B72296193B37C50059E7BD /* TouchTrackerBrain.h */,
+				14B72297193B37C50059E7BD /* TouchTrackerBrain.m */,
 				14B7226F193AF2830059E7BD /* Images.xcassets */,
 				14B7225B193AF2830059E7BD /* Supporting Files */,
 			);
@@ -134,6 +140,7 @@
 		14B7225B193AF2830059E7BD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				14B72295193B34240059E7BD /* TouchTracker.mobileprovision */,
 				14B7225C193AF2830059E7BD /* TouchTracker-Info.plist */,
 				14B7225D193AF2830059E7BD /* InfoPlist.strings */,
 				14B72260193AF2830059E7BD /* main.m */,
@@ -263,6 +270,7 @@
 				14B72291193AF6250059E7BD /* TouchDrawView.m in Sources */,
 				14B72261193AF2830059E7BD /* main.m in Sources */,
 				14B72265193AF2830059E7BD /* TouchTrackerAppDelegate.m in Sources */,
+				14B72298193B37C50059E7BD /* TouchTrackerBrain.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
