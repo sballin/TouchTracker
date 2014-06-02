@@ -20,7 +20,7 @@
 
 - (NSMutableArray *)touchSequence
 {
-    if (_touchSequence) _touchSequence = [[NSMutableArray alloc] init];
+    if (!_touchSequence) _touchSequence = [[NSMutableArray alloc] init];
     return _touchSequence;
 }
 
@@ -30,26 +30,39 @@
     return vectorA[0]*vectorB[1] - vectorA[1]*vectorB[0];
 }
 
-- (NSString *)snakePath:(NSMutableArray *)touches
-                       :(UIView *)view
+- (void)addToSequence:(CGPoint)touch
 {
-    if ([touches count] >= 3)
+    [self.touchSequence addObject:[NSValue value:&touch withObjCType:@encode(CGPoint)]];
+}
+
+- (CGPoint)getTouchAtIndex:(int)i
+{
+    CGPoint touch;
+    [[self.touchSequence objectAtIndex:i] getValue:&touch];
+    return touch;
+}
+
+- (NSString *)snakePath:(CGPoint)touch
+{
+    [self addToSequence:touch];
+    if ([self.touchSequence count] >= 3)
     {
-        for (int i = 0; i < [touches count]-2; i++)
+        NSString *path = [NSString stringWithFormat:@""];
+        for (int i = 0; i < [self.touchSequence count]-2; i++)
         {
-            CGPoint firstTouch, secondTouch, thirdTouch;
-            [[touches objectAtIndex:i] getValue:&firstTouch];
-            [[touches objectAtIndex:i+1] getValue:&secondTouch];
-            [[touches objectAtIndex:i+2] getValue:&thirdTouch];
+            CGPoint firstTouch = [self getTouchAtIndex:i];
+            CGPoint secondTouch = [self getTouchAtIndex:i+1];
+            CGPoint thirdTouch = [self getTouchAtIndex:i+2];
             double vectorA[2] = {secondTouch.x-firstTouch.x, secondTouch.y-firstTouch.y};
             double vectorB[2] = {thirdTouch.x-secondTouch.x, thirdTouch.y-secondTouch.y};
             double cross = [self crossProduct2D:vectorA:vectorB];
             NSLog(@"%g = %g,%g cross %g,%g", cross, secondTouch.x-firstTouch.x, secondTouch.y-firstTouch.y, thirdTouch.x-secondTouch.x, thirdTouch.y-secondTouch.y);
-            NSLog(@"points %g,%g to %g,%g to %g,%g", firstTouch.x, secondTouch.y, secondTouch.x, secondTouch.y, thirdTouch.x, thirdTouch.y);
+            if (cross > 0) path = [path stringByAppendingString:@"r"];
+            else if (cross < 0) path = [path stringByAppendingString:@"l"];
         }
-        NSLog(@"\n");
-    } else
-        return nil;
+        NSLog(@"%@", path);
+        return path;
+    }
     return nil;
 }
 
