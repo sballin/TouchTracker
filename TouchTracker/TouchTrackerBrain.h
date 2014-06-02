@@ -17,7 +17,8 @@ typedef struct _brain_touch brain_touch;
 
 - (double)crossProduct2D:(double[])vectorA
                       :(double[])vectorB;
-- (NSMutableArray *)snakePath:(NSMutableArray *)touches
-                             :(UIView *)view;
+- (void)addToSequence:(CGPoint)touch;
+- (CGPoint)getTouchAtIndex:(int)i;
+- (NSMutableArray *)snakePath:(CGPoint)touch;
 
 @end
