@@ -10,10 +10,14 @@
 
 @interface TouchTrackerBrain : NSObject
 
-- (double)crossProduct2D:(double[])vectorA
-                      :(double[])vectorB;
+- (float)crossProduct2D:(float[])vectorA
+                      :(float[])vectorB;
 - (void)addToSequence:(CGPoint)touch;
 - (CGPoint)getTouchAtIndex:(int)i;
+- (BOOL)directionIsUndefined:(CGPoint)a
+                            :(CGPoint)b
+                            :(CGPoint)c
+                            :(float)spread;
 - (NSMutableArray *)snakePath:(CGPoint)touch;
 
 @end
