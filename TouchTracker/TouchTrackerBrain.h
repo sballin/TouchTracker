@@ -10,11 +10,6 @@
 
 @interface TouchTrackerBrain : NSObject
 
-struct _brain_touch {
-    double x, y;
-};
-typedef struct _brain_touch brain_touch;
-
 - (double)crossProduct2D:(double[])vectorA
                       :(double[])vectorB;
 - (void)addToSequence:(CGPoint)touch;
