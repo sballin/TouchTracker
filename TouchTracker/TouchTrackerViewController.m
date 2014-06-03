@@ -32,14 +32,14 @@
 - (void)touchesBegan:(NSSet *)touches
            withEvent:(UIEvent *)event
 {
-    UIView *muhview = [[TouchDrawView alloc] initWithFrame:CGRectZero];
+//    UIView *muhView = [[TouchDrawView alloc] initWithFrame:CGRectZero];
     for (UITouch *t in touches)
     {
-        CGPoint location = [t locationInView:muhview];
-        self.xDisplay.text = [NSString stringWithFormat:@"x: %g", location.x];
-        self.yDisplay.text = [NSString stringWithFormat:@"y: %g", location.y];
-        self.pathDisplay.text = [self.brain snakePath:location];
-        self.textDisplay.text = [self.textDisplay.text stringByAppendingString:[NSString stringWithFormat:@"(%g,%g)\n", location.x, location.y]];
+        CGPoint point = [t locationInView:self.view];
+        self.xDisplay.text = [NSString stringWithFormat:@"x: %f", point.x];
+        self.yDisplay.text = [NSString stringWithFormat:@"y: %f", point.y];
+        self.pathDisplay.text = [self.brain snakePath:point];
+        self.textDisplay.text = [self.textDisplay.text stringByAppendingString:[NSString stringWithFormat:@"(%f,%f)\n", point.x, point.y]];
     }
 }
 

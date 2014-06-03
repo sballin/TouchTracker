@@ -24,7 +24,6 @@
 		14B72283193AF2830059E7BD /* TouchTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B72282193AF2830059E7BD /* TouchTrackerTests.m */; };
 		14B72291193AF6250059E7BD /* TouchDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B72290193AF6250059E7BD /* TouchDrawView.m */; };
 		14B72298193B37C50059E7BD /* TouchTrackerBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B72297193B37C50059E7BD /* TouchTrackerBrain.m */; };
-		14B7229A193B40870059E7BD /* dict.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14B72299193B40870059E7BD /* dict.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,7 +62,6 @@
 		14B72295193B34240059E7BD /* TouchTracker.mobileprovision */ = {isa = PBXFileReference; lastKnownFileType = file; name = TouchTracker.mobileprovision; path = ../../../../Downloads/TouchTracker.mobileprovision; sourceTree = "<group>"; };
 		14B72296193B37C50059E7BD /* TouchTrackerBrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchTrackerBrain.h; sourceTree = "<group>"; };
 		14B72297193B37C50059E7BD /* TouchTrackerBrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchTrackerBrain.m; sourceTree = "<group>"; };
-		14B72299193B40870059E7BD /* dict.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dict.txt; path = ../../../../Desktop/Lokey/dict.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,7 +121,6 @@
 		14B7225A193AF2830059E7BD /* TouchTracker */ = {
 			isa = PBXGroup;
 			children = (
-				14B72299193B40870059E7BD /* dict.txt */,
 				14B72263193AF2830059E7BD /* TouchTrackerAppDelegate.h */,
 				14B72264193AF2830059E7BD /* TouchTrackerAppDelegate.m */,
 				14B72266193AF2830059E7BD /* Main_iPhone.storyboard */,
@@ -251,7 +248,6 @@
 				14B72270193AF2830059E7BD /* Images.xcassets in Resources */,
 				14B72268193AF2830059E7BD /* Main_iPhone.storyboard in Resources */,
 				14B7225F193AF2830059E7BD /* InfoPlist.strings in Resources */,
-				14B7229A193B40870059E7BD /* dict.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,6 +485,7 @@
 				14B72288193AF2830059E7BD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		14B72289193AF2830059E7BD /* Build configuration list for PBXNativeTarget "TouchTrackerTests" */ = {
 			isa = XCConfigurationList;
@@ -497,6 +494,7 @@
 				14B7228B193AF2830059E7BD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
