@@ -32,7 +32,6 @@
 - (void)touchesBegan:(NSSet *)touches
            withEvent:(UIEvent *)event
 {
-//    UIView *muhView = [[TouchDrawView alloc] initWithFrame:CGRectZero];
     for (UITouch *t in touches)
     {
         CGPoint point = [t locationInView:self.view];
