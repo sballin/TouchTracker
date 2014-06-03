@@ -14,10 +14,15 @@
                       :(float[])vectorB;
 - (void)addToSequence:(CGPoint)touch;
 - (CGPoint)getTouchAtIndex:(int)i;
-- (BOOL)directionIsUndefined:(CGPoint)a
-                            :(CGPoint)b
-                            :(CGPoint)c
-                            :(float)spread;
+- (NSString *)directionVerbatim:(CGPoint)firstTouch
+                               :(CGPoint)secondTouch
+                               :(CGPoint)thirdTouch;
+- (CGPoint)displace:(CGPoint)point
+                   :(int)spread;
+- (NSString *)directionBash:(CGPoint)firstTouch
+                           :(CGPoint)secondTouch
+                           :(CGPoint)thirdTouch
+                           :(int)spread;
 - (NSMutableArray *)snakePath:(CGPoint)touch;
 
 @end
