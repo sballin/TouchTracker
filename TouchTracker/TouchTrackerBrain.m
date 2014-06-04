@@ -11,7 +11,7 @@
 @interface TouchTrackerBrain()
 @property (nonatomic, strong) NSMutableDictionary *snakeDictionary;
 @property (nonatomic, strong) NSMutableArray *touchSequence;
-@property (nonatomic, strong) NSMutableArray *dictionaryWords;
+@property (nonatomic, strong) NSArray *dictionaryWords;
 @property (nonatomic, strong) NSDictionary *alphabetCoordinates;
 - (float)magnitude:(CGPoint)vector;
 - (float)crossProduct2D:(CGPoint)vectorA
@@ -44,9 +44,17 @@
 {
     if (!_snakeDictionary)
     {
-        for (NSString *word in [self dictionaryWords])
+        _snakeDictionary = [NSMutableDictionary dictionaryWithCapacity:[self.dictionaryWords count]];
+        for (NSString *word in self.dictionaryWords)
         {
-            
+            if ([word length] > 3)
+            {
+                NSString *path = [self snakePathOfWord:word];
+                NSMutableArray *list = [_snakeDictionary objectForKey:path];
+                if (list == nil) list = [[NSMutableArray alloc] init];
+                [list addObject:word];
+                [_snakeDictionary setObject:list forKey:path];
+            }
         }
     }
     return _snakeDictionary;
@@ -149,14 +157,14 @@
 }
 
 
-- (NSMutableArray *)dictionaryWords
+- (NSArray *)dictionaryWords
 {
     if (!_dictionaryWords)
     {
         _dictionaryWords = [[NSMutableArray alloc] init];
         NSString *path = [[NSBundle mainBundle] pathForResource:@"dict" ofType:@"txt"];
         NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-        _dictionaryWords = [[content componentsSeparatedByString:@"\r"] mutableCopy];
+        _dictionaryWords = [content componentsSeparatedByString:@"\r"];
     }
     
     return _dictionaryWords;
@@ -230,6 +238,7 @@
 
 - (NSString *)snakePath:(CGPoint)touch
 {
+    NSLog(@"%@",self.snakeDictionary);
     NSLog(@"%@", [self snakePathOfWord:@"horticulture"]);
     [self addToSequence:touch];
     if ([self.touchSequence count] >= 3)
