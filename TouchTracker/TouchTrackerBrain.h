@@ -10,19 +10,11 @@
 
 @interface TouchTrackerBrain : NSObject
 
-- (float)crossProduct2D:(float[])vectorA
-                      :(float[])vectorB;
-- (void)addToSequence:(CGPoint)touch;
-- (CGPoint)getTouchAtIndex:(int)i;
-- (NSString *)directionVerbatim:(CGPoint)firstTouch
-                               :(CGPoint)secondTouch
-                               :(CGPoint)thirdTouch;
-- (CGPoint)displace:(CGPoint)point
-                   :(int)spread;
-- (NSString *)directionBash:(CGPoint)firstTouch
-                           :(CGPoint)secondTouch
-                           :(CGPoint)thirdTouch
-                           :(int)spread;
 - (NSMutableArray *)snakePath:(CGPoint)touch;
+
+typedef struct {
+    float x;
+    float y;
+} vector_2d;
 
 @end
