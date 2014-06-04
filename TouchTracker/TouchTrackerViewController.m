@@ -14,6 +14,7 @@
 @interface TouchTrackerViewController()
 @property (nonatomic, strong) NSMutableArray *touchList;
 @property (nonatomic, strong) TouchTrackerBrain *brain;
+- (NSString *) matchesText:(NSString *)path;
 @end
 
 @implementation TouchTrackerViewController
@@ -21,12 +22,22 @@
 @synthesize xDisplay = _xDisplay, yDisplay = _yDisplay;
 @synthesize textDisplay = _textDisplay;
 @synthesize pathDisplay = _pathDisplay;
+@synthesize matchesDisplay = _matchesDisplay;
 @synthesize brain = _brain;
 
 - (TouchTrackerBrain *)brain
 {
     if (!_brain) _brain = [[TouchTrackerBrain alloc] init];
     return _brain;
+}
+
+- (NSString *) matchesText:(NSString *)path
+{
+    NSMutableArray *list = [self.brain.snakeDictionary objectForKey:path];
+    NSString *matches = @"";
+    for (NSString *word in list)
+        matches = [matches stringByAppendingString:[word stringByAppendingString:@" "]];
+    return matches;
 }
 
 - (void)touchesBegan:(NSSet *)touches
@@ -37,8 +48,11 @@
         CGPoint point = [t locationInView:self.view];
         self.xDisplay.text = [NSString stringWithFormat:@"x: %f", point.x];
         self.yDisplay.text = [NSString stringWithFormat:@"y: %f", point.y];
-        self.pathDisplay.text = [self.brain snakePath:point];
+        NSString *path = [self.brain snakePath:point];
+        self.pathDisplay.text = path;
         self.textDisplay.text = [self.textDisplay.text stringByAppendingString:[NSString stringWithFormat:@"(%f,%f)\n", point.x, point.y]];
+        if (self.pathDisplay.text)
+            self.matchesDisplay.text = [self matchesText:path];
     }
 }
 

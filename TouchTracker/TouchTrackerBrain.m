@@ -9,7 +9,6 @@
 #import "TouchTrackerBrain.h"
 
 @interface TouchTrackerBrain()
-@property (nonatomic, strong) NSMutableDictionary *snakeDictionary;
 @property (nonatomic, strong) NSMutableArray *touchSequence;
 @property (nonatomic, strong) NSArray *dictionaryWords;
 @property (nonatomic, strong) NSDictionary *alphabetCoordinates;
@@ -56,6 +55,7 @@
                 [_snakeDictionary setObject:list forKey:path];
             }
         }
+        [NSKeyedArchiver archiveRootObject:_snakeDictionary toFile:@"snakeDictionary"];
     }
     return _snakeDictionary;
 }
@@ -238,8 +238,6 @@
 
 - (NSString *)snakePath:(CGPoint)touch
 {
-    NSLog(@"%@",self.snakeDictionary);
-    NSLog(@"%@", [self snakePathOfWord:@"horticulture"]);
     [self addToSequence:touch];
     if ([self.touchSequence count] >= 3)
     {
