@@ -11,6 +11,5 @@
 @interface TouchTrackerBrain : NSObject
 
 - (NSString *)snakePath:(CGPoint)touch;
-- (void)makeSnakeDictionary;
 
 @end
