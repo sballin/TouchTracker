@@ -43,10 +43,16 @@
 }
 
 
-// really necessary?
 - (NSMutableArray *)dictionaryWords
 {
-    if (!_dictionaryWords) _dictionaryWords = [[NSMutableArray alloc] init];
+    if (!_dictionaryWords)
+    {
+        _dictionaryWords = [[NSMutableArray alloc] init];
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"dict" ofType:@"txt"];
+        NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        _dictionaryWords = [[content componentsSeparatedByString:@"\r"] mutableCopy];
+    }
+    
     return _dictionaryWords;
 }
 
