@@ -43,10 +43,18 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="40" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="728" translatesAutoresizingMaskIntoConstraints="NO" id="cNf-pA-qFD">
+                                <rect key="frame" x="20" y="228" width="728" height="614"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="matchesDisplay" destination="cNf-pA-qFD" id="Qcd-56-rbt"/>
                         <outlet property="pathDisplay" destination="PY4-BE-J76" id="zj9-nU-yfg"/>
                         <outlet property="textDisplay" destination="pbh-Rn-Jlv" id="i6F-R9-lUb"/>
                         <outlet property="xDisplay" destination="Dih-gA-Vv7" id="Lzb-5H-4bS"/>
