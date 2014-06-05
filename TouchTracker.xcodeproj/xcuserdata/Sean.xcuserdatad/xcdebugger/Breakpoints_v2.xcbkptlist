@@ -20,23 +20,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TouchTracker/TouchTrackerBrain.m"
-            timestampString = "423675523.73722"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "188"
-            endingLineNumber = "188"
-            landmarkName = "-dictionaryWords"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TouchTracker/TouchTrackerBrain.m"
-            timestampString = "423675523.73722"
+            timestampString = "423690013.46715"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "189"
@@ -52,11 +36,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TouchTracker/TouchTrackerBrain.m"
-            timestampString = "423674990.350223"
+            timestampString = "423690013.46715"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
+            landmarkName = "-dictionaryWords"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TouchTracker/TouchTrackerBrain.m"
+            timestampString = "423690013.46715"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
             landmarkName = "-snakeDictionary"
             landmarkType = "5">
          </BreakpointContent>
