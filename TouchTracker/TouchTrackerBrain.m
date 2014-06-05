@@ -7,6 +7,7 @@
 //
 
 #import "TouchTrackerBrain.h"
+#import "Snake.h"
 
 @interface TouchTrackerBrain()
 @property (nonatomic, strong) NSMutableArray *touchSequence;

@@ -28,6 +28,8 @@
 		14B72298193B37C50059E7BD /* TouchTrackerBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B72297193B37C50059E7BD /* TouchTrackerBrain.m */; };
 		14E696C91940818200E3764A /* snakeDictionary.plist in Resources */ = {isa = PBXBuildFile; fileRef = 14E696C81940818200E3764A /* snakeDictionary.plist */; };
 		14E696CA1940818200E3764A /* snakeDictionary.plist in Resources */ = {isa = PBXBuildFile; fileRef = 14E696C81940818200E3764A /* snakeDictionary.plist */; };
+		14E696CD1940FE9C00E3764A /* Snake.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E696CC1940FE9C00E3764A /* Snake.m */; };
+		14E696CE1940FE9C00E3764A /* Snake.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E696CC1940FE9C00E3764A /* Snake.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +70,8 @@
 		14B72296193B37C50059E7BD /* TouchTrackerBrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchTrackerBrain.h; sourceTree = "<group>"; };
 		14B72297193B37C50059E7BD /* TouchTrackerBrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchTrackerBrain.m; sourceTree = "<group>"; };
 		14E696C81940818200E3764A /* snakeDictionary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = snakeDictionary.plist; sourceTree = "<group>"; };
+		14E696CB1940FE9C00E3764A /* Snake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Snake.h; sourceTree = "<group>"; };
+		14E696CC1940FE9C00E3764A /* Snake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Snake.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +143,8 @@
 				14E696C81940818200E3764A /* snakeDictionary.plist */,
 				14B72296193B37C50059E7BD /* TouchTrackerBrain.h */,
 				14B72297193B37C50059E7BD /* TouchTrackerBrain.m */,
+				14E696CB1940FE9C00E3764A /* Snake.h */,
+				14E696CC1940FE9C00E3764A /* Snake.m */,
 				14B7226F193AF2830059E7BD /* Images.xcassets */,
 				14B7225B193AF2830059E7BD /* Supporting Files */,
 			);
@@ -278,6 +284,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14E696CD1940FE9C00E3764A /* Snake.m in Sources */,
 				14B7226E193AF2830059E7BD /* TouchTrackerViewController.m in Sources */,
 				14B72291193AF6250059E7BD /* TouchDrawView.m in Sources */,
 				14B72261193AF2830059E7BD /* main.m in Sources */,
@@ -290,6 +297,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14E696CE1940FE9C00E3764A /* Snake.m in Sources */,
 				14B72283193AF2830059E7BD /* TouchTrackerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
