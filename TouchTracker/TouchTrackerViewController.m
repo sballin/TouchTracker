@@ -31,12 +31,21 @@
     return _brain;
 }
 
+- (IBAction)clearPressed:(id)sender
+{
+    [self.brain clearTouchSequence];
+    self.matchesDisplay.text = @"";
+    self.pathDisplay.text = @"";
+    self.textDisplay.text = @"";
+}
+
 - (NSString *) matchesText:(NSString *)path
 {
     NSMutableArray *list = [self.brain.snakeDictionary objectForKey:path];
     NSString *matches = @"";
     for (NSString *word in list)
         matches = [matches stringByAppendingString:[word stringByAppendingString:@" "]];
+    matches = [matches stringByAppendingString:[NSString stringWithFormat:@"%lu", (unsigned long)[list count]]];
     return matches;
 }
 
