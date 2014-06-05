@@ -43,19 +43,35 @@
 {
     if (!_snakeDictionary)
     {
-        _snakeDictionary = [NSMutableDictionary dictionaryWithCapacity:[self.dictionaryWords count]];
-        for (NSString *word in self.dictionaryWords)
-        {
-            if ([word length] > 3)
-            {
-                NSString *path = [self snakePathOfWord:word];
-                NSMutableArray *list = [_snakeDictionary objectForKey:path];
-                if (list == nil) list = [[NSMutableArray alloc] init];
-                [list addObject:word];
-                [_snakeDictionary setObject:list forKey:path];
-            }
-        }
-        [NSKeyedArchiver archiveRootObject:_snakeDictionary toFile:@"snakeDictionary"];
+  //      NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+ //       NSString *documentsDirectoryPath = [paths objectAtIndex:0];
+//        NSString *dictPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"snakeDictionary.out"];
+        
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"snakeDictionary" ofType:@"plist"];
+   //     NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        _snakeDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
+
+//        if ([[NSFileManager defaultManager] fileExistsAtPath:@""] == NO)
+//        {
+//            _snakeDictionary = [NSMutableDictionary dictionaryWithCapacity:[self.dictionaryWords count]];
+//            for (NSString *word in self.dictionaryWords)
+//            {
+//                if ([word length] > 3)
+//                {
+//                    NSString *path = [self snakePathOfWord:word];
+//                    NSMutableArray *list = [_snakeDictionary objectForKey:path];
+//                    if (list == nil) list = [[NSMutableArray alloc] init];
+//                    [list addObject:word];
+//                    [_snakeDictionary setObject:list forKey:path];
+//                }
+//            }
+//            //[NSKeyedArchiver archiveRootObject:_snakeDictionary toFile:@"snakeDictionary"]
+//
+            //[self.snakeDictionary writeToFile:dictPath atomically:YES];
+//        }
+        //else
+            //_snakeDictionary = [NSMutableDictionary dictionaryWithContentsOfFile:dictPath];
+
     }
     return _snakeDictionary;
 }
@@ -140,6 +156,12 @@
 {
     if (!_touchSequence) _touchSequence = [[NSMutableArray alloc] init];
     return _touchSequence;
+}
+
+
+- (void)clearTouchSequence
+{
+    self.touchSequence = nil;
 }
 
 

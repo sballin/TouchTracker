@@ -26,6 +26,8 @@
 		14B72283193AF2830059E7BD /* TouchTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B72282193AF2830059E7BD /* TouchTrackerTests.m */; };
 		14B72291193AF6250059E7BD /* TouchDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B72290193AF6250059E7BD /* TouchDrawView.m */; };
 		14B72298193B37C50059E7BD /* TouchTrackerBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B72297193B37C50059E7BD /* TouchTrackerBrain.m */; };
+		14E696C91940818200E3764A /* snakeDictionary.plist in Resources */ = {isa = PBXBuildFile; fileRef = 14E696C81940818200E3764A /* snakeDictionary.plist */; };
+		14E696CA1940818200E3764A /* snakeDictionary.plist in Resources */ = {isa = PBXBuildFile; fileRef = 14E696C81940818200E3764A /* snakeDictionary.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,7 @@
 		14B72295193B34240059E7BD /* TouchTracker.mobileprovision */ = {isa = PBXFileReference; lastKnownFileType = file; name = TouchTracker.mobileprovision; path = ../../../../Downloads/TouchTracker.mobileprovision; sourceTree = "<group>"; };
 		14B72296193B37C50059E7BD /* TouchTrackerBrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchTrackerBrain.h; sourceTree = "<group>"; };
 		14B72297193B37C50059E7BD /* TouchTrackerBrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchTrackerBrain.m; sourceTree = "<group>"; };
+		14E696C81940818200E3764A /* snakeDictionary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = snakeDictionary.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +136,7 @@
 				14B72290193AF6250059E7BD /* TouchDrawView.m */,
 				14B7226C193AF2830059E7BD /* TouchTrackerViewController.h */,
 				14B7226D193AF2830059E7BD /* TouchTrackerViewController.m */,
+				14E696C81940818200E3764A /* snakeDictionary.plist */,
 				14B72296193B37C50059E7BD /* TouchTrackerBrain.h */,
 				14B72297193B37C50059E7BD /* TouchTrackerBrain.m */,
 				14B7226F193AF2830059E7BD /* Images.xcassets */,
@@ -251,6 +255,7 @@
 				14B7226B193AF2830059E7BD /* Main_iPad.storyboard in Resources */,
 				14B72270193AF2830059E7BD /* Images.xcassets in Resources */,
 				14B72268193AF2830059E7BD /* Main_iPhone.storyboard in Resources */,
+				14E696C91940818200E3764A /* snakeDictionary.plist in Resources */,
 				14B7225F193AF2830059E7BD /* InfoPlist.strings in Resources */,
 				146CEF44193F18E5002E5220 /* dict.txt in Resources */,
 			);
@@ -260,6 +265,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14E696CA1940818200E3764A /* snakeDictionary.plist in Resources */,
 				146CEF45193F18E5002E5220 /* dict.txt in Resources */,
 				14B72281193AF2830059E7BD /* InfoPlist.strings in Resources */,
 			);
