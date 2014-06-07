@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) NSMutableDictionary *snakeDictionary;
 - (NSString *)snakePath:(CGPoint)touch;
+- (void)writeSnakeDictionary;
 - (void)clearTouchSequence;
 
 @end
