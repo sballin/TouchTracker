@@ -13,7 +13,6 @@
 @property (nonatomic, strong) NSMutableArray *touchSequence;
 @property (nonatomic, strong) NSArray *dictionaryWords;
 @property (nonatomic, strong) NSDictionary *alphabetCoordinates;
-- (float)magnitude:(CGPoint)vector;
 - (float)crossProduct2D:(CGPoint)vectorA
                        :(CGPoint)vectorB;
 - (void)addToSequence:(CGPoint)touch;
@@ -33,6 +32,9 @@
 - (float)errorBetween:(float)a
                   and:(float)b;
 - (NSArray *)fractionPathOfWord:(NSString *)word;
+- (NSArray *)fractionPath;
+- (float)errorForWord:(NSString *)word;
+- (float)errorForWord:(NSString *)word;
 @end
 
 @implementation TouchTrackerBrain
@@ -229,6 +231,58 @@
         [path replaceObjectAtIndex:i withObject:[NSNumber numberWithFloat:fraction]];
     }
     return [path copy];
+}
+
+
+- (NSArray *)fractionPath
+{
+    float total = 0.0;
+    NSMutableArray *path = [[NSMutableArray alloc] init];
+    for (int i = 0; i < [self.touchSequence count]-1; i++)
+    {
+        CGPoint firstPoint = [self getTouchAtIndex:i];
+        CGPoint secondPoint = [self getTouchAtIndex:i+1];
+        float distance =  [self distanceBetween:firstPoint and:secondPoint];
+        [path addObject:[NSNumber numberWithFloat:distance]];
+        total += distance;
+    }
+    for (int i = 0; i < [path count]; i++)
+    {
+        float fraction = [[path objectAtIndex:i] floatValue]/total;
+        [path replaceObjectAtIndex:i withObject:[NSNumber numberWithFloat:fraction]];
+    }
+    return [path copy];
+}
+
+
+- (float)errorForWord:(NSString *)word
+{
+    NSArray *touchPath = [self fractionPath];
+    NSArray *wordPath = [self fractionPathOfWord:word];
+    float totalError = 0.0;
+    for (int i = 0; i < [touchPath count]; i++)
+    {
+        float touchFraction = [[touchPath objectAtIndex:i] floatValue];
+        float wordFraction = [[wordPath objectAtIndex:i] floatValue];
+        totalError += [self errorBetween:touchFraction and:wordFraction];
+    }
+    return totalError;
+}
+
+- (NSString *)bestMatchFor:(NSMutableArray *)words
+{
+    float leastError = INFINITY;
+    NSString *bestMatch;
+    for (NSString *word in words)
+    {
+        float error = [self errorForWord:word];
+        if (error < leastError)
+        {
+            bestMatch = word;
+            leastError = error;
+        }
+    }
+    return bestMatch;
 }
 
 
