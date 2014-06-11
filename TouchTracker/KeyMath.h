@@ -12,12 +12,12 @@
 @property (nonatomic, strong) NSDictionary *alphabetCoordinates;
 - (CGPoint)getCoordinatesOf:(NSString *)letter;
 + (float)crossProduct2D:(CGPoint)vectorA
-                       :(CGPoint)vectorB;
+					   :(CGPoint)vectorB;
 + (float)distanceBetween:(CGPoint)pointA
                      and:(CGPoint)pointB;
 + (float)errorBetween:(float)a
                   and:(float)b;
 + (CGPoint)displace:(CGPoint)point
-                   :(int)spread
-                   :(int)direction;
+				   :(int)spread
+				   :(int)direction;
 @end

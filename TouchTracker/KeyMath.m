@@ -8,17 +8,12 @@
 
 #import "KeyMath.h"
 
-@interface KeyMath()
-@end
-
 @implementation KeyMath
 
 @synthesize alphabetCoordinates = _alphabetCoordinates;
 
-- (NSDictionary *)alphabetCoordinates
-{
-    if (!_alphabetCoordinates)
-    {
+- (NSDictionary *)alphabetCoordinates {
+    if (!_alphabetCoordinates) {
         float r1 = 1269, r2 = 1099, r3 = 926; //y-coordinates of entire rows
     	float k1 = 182,  k2 = 184,  k3 = 186; //key+space width on different rows
     	float d1 = 274,  d2 = 167,  d3 = 91;  //offset of rows with respect to left margin
@@ -81,44 +76,39 @@
     return _alphabetCoordinates;
 }
 
-- (CGPoint)getCoordinatesOf:(NSString *)letter
-{
-    CGPoint coordinates;
-    [[self.alphabetCoordinates objectForKey:letter] getValue:&coordinates];
-    return coordinates;
+- (CGPoint)getCoordinatesOf:(NSString *)letter {
+	CGPoint coordinates;
+	[[self.alphabetCoordinates objectForKey:letter] getValue:&coordinates];
+	return coordinates;
 }
 
 + (float)errorBetween:(float)a
-                  and:(float)b
-{
-    float base;
-    if (a > b) base = a;
-    else if (b > a) base = b;
-    else return 0.0;
-    return fabs((a-b)/base);
+                  and:(float)b {
+	float base;
+	if (a > b) base = a;
+	else if (b > a) base = b;
+	else return 0.0;
+	return fabs((a - b) / base);
 }
 
 + (float)distanceBetween:(CGPoint)pointA
-                     and:(CGPoint)pointB
-{
-    return sqrtf(powf(pointA.x, 2.0)+powf(pointB.y, 2.0));
+                     and:(CGPoint)pointB {
+	return sqrtf(powf(pointA.x, 2.0) + powf(pointB.y, 2.0));
 }
 
 + (float)crossProduct2D:(CGPoint)vectorA
-                       :(CGPoint)vectorB
-{
-    return vectorA.x*vectorB.y - vectorA.y*vectorB.x;
+					   :(CGPoint)vectorB {
+	return vectorA.x * vectorB.y - vectorA.y * vectorB.x;
 }
 
 + (CGPoint)displace:(CGPoint)point
-                   :(int)spread
-                   :(int)direction
-{
-    if (direction > 0 && direction < 3)
-        point.x += (1-2*(direction % 2))*spread;    // (-1 or 1)*spread
-    else if (direction > 3)
-        point.y += (1-2*(direction % 2))*spread;
-    return point;
+				   :(int)spread
+				   :(int)direction {
+	if (direction > 0 && direction < 3)
+		point.x += (1 - 2 * (direction % 2)) * spread; // (-1 or 1)*spread
+	else if (direction > 3)
+		point.y += (1 - 2 * (direction % 2)) * spread;
+	return point;
 }
 
 @end
