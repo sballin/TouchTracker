@@ -10,10 +10,12 @@
 #import "TouchDrawView.h"
 #import "TouchTrackerAppDelegate.h"
 #import "TouchTrackerBrain.h"
+#import "Snake.h"
 
 @interface TouchTrackerViewController()
 @property (nonatomic, strong) NSMutableArray *touchList;
 @property (nonatomic, strong) TouchTrackerBrain *brain;
+@property (nonatomic, strong) Snake *snake;
 - (NSString *) matchesText:(NSString *)path;
 @end
 
@@ -25,6 +27,13 @@
 @synthesize matchesDisplay = _matchesDisplay;
 @synthesize bestMatchDisplay = _bestMatchDisplay;
 @synthesize brain = _brain;
+@synthesize snake = _snake;
+
+- (Snake *)snake
+{
+    if (!_snake) _snake = [[Snake alloc] init];
+    return _snake;
+}
 
 - (TouchTrackerBrain *)brain
 {
@@ -41,9 +50,9 @@
     self.bestMatchDisplay.text = @"";
 }
 
-- (NSString *) matchesText:(NSString *)path
+- (NSString *)matchesText:(NSString *)path
 {
-    NSMutableArray *list = [self.brain.snakeDictionary objectForKey:path];
+    NSMutableArray *list = [self.snake.snakeDictionary objectForKey:path];
     NSString *matches = @"";
     for (NSString *word in list)
         matches = [matches stringByAppendingString:[word stringByAppendingString:@" "]];
@@ -59,13 +68,14 @@
         CGPoint point = [t locationInView:self.view];
         self.xDisplay.text = [NSString stringWithFormat:@"x: %f", point.x];
         self.yDisplay.text = [NSString stringWithFormat:@"y: %f", point.y];
-        NSString *path = [self.brain snakePath:point];
+        [self.brain addToSequence:point];
+        NSString *path = [Snake snakePath:self.brain.touchSequence];
         self.pathDisplay.text = path;
         self.textDisplay.text = [self.textDisplay.text stringByAppendingString:[NSString stringWithFormat:@"(%f,%f)\n", point.x, point.y]];
         if (self.pathDisplay.text)
         {
             self.matchesDisplay.text = [self matchesText:path];
-            self.bestMatchDisplay.text = [self.brain bestMatchFor:[self.brain.snakeDictionary objectForKey:path]];
+            self.bestMatchDisplay.text = [self.brain bestMatchFor:[self.snake.snakeDictionary objectForKey:path]];
         }
     }
 }

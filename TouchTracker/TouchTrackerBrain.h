@@ -9,11 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface TouchTrackerBrain : NSObject
-
-@property (nonatomic, strong) NSMutableDictionary *snakeDictionary;
-- (NSString *)snakePath:(CGPoint)touch;
-- (void)writeSnakeDictionary;
+@property (nonatomic, strong) NSMutableArray *touchSequence;
+- (void)addToSequence:(CGPoint)touch;
 - (void)clearTouchSequence;
 - (NSString *)bestMatchFor:(NSMutableArray *)words;
-
 @end
