@@ -9,5 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface Snake : NSObject
-
+@property (nonatomic, strong) NSDictionary *snakeDictionary;
++ (NSString *)snakePath:(NSMutableArray *)touchSequence;
+- (NSString *)snakePathOfWord:(NSString *)word;
 @end
