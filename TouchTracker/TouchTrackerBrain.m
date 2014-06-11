@@ -30,8 +30,9 @@
                            :(CGPoint)thirdTouch
                            :(int)spread;
 - (NSString *)snakePathOfWord:(NSString *)word;
-- (float)error:(float)a
-              :(float)b;
+- (float)errorBetween:(float)a
+                  and:(float)b;
+- (NSArray *)fractionPathOfWord:(NSString *)word;
 @end
 
 @implementation TouchTrackerBrain
@@ -190,14 +191,15 @@
 }
 
 
-- (float)magnitude:(CGPoint)vector
+- (float)distanceBetween:(CGPoint)pointA
+                     and:(CGPoint)pointB
 {
-    return sqrtf(powf(vector.x, 2.0)+powf(vector.y, 2.0));
+    return sqrtf(powf(pointA.x, 2.0)+powf(pointB.y, 2.0));
 }
 
 
-- (float)error:(float)a
-              :(float)b
+- (float)errorBetween:(float)a
+                  and:(float)b
 {
     float base;
     if (a > b) base = a;
@@ -207,8 +209,31 @@
 }
 
 
+- (NSArray *)fractionPathOfWord:(NSString *)word
+{
+    float total = 0.0;
+    NSMutableArray *path = [[NSMutableArray alloc] init];
+    for (int i = 0; i < [word length]-1; i++)
+    {
+        NSString *firstLetter = [NSString stringWithFormat:@"%c", [word characterAtIndex:i]];
+        NSString *secondLetter= [NSString stringWithFormat:@"%c", [word characterAtIndex:i+1]];
+        CGPoint firstPoint = [self getCoordinatesOf:firstLetter];
+        CGPoint secondPoint = [self getCoordinatesOf:secondLetter];
+        float distance =  [self distanceBetween:firstPoint and:secondPoint];
+        [path addObject:[NSNumber numberWithFloat:distance]];
+        total += distance;
+    }
+    for (int i = 0; i < [path count]; i++)
+    {
+        float fraction = [[path objectAtIndex:i] floatValue]/total;
+        [path replaceObjectAtIndex:i withObject:[NSNumber numberWithFloat:fraction]];
+    }
+    return [path copy];
+}
+
+
 - (float)crossProduct2D:(CGPoint)vectorA
-                        :(CGPoint)vectorB
+                       :(CGPoint)vectorB
 {
     return vectorA.x*vectorB.y - vectorA.y*vectorB.x;
 }
@@ -243,7 +268,6 @@
 }
 
 
-// take triple instead of 3 args?
 - (NSString *)directionBash:(CGPoint)firstTouch
                            :(CGPoint)secondTouch
                            :(CGPoint)thirdTouch
@@ -299,7 +323,6 @@
 }
 
 @end
-
 
 
 
