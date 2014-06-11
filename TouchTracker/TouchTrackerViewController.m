@@ -23,6 +23,7 @@
 @synthesize textDisplay = _textDisplay;
 @synthesize pathDisplay = _pathDisplay;
 @synthesize matchesDisplay = _matchesDisplay;
+@synthesize bestMatchDisplay = _bestMatchDisplay;
 @synthesize brain = _brain;
 
 - (TouchTrackerBrain *)brain
@@ -37,6 +38,7 @@
     self.matchesDisplay.text = @"";
     self.pathDisplay.text = @"";
     self.textDisplay.text = @"";
+    self.bestMatchDisplay.text = @"";
 }
 
 - (NSString *) matchesText:(NSString *)path
@@ -61,7 +63,10 @@
         self.pathDisplay.text = path;
         self.textDisplay.text = [self.textDisplay.text stringByAppendingString:[NSString stringWithFormat:@"(%f,%f)\n", point.x, point.y]];
         if (self.pathDisplay.text)
+        {
             self.matchesDisplay.text = [self matchesText:path];
+            self.bestMatchDisplay.text = [self.brain bestMatchFor:[self.brain.snakeDictionary objectForKey:path]];
+        }
     }
 }
 

@@ -14,5 +14,6 @@
 - (NSString *)snakePath:(CGPoint)touch;
 - (void)writeSnakeDictionary;
 - (void)clearTouchSequence;
+- (NSString *)bestMatchFor:(NSMutableArray *)words;
 
 @end
