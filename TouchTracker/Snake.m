@@ -66,7 +66,8 @@
 	return originalDirection;
 }
 
-+ (NSString *)snakePath:(NSMutableArray *)touchSequence {
++ (NSString *)snakePath:(NSMutableArray *)touchSequence
+             withSpread:(int)spread {
 	if ([touchSequence count] >= 3) {
 		NSString *path = [NSString stringWithFormat:@""];
 		for (int i = 0; i < [touchSequence count] - 2; i++) {
@@ -76,20 +77,21 @@
 			[[touchSequence objectAtIndex:i + 1] getValue:&secondTouch];
 			CGPoint thirdTouch;
 			[[touchSequence objectAtIndex:i + 2] getValue:&thirdTouch];
-			path = [path stringByAppendingString:[[self class] directionBash:firstTouch:secondTouch:thirdTouch:50]];
+			path = [path stringByAppendingString:[[self class] directionBash:firstTouch:secondTouch:thirdTouch:spread]];
 		}
 		return path;
 	}
 	return nil;
 }
 
-- (NSString *)snakePathOfWord:(NSString *)word {
+- (NSString *)snakePathOfWord:(NSString *)word
+                   withSpread:(int)spread {
 	NSString *path = @"";
 	for (int i = 0; i < [word length] - 2; i++) {
 		CGPoint firstTouch = [self.keyboard getCoordinatesOf:[NSString stringWithFormat:@"%c", [word characterAtIndex:i]]];
 		CGPoint secondTouch = [self.keyboard getCoordinatesOf:[NSString stringWithFormat:@"%c", [word characterAtIndex:i + 1]]];
 		CGPoint thirdTouch = [self.keyboard getCoordinatesOf:[NSString stringWithFormat:@"%c", [word characterAtIndex:i + 2]]];
-		path = [path stringByAppendingString:[[self class] directionBash:firstTouch:secondTouch:thirdTouch:50]];
+		path = [path stringByAppendingString:[[self class] directionBash:firstTouch:secondTouch:thirdTouch:spread]];
 	}
 	return path;
 }

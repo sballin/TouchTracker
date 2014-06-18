@@ -10,10 +10,8 @@
 #import "Snake.h"
 
 @interface DictionaryBuilder ()
-
 @property (nonatomic, strong) NSArray *dictionaryWords;
 @property (nonatomic, strong) Snake *snake;
-
 @end
 
 @implementation DictionaryBuilder
@@ -21,6 +19,16 @@
 @synthesize dictionaryWords = _dictionaryWords;
 @synthesize snake = _snake;
 @synthesize snakeDictionary = _snakeDictionary;
+
+- (Snake *) snake {
+    if (!_snake) _snake = [[Snake alloc] init];
+    return _snake;
+}
+
+- (NSMutableDictionary *)snakeDictionary {
+    if (!_snakeDictionary) _snakeDictionary = [[NSMutableDictionary alloc] init];
+    return _snakeDictionary;
+}
 
 - (NSArray *)dictionaryWords {
 	if (!_dictionaryWords) {
@@ -33,13 +41,13 @@
 	return _dictionaryWords;
 }
 
-- (void)writeSnakeDictionary {
+- (void)writeSnakeDictionary:(int)spread {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *dictPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"snakeDictionary.plist"];
 	_snakeDictionary = [NSMutableDictionary dictionaryWithCapacity:[self.dictionaryWords count]];
 	for (NSString *word in self.dictionaryWords) {
 		if ([word length] >= 3) {
-			NSString *path = [self.snake snakePathOfWord:word];
+			NSString *path = [self.snake snakePathOfWord:word withSpread:spread];
 			NSMutableArray *list = [_snakeDictionary objectForKey:path];
 			if (list == nil) list = [[NSMutableArray alloc] init];
 			[list addObject:word];
