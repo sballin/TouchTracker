@@ -10,5 +10,5 @@
 
 @interface DictionaryBuilder : NSObject
 @property (nonatomic, strong) NSMutableDictionary *snakeDictionary;
-- (void)writeSnakeDictionary;
+- (void)writeSnakeDictionary:(int)spread;
 @end

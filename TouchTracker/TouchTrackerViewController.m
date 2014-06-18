@@ -11,11 +11,13 @@
 #import "TouchTrackerAppDelegate.h"
 #import "TouchTrackerBrain.h"
 #import "Snake.h"
+#import "DictionaryBuilder.h"
 
 @interface TouchTrackerViewController ()
 @property (nonatomic, strong) NSMutableArray *touchList;
 @property (nonatomic, strong) TouchTrackerBrain *brain;
 @property (nonatomic, strong) Snake *snake;
+@property (nonatomic, strong) DictionaryBuilder *dictBuild;
 - (NSString *)matchesText:(NSString *)path;
 @end
 
@@ -28,6 +30,12 @@
 @synthesize bestMatchDisplay = _bestMatchDisplay;
 @synthesize brain = _brain;
 @synthesize snake = _snake;
+@synthesize dictBuild = _dictBuild;
+
+- (DictionaryBuilder *)dictBuild {
+	if (!_dictBuild) _dictBuild = [[DictionaryBuilder alloc] init];
+	return _dictBuild;
+}
 
 - (Snake *)snake {
 	if (!_snake) _snake = [[Snake alloc] init];
@@ -56,14 +64,17 @@
 	return matches;
 }
 
+#define SPREAD 50
+
 - (void)touchesBegan:(NSSet *)touches
            withEvent:(UIEvent *)event {
 	for (UITouch *t in touches) {
+        [self.dictBuild writeSnakeDictionary:SPREAD];
 		CGPoint point = [t locationInView:self.view];
 		self.xDisplay.text = [NSString stringWithFormat:@"x: %f", point.x];
 		self.yDisplay.text = [NSString stringWithFormat:@"y: %f", point.y];
 		[self.brain addToSequence:point];
-		NSString *path = [Snake snakePath:self.brain.touchSequence];
+		NSString *path = [Snake snakePath:self.brain.touchSequence withSpread:SPREAD];
 		self.pathDisplay.text = path;
 		self.textDisplay.text = [self.textDisplay.text stringByAppendingString:[NSString stringWithFormat:@"(%f,%f)\n", point.x, point.y]];
 		if (self.pathDisplay.text) {

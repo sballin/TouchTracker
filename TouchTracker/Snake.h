@@ -10,6 +10,8 @@
 
 @interface Snake : NSObject
 @property (nonatomic, strong) NSDictionary *snakeDictionary;
-+ (NSString *)snakePath:(NSMutableArray *)touchSequence;
-- (NSString *)snakePathOfWord:(NSString *)word;
++ (NSString *)snakePath:(NSMutableArray *)touchSequence
+             withSpread:(int)spread;
+- (NSString *)snakePathOfWord:(NSString *)word
+                   withSpread:(int)spread;
 @end
