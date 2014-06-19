@@ -64,7 +64,7 @@
 	return matches;
 }
 
-#define SPREAD 50
+#define SPREAD 100
 
 - (void)touchesBegan:(NSSet *)touches
            withEvent:(UIEvent *)event {
