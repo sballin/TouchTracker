@@ -70,7 +70,6 @@
 		14B72282193AF2830059E7BD /* TouchTrackerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouchTrackerTests.m; sourceTree = "<group>"; };
 		14B7228F193AF6250059E7BD /* TouchDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchDrawView.h; sourceTree = "<group>"; };
 		14B72290193AF6250059E7BD /* TouchDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchDrawView.m; sourceTree = "<group>"; };
-		14B72295193B34240059E7BD /* TouchTracker.mobileprovision */ = {isa = PBXFileReference; lastKnownFileType = file; name = TouchTracker.mobileprovision; path = ../../../../Downloads/TouchTracker.mobileprovision; sourceTree = "<group>"; };
 		14B72296193B37C50059E7BD /* TouchTrackerBrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchTrackerBrain.h; sourceTree = "<group>"; };
 		14B72297193B37C50059E7BD /* TouchTrackerBrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchTrackerBrain.m; sourceTree = "<group>"; };
 		14C606EB1947FC39002D4E4E /* KeyMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyMath.h; sourceTree = "<group>"; };
@@ -167,7 +166,6 @@
 		14B7225B193AF2830059E7BD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				14B72295193B34240059E7BD /* TouchTracker.mobileprovision */,
 				14B7225C193AF2830059E7BD /* TouchTracker-Info.plist */,
 				14B7225D193AF2830059E7BD /* InfoPlist.strings */,
 				14B72260193AF2830059E7BD /* main.m */,

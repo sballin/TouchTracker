@@ -43,7 +43,8 @@
 
 - (void)writeSnakeDictionary:(int)spread {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString *dictPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"snakeDictionary.plist"];
+    NSString *dictName = [[@"snakeDictionary" stringByAppendingString:[NSString stringWithFormat:@"%d", spread]] stringByAppendingString:@".plist"];
+	NSString *dictPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:dictName];
 	_snakeDictionary = [NSMutableDictionary dictionaryWithCapacity:[self.dictionaryWords count]];
 	for (NSString *word in self.dictionaryWords) {
 		if ([word length] >= 3) {
