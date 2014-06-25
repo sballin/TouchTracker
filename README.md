@@ -1,10 +1,10 @@
 # Lokey iOS
 
-A weird new keyboard.
+A weird keyboard.
 
-## Buying
+## Status
 
-- 
+Absolute shit at guessing. Need more precise dictionary because xs aren't helping with lookup.
 
 ## Easy tasks
 
