@@ -23,7 +23,6 @@
 
 @implementation TouchTrackerViewController
 
-@synthesize xDisplay = _xDisplay, yDisplay = _yDisplay;
 @synthesize textDisplay = _textDisplay;
 @synthesize pathDisplay = _pathDisplay;
 @synthesize matchesDisplay = _matchesDisplay;
@@ -64,15 +63,12 @@
 	return matches;
 }
 
-#define SPREAD 100
-
+#define SPREAD 10
 - (void)touchesBegan:(NSSet *)touches
            withEvent:(UIEvent *)event {
 	for (UITouch *t in touches) {
-        [self.dictBuild writeSnakeDictionary:SPREAD];
+        //[self.dictBuild writeSnakeDictionary:SPREAD];
 		CGPoint point = [t locationInView:self.view];
-		self.xDisplay.text = [NSString stringWithFormat:@"x: %f", point.x];
-		self.yDisplay.text = [NSString stringWithFormat:@"y: %f", point.y];
 		[self.brain addToSequence:point];
 		NSString *path = [Snake snakePath:self.brain.touchSequence withSpread:SPREAD];
 		self.pathDisplay.text = path;
