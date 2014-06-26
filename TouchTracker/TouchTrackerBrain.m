@@ -12,7 +12,6 @@
 @interface TouchTrackerBrain ()
 @property (nonatomic, strong) KeyMath *keyboard;
 - (void)addToSequence:(CGPoint)touch;
-- (CGPoint)getTouchAtIndex:(int)i;
 - (NSArray *)fractionPathOfWord:(NSString *)word;
 - (NSArray *)fractionPath;
 - (float)errorForWord:(NSString *)word;

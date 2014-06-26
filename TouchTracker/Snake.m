@@ -25,6 +25,10 @@
 @synthesize snakeDictionary = _snakeDictionary;
 @synthesize keyboard = _keyboard;
 
+- (KeyMath *)keyboard {
+    if (!_keyboard) _keyboard = [[KeyMath alloc] init];
+    return _keyboard;
+}
 
 - (NSDictionary *)snakeDictionary {
 	if (!_snakeDictionary) {
@@ -57,7 +61,7 @@
 	for (int i = 0; i <= 4; i++) {
 		for (int j = 0; j <= 4; j++) {
 			for (int k = 0; k <= 4; k++) {
-				NSString *jostledDirection = [[self class] directionVerbatim:[KeyMath displace:firstTouch:spread:i]:[KeyMath displace:secondTouch:spread:j]:[KeyMath displace:thirdTouch:spread:k]];
+				NSString *jostledDirection = [Snake directionVerbatim:[KeyMath displace:firstTouch:spread:i]:[KeyMath displace:secondTouch:spread:j]:[KeyMath displace:thirdTouch:spread:k]];
 				if (![jostledDirection isEqualToString:originalDirection])
 					return [NSString stringWithFormat:@"x"];
 			}
@@ -77,7 +81,7 @@
 			[[touchSequence objectAtIndex:i + 1] getValue:&secondTouch];
 			CGPoint thirdTouch;
 			[[touchSequence objectAtIndex:i + 2] getValue:&thirdTouch];
-			path = [path stringByAppendingString:[[self class] directionBash:firstTouch:secondTouch:thirdTouch:spread]];
+			path = [path stringByAppendingString:[Snake directionBash:firstTouch:secondTouch:thirdTouch:spread]];
 		}
 		return path;
 	}
@@ -91,7 +95,7 @@
 		CGPoint firstTouch = [self.keyboard getCoordinatesOf:[NSString stringWithFormat:@"%c", [word characterAtIndex:i]]];
 		CGPoint secondTouch = [self.keyboard getCoordinatesOf:[NSString stringWithFormat:@"%c", [word characterAtIndex:i + 1]]];
 		CGPoint thirdTouch = [self.keyboard getCoordinatesOf:[NSString stringWithFormat:@"%c", [word characterAtIndex:i + 2]]];
-		path = [path stringByAppendingString:[[self class] directionBash:firstTouch:secondTouch:thirdTouch:spread]];
+		path = [path stringByAppendingString:[Snake directionBash:firstTouch:secondTouch:thirdTouch:spread]];
 	}
 	return path;
 }

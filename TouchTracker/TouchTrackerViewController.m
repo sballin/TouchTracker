@@ -23,7 +23,6 @@
 
 @implementation TouchTrackerViewController
 
-@synthesize textDisplay = _textDisplay;
 @synthesize pathDisplay = _pathDisplay;
 @synthesize matchesDisplay = _matchesDisplay;
 @synthesize bestMatchDisplay = _bestMatchDisplay;
@@ -50,8 +49,16 @@
 	[self.brain clearTouchSequence];
 	self.matchesDisplay.text = @"";
 	self.pathDisplay.text = @"";
-	self.textDisplay.text = @"";
 	self.bestMatchDisplay.text = @"";
+}
+
+- (IBAction)dumpPressed {
+    NSString *dumpText = @"";
+    for (int i = 0; i < [self.brain.touchSequence count]; i++) {
+        CGPoint touch =  [self.brain getTouchAtIndex:i];
+        dumpText = [dumpText stringByAppendingString:[NSString stringWithFormat:@"(%f,%f),", touch.x, touch.y]];
+    }
+    NSLog(@"%@", dumpText);
 }
 
 - (NSString *)matchesText:(NSString *)path {
@@ -63,7 +70,7 @@
 	return matches;
 }
 
-#define SPREAD 10
+#define SPREAD 25
 - (void)touchesBegan:(NSSet *)touches
            withEvent:(UIEvent *)event {
 	for (UITouch *t in touches) {
@@ -72,7 +79,6 @@
 		[self.brain addToSequence:point];
 		NSString *path = [Snake snakePath:self.brain.touchSequence withSpread:SPREAD];
 		self.pathDisplay.text = path;
-		self.textDisplay.text = [self.textDisplay.text stringByAppendingString:[NSString stringWithFormat:@"(%f,%f)\n", point.x, point.y]];
 		if (self.pathDisplay.text) {
 			self.matchesDisplay.text = [self matchesText:path];
 			self.bestMatchDisplay.text = [self.brain bestMatchFor:[self.snake.snakeDictionary objectForKey:path]];
