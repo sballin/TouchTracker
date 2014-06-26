@@ -31,6 +31,7 @@
 		14C606ED1947FC39002D4E4E /* KeyMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C606EC1947FC39002D4E4E /* KeyMath.m */; };
 		14C606F0194803ED002D4E4E /* DictionaryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C606EF194803ED002D4E4E /* DictionaryBuilder.m */; };
 		14D6C6E6195BCC5F001D7E11 /* snakeDictionary25.plist in Resources */ = {isa = PBXBuildFile; fileRef = 14D6C6E5195BCC5F001D7E11 /* snakeDictionary25.plist */; };
+		14D6C6EF195BF4B4001D7E11 /* Spiderweb.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D6C6EE195BF4B4001D7E11 /* Spiderweb.m */; };
 		14E696C91940818200E3764A /* snakeDictionary.plist in Resources */ = {isa = PBXBuildFile; fileRef = 14E696C81940818200E3764A /* snakeDictionary.plist */; };
 		14E696CA1940818200E3764A /* snakeDictionary.plist in Resources */ = {isa = PBXBuildFile; fileRef = 14E696C81940818200E3764A /* snakeDictionary.plist */; };
 		14E696CD1940FE9C00E3764A /* Snake.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E696CC1940FE9C00E3764A /* Snake.m */; };
@@ -80,6 +81,8 @@
 		14C606EE194803ED002D4E4E /* DictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionaryBuilder.h; sourceTree = "<group>"; };
 		14C606EF194803ED002D4E4E /* DictionaryBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionaryBuilder.m; sourceTree = "<group>"; };
 		14D6C6E5195BCC5F001D7E11 /* snakeDictionary25.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = snakeDictionary25.plist; sourceTree = "<group>"; };
+		14D6C6ED195BF4B4001D7E11 /* Spiderweb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spiderweb.h; sourceTree = "<group>"; };
+		14D6C6EE195BF4B4001D7E11 /* Spiderweb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Spiderweb.m; sourceTree = "<group>"; };
 		14E696C81940818200E3764A /* snakeDictionary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = snakeDictionary.plist; sourceTree = "<group>"; };
 		14E696CB1940FE9C00E3764A /* Snake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Snake.h; sourceTree = "<group>"; };
 		14E696CC1940FE9C00E3764A /* Snake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Snake.m; sourceTree = "<group>"; };
@@ -161,6 +164,8 @@
 				14C606EF194803ED002D4E4E /* DictionaryBuilder.m */,
 				14E696CB1940FE9C00E3764A /* Snake.h */,
 				14E696CC1940FE9C00E3764A /* Snake.m */,
+				14D6C6ED195BF4B4001D7E11 /* Spiderweb.h */,
+				14D6C6EE195BF4B4001D7E11 /* Spiderweb.m */,
 				14C606EB1947FC39002D4E4E /* KeyMath.h */,
 				14C606EC1947FC39002D4E4E /* KeyMath.m */,
 				14B7226F193AF2830059E7BD /* Images.xcassets */,
@@ -306,6 +311,7 @@
 			files = (
 				14E696CD1940FE9C00E3764A /* Snake.m in Sources */,
 				14B7226E193AF2830059E7BD /* TouchTrackerViewController.m in Sources */,
+				14D6C6EF195BF4B4001D7E11 /* Spiderweb.m in Sources */,
 				14B72291193AF6250059E7BD /* TouchDrawView.m in Sources */,
 				14C606F0194803ED002D4E4E /* DictionaryBuilder.m in Sources */,
 				14B72261193AF2830059E7BD /* main.m in Sources */,
