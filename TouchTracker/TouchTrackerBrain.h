@@ -11,6 +11,7 @@
 @interface TouchTrackerBrain : NSObject
 @property (nonatomic, strong) NSMutableArray *touchSequence;
 - (void)addToSequence:(CGPoint)touch;
+- (CGPoint)getTouchAtIndex:(int)i;
 - (void)clearTouchSequence;
 - (NSString *)bestMatchFor:(NSMutableArray *)words;
 @end

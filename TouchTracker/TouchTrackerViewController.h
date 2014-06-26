@@ -11,7 +11,6 @@
 
 @interface TouchTrackerViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UITextView *textDisplay;
 @property (weak, nonatomic) IBOutlet UILabel *pathDisplay;
 @property (weak, nonatomic) IBOutlet UILabel *matchesDisplay;
 @property (weak, nonatomic) IBOutlet UILabel *bestMatchDisplay;
