@@ -32,7 +32,7 @@
 
 - (NSDictionary *)snakeDictionary {
 	if (!_snakeDictionary) {
-		NSString *path = [[NSBundle mainBundle] pathForResource:@"snakeDictionary" ofType:@"plist"];
+		NSString *path = [[NSBundle mainBundle] pathForResource:@"snakeDictionary25" ofType:@"plist"];
 		_snakeDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
 	}
 	return _snakeDictionary;
