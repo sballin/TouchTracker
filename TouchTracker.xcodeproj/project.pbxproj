@@ -11,7 +11,6 @@
 		146CEF44193F18E5002E5220 /* dict.txt in Resources */ = {isa = PBXBuildFile; fileRef = 146CEF43193F18E5002E5220 /* dict.txt */; };
 		146CEF45193F18E5002E5220 /* dict.txt in Resources */ = {isa = PBXBuildFile; fileRef = 146CEF43193F18E5002E5220 /* dict.txt */; };
 		147946F31952CB6800F05EC3 /* snakeDictionary100.plist in Resources */ = {isa = PBXBuildFile; fileRef = 147946F21952CB6800F05EC3 /* snakeDictionary100.plist */; };
-		147946F51952CC7A00F05EC3 /* snakeDictionary25.plist in Resources */ = {isa = PBXBuildFile; fileRef = 147946F41952CC7A00F05EC3 /* snakeDictionary25.plist */; };
 		14B72255193AF2830059E7BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14B72254193AF2830059E7BD /* Foundation.framework */; };
 		14B72257193AF2830059E7BD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14B72256193AF2830059E7BD /* CoreGraphics.framework */; };
 		14B72259193AF2830059E7BD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14B72258193AF2830059E7BD /* UIKit.framework */; };
@@ -31,6 +30,7 @@
 		14B72298193B37C50059E7BD /* TouchTrackerBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B72297193B37C50059E7BD /* TouchTrackerBrain.m */; };
 		14C606ED1947FC39002D4E4E /* KeyMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C606EC1947FC39002D4E4E /* KeyMath.m */; };
 		14C606F0194803ED002D4E4E /* DictionaryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C606EF194803ED002D4E4E /* DictionaryBuilder.m */; };
+		14D6C6E6195BCC5F001D7E11 /* snakeDictionary25.plist in Resources */ = {isa = PBXBuildFile; fileRef = 14D6C6E5195BCC5F001D7E11 /* snakeDictionary25.plist */; };
 		14E696C91940818200E3764A /* snakeDictionary.plist in Resources */ = {isa = PBXBuildFile; fileRef = 14E696C81940818200E3764A /* snakeDictionary.plist */; };
 		14E696CA1940818200E3764A /* snakeDictionary.plist in Resources */ = {isa = PBXBuildFile; fileRef = 14E696C81940818200E3764A /* snakeDictionary.plist */; };
 		14E696CD1940FE9C00E3764A /* Snake.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E696CC1940FE9C00E3764A /* Snake.m */; };
@@ -51,7 +51,6 @@
 		1412490C194F9FF7007785EE /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		146CEF43193F18E5002E5220 /* dict.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dict.txt; sourceTree = "<group>"; };
 		147946F21952CB6800F05EC3 /* snakeDictionary100.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = snakeDictionary100.plist; sourceTree = "<group>"; };
-		147946F41952CC7A00F05EC3 /* snakeDictionary25.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = snakeDictionary25.plist; sourceTree = "<group>"; };
 		14B72251193AF2830059E7BD /* TouchTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TouchTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14B72254193AF2830059E7BD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		14B72256193AF2830059E7BD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -80,6 +79,7 @@
 		14C606EC1947FC39002D4E4E /* KeyMath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyMath.m; sourceTree = "<group>"; };
 		14C606EE194803ED002D4E4E /* DictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionaryBuilder.h; sourceTree = "<group>"; };
 		14C606EF194803ED002D4E4E /* DictionaryBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionaryBuilder.m; sourceTree = "<group>"; };
+		14D6C6E5195BCC5F001D7E11 /* snakeDictionary25.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = snakeDictionary25.plist; sourceTree = "<group>"; };
 		14E696C81940818200E3764A /* snakeDictionary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = snakeDictionary.plist; sourceTree = "<group>"; };
 		14E696CB1940FE9C00E3764A /* Snake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Snake.h; sourceTree = "<group>"; };
 		14E696CC1940FE9C00E3764A /* Snake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Snake.m; sourceTree = "<group>"; };
@@ -152,8 +152,8 @@
 				14B72290193AF6250059E7BD /* TouchDrawView.m */,
 				14B7226C193AF2830059E7BD /* TouchTrackerViewController.h */,
 				14B7226D193AF2830059E7BD /* TouchTrackerViewController.m */,
-				147946F41952CC7A00F05EC3 /* snakeDictionary25.plist */,
 				14E696C81940818200E3764A /* snakeDictionary.plist */,
+				14D6C6E5195BCC5F001D7E11 /* snakeDictionary25.plist */,
 				147946F21952CB6800F05EC3 /* snakeDictionary100.plist */,
 				14B72296193B37C50059E7BD /* TouchTrackerBrain.h */,
 				14B72297193B37C50059E7BD /* TouchTrackerBrain.m */,
@@ -277,7 +277,7 @@
 			files = (
 				14B7226B193AF2830059E7BD /* Main_iPad.storyboard in Resources */,
 				14B72270193AF2830059E7BD /* Images.xcassets in Resources */,
-				147946F51952CC7A00F05EC3 /* snakeDictionary25.plist in Resources */,
+				14D6C6E6195BCC5F001D7E11 /* snakeDictionary25.plist in Resources */,
 				14B72268193AF2830059E7BD /* Main_iPhone.storyboard in Resources */,
 				147946F31952CB6800F05EC3 /* snakeDictionary100.plist in Resources */,
 				1412490D194F9FF7007785EE /* README.md in Resources */,

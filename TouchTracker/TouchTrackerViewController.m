@@ -74,7 +74,7 @@
 - (void)touchesBegan:(NSSet *)touches
            withEvent:(UIEvent *)event {
 	for (UITouch *t in touches) {
-        //[self.dictBuild writeSnakeDictionary:SPREAD];
+//        [self.dictBuild writeSnakeDictionary:SPREAD];
 		CGPoint point = [t locationInView:self.view];
 		[self.brain addToSequence:point];
 		NSString *path = [Snake snakePath:self.brain.touchSequence withSpread:SPREAD];
