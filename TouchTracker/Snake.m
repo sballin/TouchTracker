@@ -72,8 +72,8 @@
 
 + (NSString *)snakePath:(NSMutableArray *)touchSequence
              withSpread:(int)spread {
-	if ([touchSequence count] >= 3) {
-		NSString *path = [NSString stringWithFormat:@""];
+    NSString *path = @"";
+	if ([touchSequence count] >= 3)
 		for (int i = 0; i < [touchSequence count] - 2; i++) {
 			CGPoint firstTouch;
 			[[touchSequence objectAtIndex:i] getValue:&firstTouch];
@@ -83,9 +83,7 @@
 			[[touchSequence objectAtIndex:i + 2] getValue:&thirdTouch];
 			path = [path stringByAppendingString:[Snake directionBash:firstTouch:secondTouch:thirdTouch:spread]];
 		}
-		return path;
-	}
-	return nil;
+	return path;
 }
 
 - (NSString *)snakePathOfWord:(NSString *)word
