@@ -20,7 +20,10 @@ Absolute shit at guessing. Need more precise dictionary because xs aren't helpin
     - Frequency
 - Pressing space
 
-
 ## Resources
 
 - [Gutenberg frequency lists](https://en.wiktionary.org/wiki/Wiktionary:Frequency_lists#Project_Gutenberg)
+
+## Cleanup
+
+- Get rid of snakePathOfWord method

@@ -10,9 +10,10 @@
 
 @interface Repeat : NSObject
 
-+ (NSString *)wordRepeatMap:(NSMutableArray *)touchSequence
++ (NSString *)repeatMap:(NSMutableArray *)touchSequence
               withTolerance:(int)pixels;
-
-+ (BOOL)repeats:(int)tolerance;
++ (BOOL)repeatFor:(CGPoint)firstTouch
+              and:(CGPoint)secondTouch
+    withTolerance:(int)pixels;
 
 @end

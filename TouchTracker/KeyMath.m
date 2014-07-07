@@ -102,7 +102,7 @@
 
 + (float)distanceBetween:(CGPoint)pointA
                      and:(CGPoint)pointB {
-	return sqrtf(powf(pointA.x, 2.0) + powf(pointB.y, 2.0));
+	return sqrtf(powf(pointA.x-pointB.x, 2.0) + powf(pointA.y-pointB.y, 2.0));
 }
 
 + (float)crossProduct2D:(CGPoint)vectorA
