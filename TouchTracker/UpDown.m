@@ -9,17 +9,22 @@
 #import "UpDown.h"
 
 @interface UpDown ()
-+ (NSString *)direction:(CGPoint)firstTouch
-                     to:(CGPoint)secondTouch
-          withTolerance:(int)pixels;
++ (NSString *)directionFrom:(CGPoint)firstTouch
+                         to:(CGPoint)secondTouch
+              withTolerance:(int)pixels;
 @end
 
 @implementation UpDown
 
-+ (NSString *)direction:(CGPoint)firstTouch
-                     to:(CGPoint)secondTouch
-          withTolerance:(int)pixels {
-    return @"";
+// might need orientation too
++ (NSString *)directionFrom:(CGPoint)firstTouch
+                         to:(CGPoint)secondTouch
+              withTolerance:(int)pixels {
+    if (fabs(firstTouch.y-secondTouch.y) < pixels) {
+        if (firstTouch.y-secondTouch.y > 0) return @"r";
+        else return @"l";
+    }
+    return @"x";
 }
 
 + (NSString *)path:(NSMutableArray *)touchSequence
@@ -31,7 +36,7 @@
 			[[touchSequence objectAtIndex:i] getValue:&firstTouch];
 			CGPoint secondTouch;
 			[[touchSequence objectAtIndex:i + 1] getValue:&secondTouch];
-			path = [path stringByAppendingString:[UpDown direction:firstTouch to:secondTouch withTolerance:pixels]];
+			path = [path stringByAppendingString:[UpDown directionFrom:firstTouch to:secondTouch withTolerance:pixels]];
 		}
 	return path;
 }

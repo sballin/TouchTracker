@@ -13,11 +13,12 @@ Absolute shit at guessing. Need more precise dictionary because xs aren't helpin
 
 ## Long-term tasks
 
-- Pressing space
+- Accuracy
 - Short words
 - Combined score
-    - 
-    - 
+    - Touch data interpretation
+    - Frequency
+- Pressing space
 
 
 ## Resources
