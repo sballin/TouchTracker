@@ -76,6 +76,15 @@
     return _alphabetCoordinates;
 }
 
+- (NSMutableArray *)modelTouchSequenceFor:(NSString *)word {
+    NSMutableArray *touchSequence = [[NSMutableArray alloc] init];
+    for (int i = 0; i < [word length]; i++) {
+        CGPoint point = [self getCoordinatesOf:[word substringWithRange:NSMakeRange(i, 1)]];
+        [touchSequence addObject:[NSValue value:&point withObjCType:@encode(CGPoint)]];
+    }
+    return touchSequence;
+}
+
 - (CGPoint)getCoordinatesOf:(NSString *)letter {
 	CGPoint coordinates;
 	[[self.alphabetCoordinates objectForKey:letter] getValue:&coordinates];
