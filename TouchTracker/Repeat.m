@@ -7,6 +7,7 @@
 //
 
 #import "Repeat.h"
+#import "KeyMath.h"
 
 @interface Repeat ()
 
@@ -32,10 +33,9 @@
 + (BOOL)repeatFor:(CGPoint)firstTouch
               and:(CGPoint)secondTouch
     withTolerance:(int)pixels {
-    float distance = sqrtf(powf(firstTouch.x-secondTouch.x, 2)+powf(firstTouch.y-secondTouch.y, 2));
-    if (distance < pixels) return YES;
-    else return NO;
-    
+    if ([KeyMath distanceBetween:firstTouch and:secondTouch] < pixels)
+        return YES;
+    return NO;
 }
 
 @end
