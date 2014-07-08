@@ -81,7 +81,8 @@
 		self.pathDisplay.text = path;
 		if (self.pathDisplay.text) {
 			self.matchesDisplay.text = [self matchesText:path];
-			self.bestMatchDisplay.text = [self.brain bestMatchFor:[self.snake.snakeDictionary objectForKey:path]];
+            NSString *bestWord = [self.brain bestMatchFor:[self.snake.snakeDictionary objectForKey:path]];
+			self.bestMatchDisplay.text = bestWord;
 		}
 	}
 }
