@@ -12,9 +12,7 @@
 @interface TouchTrackerBrain ()
 @property (nonatomic, strong) KeyMath *keyboard;
 - (void)addToSequence:(CGPoint)touch;
-- (NSArray *)fractionPathOfWord:(NSString *)word;
-- (NSArray *)fractionPath;
-- (float)errorForWord:(NSString *)word;
+- (NSArray *)fractionPath:(NSMutableArray *)touchSequence;
 @end
 
 @implementation TouchTrackerBrain
@@ -25,6 +23,11 @@
 - (NSMutableArray *)touchSequence {
 	if (!_touchSequence) _touchSequence = [[NSMutableArray alloc] init];
 	return _touchSequence;
+}
+
+- (KeyMath *)keyboard {
+    if (!_keyboard) _keyboard = [[KeyMath alloc] init];
+    return _keyboard;
 }
 
 - (void)clearTouchSequence {
@@ -41,31 +44,13 @@
 	return touch;
 }
 
-- (NSArray *)fractionPathOfWord:(NSString *)word {
+- (NSArray *)fractionPath:(NSMutableArray *)touchSequence {
 	float total = 0.0;
 	NSMutableArray *path = [[NSMutableArray alloc] init];
-	for (int i = 0; i < [word length] - 1; i++) {
-		NSString *firstLetter = [NSString stringWithFormat:@"%c", [word characterAtIndex:i]];
-		NSString *secondLetter = [NSString stringWithFormat:@"%c", [word characterAtIndex:i + 1]];
-		CGPoint firstPoint = [self.keyboard getCoordinatesOf:firstLetter];
-		CGPoint secondPoint = [self.keyboard getCoordinatesOf:secondLetter];
-		float distance =  [KeyMath distanceBetween:firstPoint and:secondPoint];
-		[path addObject:[NSNumber numberWithFloat:distance]];
-		total += distance;
-	}
-	for (int i = 0; i < [path count]; i++) {
-		float fraction = [[path objectAtIndex:i] floatValue] / total;
-		[path replaceObjectAtIndex:i withObject:[NSNumber numberWithFloat:fraction]];
-	}
-	return [path copy];
-}
-
-- (NSArray *)fractionPath {
-	float total = 0.0;
-	NSMutableArray *path = [[NSMutableArray alloc] init];
-	for (int i = 0; i < [self.touchSequence count] - 1; i++) {
-		CGPoint firstPoint = [self getTouchAtIndex:i];
-		CGPoint secondPoint = [self getTouchAtIndex:i + 1];
+	for (int i = 0; i < [touchSequence count] - 1; i++) {
+        CGPoint firstPoint, secondPoint;
+        [[touchSequence objectAtIndex:i] getValue:&firstPoint];
+        [[touchSequence objectAtIndex:i+1] getValue:&secondPoint];
 		float distance =  [KeyMath distanceBetween:firstPoint and:secondPoint];
 		[path addObject:[NSNumber numberWithFloat:distance]];
 		total += distance;
@@ -78,13 +63,15 @@
 }
 
 - (float)errorForWord:(NSString *)word {
-	NSArray *touchPath = [self fractionPath];
-	NSArray *wordPath = [self fractionPathOfWord:word];
+	NSArray *touchPath = [self fractionPath:self.touchSequence];
+    NSMutableArray *wordSequence = [self.keyboard modelTouchSequenceFor:word];
+	NSArray *wordPath = [self fractionPath:wordSequence];
 	float totalError = 0.0;
 	for (int i = 0; i < [touchPath count]; i++) {
 		float touchFraction = [[touchPath objectAtIndex:i] floatValue];
 		float wordFraction = [[wordPath objectAtIndex:i] floatValue];
-		totalError += [KeyMath errorBetween:touchFraction and:wordFraction];
+        float increment = [KeyMath errorBetween:touchFraction and:wordFraction];
+		totalError += increment;
 	}
 	return totalError;
 }
@@ -94,12 +81,13 @@
 	NSString *bestMatch;
 	for (NSString *word in words) {
 		float error = [self errorForWord:word];
+//        NSLog(@"%@, %f\n", word, error);
 		if (error < leastError) {
 			bestMatch = word;
 			leastError = error;
 		}
 	}
-	return bestMatch;
+	return [bestMatch stringByAppendingString:[NSString stringWithFormat:@" %f", leastError]];
 }
 
 @end
