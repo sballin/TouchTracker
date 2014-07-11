@@ -31,6 +31,7 @@
 		14B72298193B37C50059E7BD /* TouchTrackerBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B72297193B37C50059E7BD /* TouchTrackerBrain.m */; };
 		14C606ED1947FC39002D4E4E /* KeyMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C606EC1947FC39002D4E4E /* KeyMath.m */; };
 		14C606F0194803ED002D4E4E /* DictionaryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C606EF194803ED002D4E4E /* DictionaryBuilder.m */; };
+		14D0F18F196F9B87003BB7C2 /* Fraction.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D0F18E196F9B87003BB7C2 /* Fraction.m */; };
 		14D1807219629023009D16E4 /* UpDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D1807119629023009D16E4 /* UpDown.m */; };
 		14D6C6E6195BCC5F001D7E11 /* snakeDictionary25.plist in Resources */ = {isa = PBXBuildFile; fileRef = 14D6C6E5195BCC5F001D7E11 /* snakeDictionary25.plist */; };
 		14D6C6EF195BF4B4001D7E11 /* Spiderweb.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D6C6EE195BF4B4001D7E11 /* Spiderweb.m */; };
@@ -84,6 +85,8 @@
 		14C606EC1947FC39002D4E4E /* KeyMath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyMath.m; sourceTree = "<group>"; };
 		14C606EE194803ED002D4E4E /* DictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionaryBuilder.h; sourceTree = "<group>"; };
 		14C606EF194803ED002D4E4E /* DictionaryBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionaryBuilder.m; sourceTree = "<group>"; };
+		14D0F18D196F9B87003BB7C2 /* Fraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fraction.h; sourceTree = "<group>"; };
+		14D0F18E196F9B87003BB7C2 /* Fraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Fraction.m; sourceTree = "<group>"; };
 		14D1807019629023009D16E4 /* UpDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpDown.h; sourceTree = "<group>"; };
 		14D1807119629023009D16E4 /* UpDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpDown.m; sourceTree = "<group>"; };
 		14D6C6E5195BCC5F001D7E11 /* snakeDictionary25.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = snakeDictionary25.plist; sourceTree = "<group>"; };
@@ -157,19 +160,21 @@
 				14B72264193AF2830059E7BD /* TouchTrackerAppDelegate.m */,
 				14B7228F193AF6250059E7BD /* TouchDrawView.h */,
 				14B72290193AF6250059E7BD /* TouchDrawView.m */,
+				14E696C81940818200E3764A /* snakeDictionary.plist */,
+				14D6C6E5195BCC5F001D7E11 /* snakeDictionary25.plist */,
+				147946F21952CB6800F05EC3 /* snakeDictionary100.plist */,
 				14B72266193AF2830059E7BD /* Main_iPhone.storyboard */,
 				14B72269193AF2830059E7BD /* Main_iPad.storyboard */,
 				14B7226C193AF2830059E7BD /* TouchTrackerViewController.h */,
 				14B7226D193AF2830059E7BD /* TouchTrackerViewController.m */,
-				14E696C81940818200E3764A /* snakeDictionary.plist */,
-				14D6C6E5195BCC5F001D7E11 /* snakeDictionary25.plist */,
-				147946F21952CB6800F05EC3 /* snakeDictionary100.plist */,
 				14B72296193B37C50059E7BD /* TouchTrackerBrain.h */,
 				14B72297193B37C50059E7BD /* TouchTrackerBrain.m */,
 				14C606EE194803ED002D4E4E /* DictionaryBuilder.h */,
 				14C606EF194803ED002D4E4E /* DictionaryBuilder.m */,
 				14E696CB1940FE9C00E3764A /* Snake.h */,
 				14E696CC1940FE9C00E3764A /* Snake.m */,
+				14D0F18D196F9B87003BB7C2 /* Fraction.h */,
+				14D0F18E196F9B87003BB7C2 /* Fraction.m */,
 				145DD964196A5FF20088243D /* Repeat.h */,
 				145DD965196A5FF20088243D /* Repeat.m */,
 				14D6C6ED195BF4B4001D7E11 /* Spiderweb.h */,
@@ -330,6 +335,7 @@
 				145DD966196A5FF20088243D /* Repeat.m in Sources */,
 				14B72298193B37C50059E7BD /* TouchTrackerBrain.m in Sources */,
 				14C606ED1947FC39002D4E4E /* KeyMath.m in Sources */,
+				14D0F18F196F9B87003BB7C2 /* Fraction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
