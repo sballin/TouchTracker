@@ -13,6 +13,4 @@
 - (void)addToSequence:(CGPoint)touch;
 - (CGPoint)getTouchAtIndex:(int)i;
 - (void)clearTouchSequence;
-- (NSString *)bestMatchFor:(NSMutableArray *)words;
-- (float)errorForWord:(NSString *)word;
 @end

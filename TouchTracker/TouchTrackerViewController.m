@@ -12,12 +12,14 @@
 #import "TouchTrackerBrain.h"
 #import "Snake.h"
 #import "DictionaryBuilder.h"
+#import "Fraction.h"
 
 @interface TouchTrackerViewController ()
 @property (nonatomic, strong) NSMutableArray *touchList;
 @property (nonatomic, strong) TouchTrackerBrain *brain;
 @property (nonatomic, strong) Snake *snake;
 @property (nonatomic, strong) DictionaryBuilder *dictBuild;
+@property (nonatomic, strong) Fraction *fraction;
 - (NSString *)matchesText:(NSString *)path;
 @end
 
@@ -29,6 +31,12 @@
 @synthesize brain = _brain;
 @synthesize snake = _snake;
 @synthesize dictBuild = _dictBuild;
+@synthesize fraction = _fraction;
+
+- (Fraction *)fraction {
+    if (!_fraction) _fraction = [[Fraction alloc] init];
+    return _fraction;
+}
 
 - (DictionaryBuilder *)dictBuild {
 	if (!_dictBuild) _dictBuild = [[DictionaryBuilder alloc] init];
@@ -81,8 +89,8 @@
 		self.pathDisplay.text = path;
 		if (self.pathDisplay.text) {
 			self.matchesDisplay.text = [self matchesText:path];
-            NSString *bestWord = [self.brain bestMatchFor:[self.snake.snakeDictionary objectForKey:path]];
-			self.bestMatchDisplay.text = bestWord;
+            NSString *bestWords = [self.fraction bestMatchFor:[self.snake.snakeDictionary objectForKey:path] against:self.brain.touchSequence];
+			self.bestMatchDisplay.text = bestWords;
 		}
 	}
 }
