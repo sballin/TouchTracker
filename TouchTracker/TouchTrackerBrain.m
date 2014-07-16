@@ -32,4 +32,11 @@
 	return touch;
 }
 
+/* WRITE ME PLS */
+- (NSString *)topScoringWords {
+    // get all bashed snake path words
+    // do other stuff
+    return @"";
+}
+
 @end

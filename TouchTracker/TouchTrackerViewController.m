@@ -20,6 +20,7 @@
 @property (nonatomic, strong) Snake *snake;
 @property (nonatomic, strong) DictionaryBuilder *dictBuild;
 @property (nonatomic, strong) Fraction *fraction;
+@property (nonatomic) double lastTouchTime;
 - (NSString *)matchesText:(NSString *)path;
 @end
 
@@ -32,6 +33,12 @@
 @synthesize snake = _snake;
 @synthesize dictBuild = _dictBuild;
 @synthesize fraction = _fraction;
+@synthesize lastTouchTime = _lastTouchTime;
+
+- (double)lastTouchTime {
+    if (!_lastTouchTime) _lastTouchTime = INFINITY;
+    return _lastTouchTime;
+}
 
 - (Fraction *)fraction {
     if (!_fraction) _fraction = [[Fraction alloc] init];
@@ -53,11 +60,19 @@
 	return _brain;
 }
 
+#define SPREAD 25
 - (IBAction)clearPressed:(id)sender {
+//	self.matchesDisplay.text = @"";
+//	self.pathDisplay.text = @"";
+//	self.bestMatchDisplay.text = @"";
+    NSString *path = [Snake snakePath:self.brain.touchSequence withSpread:SPREAD];
+    self.pathDisplay.text = path;
+    if (self.pathDisplay.text) {
+        self.matchesDisplay.text = [self matchesText:path];
+        NSString *bestWords = [self.fraction bestMatchFor:[self.snake.snakeDictionary objectForKey:path] against:self.brain.touchSequence];
+        self.bestMatchDisplay.text = bestWords;
+    }
 	[self.brain clearTouchSequence];
-	self.matchesDisplay.text = @"";
-	self.pathDisplay.text = @"";
-	self.bestMatchDisplay.text = @"";
 }
 
 - (IBAction)dumpPressed {
@@ -78,20 +93,14 @@
 	return matches;
 }
 
-#define SPREAD 25
+
+#define DELAY_SEC 1.0
 - (void)touchesBegan:(NSSet *)touches
            withEvent:(UIEvent *)event {
 	for (UITouch *t in touches) {
 //        [self.dictBuild writeSnakeDictionary:SPREAD];
 		CGPoint point = [t locationInView:self.view];
 		[self.brain addToSequence:point];
-		NSString *path = [Snake snakePath:self.brain.touchSequence withSpread:SPREAD];
-		self.pathDisplay.text = path;
-		if (self.pathDisplay.text) {
-			self.matchesDisplay.text = [self matchesText:path];
-            NSString *bestWords = [self.fraction bestMatchFor:[self.snake.snakeDictionary objectForKey:path] against:self.brain.touchSequence];
-			self.bestMatchDisplay.text = bestWords;
-		}
 	}
 }
 
