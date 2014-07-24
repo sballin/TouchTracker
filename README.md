@@ -6,6 +6,7 @@ A weird keyboard.
 
 - Relationship that holds up between regression curves fitted to touch points despite rotation/scaling
 - Identify fingers behind each tap, possible to get [radius](http://easyplace.wordpress.com/2013/04/09/how-to-detect-touch-size-in-ios/), then compare relative sizes
+- Least Squares as a Maximum Likelihood Estimator (Numerical Recipes)
 
 
 ## ☆ The x problem

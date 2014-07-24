@@ -46,9 +46,10 @@
 	NSArray *touchPath = [self fractionPath:touchSequence];
     NSArray *wordPath = [self fractionPath:[self.keyboard modelTouchSequenceFor:word]];
 	float totalError = 0.0;
+    // Add errors in quadrature.
 	for (int i = 0; i < [touchPath count]; i++)
-        totalError += [KeyMath errorBetween:[[touchPath objectAtIndex:i] floatValue] and:[[wordPath objectAtIndex:i] floatValue]];
-	return totalError;
+        totalError += powf([KeyMath errorBetween:[[touchPath objectAtIndex:i] floatValue] and:[[wordPath objectAtIndex:i] floatValue]], 2.0);
+	return sqrtf(totalError);
 }
 
 - (NSString *)bestMatchFor:(NSMutableArray *)words
