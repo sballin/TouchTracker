@@ -33,7 +33,7 @@ x definition is messing up a lot of words -> Bash user input and compare with ev
 - Example: `l` pressed, short distance detected between strokes, then it's probably one of `m` `k` `o` `p`. 
 - Go through list of candidates and check that min distances correspond to adjacent letters. Boost likelihood score if so.
 
-## UpDown
+## TwoDim
 
 - Gaussian distribution?
 - NOT relative to last press if possible -> two modes
