@@ -49,7 +49,7 @@
         CGPoint firstTouch, secondTouch;
         [[touchSequence objectAtIndex:i] getValue:&firstTouch];
         [[touchSequence objectAtIndex:i+1] getValue:&secondTouch];
-        path = [path stringByAppendingString:[TwoDim LeftRightFrom:firstTouch to:secondTouch withTolerance:DEFAULT_TOLERANCE]];
+        path = [path stringByAppendingString:[TwoDim LeftRightFrom:firstTouch to:secondTouch withTolerance:pixels]];
     }
     return path;
 }
@@ -61,7 +61,7 @@
         CGPoint firstTouch, secondTouch;
         [[touchSequence objectAtIndex:i] getValue:&firstTouch];
         [[touchSequence objectAtIndex:i+1] getValue:&secondTouch];
-        path = [path stringByAppendingString:[TwoDim UpDownFrom:firstTouch to:secondTouch withTolerance:DEFAULT_TOLERANCE]];
+        path = [path stringByAppendingString:[TwoDim UpDownFrom:firstTouch to:secondTouch withTolerance:pixels]];
     }
     return path;
 }
