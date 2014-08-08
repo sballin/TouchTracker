@@ -19,6 +19,7 @@
 @synthesize dictionaryWords = _dictionaryWords;
 @synthesize snake = _snake;
 @synthesize snakeDictionary = _snakeDictionary;
+@synthesize countDictionary = _countDictionary;
 
 - (Snake *) snake {
     if (!_snake) _snake = [[Snake alloc] init];
@@ -30,6 +31,11 @@
     return _snakeDictionary;
 }
 
+- (NSMutableDictionary *)countDictionary{
+    if (!_countDictionary) _countDictionary = [[NSMutableDictionary alloc] init];
+    return _countDictionary;
+}
+
 - (NSArray *)dictionaryWords {
 	if (!_dictionaryWords) {
 		_dictionaryWords = [[NSMutableArray alloc] init];
@@ -37,7 +43,6 @@
 		NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
 		_dictionaryWords = [content componentsSeparatedByString:@"\r"];
 	}
-
 	return _dictionaryWords;
 }
 
@@ -55,8 +60,24 @@
 			[_snakeDictionary setObject:list forKey:path];
 		}
 	}
-	//[NSKeyedArchiver archiveRootObject:_snakeDictionary toFile:@"snakeDictionary.plist"];
 	[self.snakeDictionary writeToFile:dictPath atomically:YES];
+}
+
+#define MAX_WORD_LENGTH 30
+- (void)writeCountDictionary {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *dictName = @"countDictionary";
+    NSString *dictPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:dictName];
+    _countDictionary = [NSMutableDictionary dictionaryWithCapacity:[self.dictionaryWords count]];
+    for (int i = 1; i < MAX_WORD_LENGTH; i++)
+        [_countDictionary setObject:[[NSMutableArray alloc] init] forKey:[NSString stringWithFormat:@"%d", i]];
+    for (NSString *word in self.dictionaryWords) {
+        NSString *length = [NSString stringWithFormat:@"%lu", (unsigned long)[word length]];
+        NSMutableArray *list = [_countDictionary objectForKey:length];
+        [list addObject:word];
+        [_countDictionary setObject:list forKey:length];
+    }
+    [self.countDictionary writeToFile:dictPath atomically:YES];
 }
 
 @end

@@ -10,5 +10,6 @@
 
 @interface DictionaryBuilder : NSObject
 @property (nonatomic, strong) NSMutableDictionary *snakeDictionary;
+@property (nonatomic, strong) NSMutableDictionary *countDictionary;
 - (void)writeSnakeDictionary:(int)spread;
 @end
