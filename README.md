@@ -1,58 +1,56 @@
-# Lokey iOS
+### ☁ Ideas
 
-A weird keyboard.
-
-## ☁ Ideas
-
-- Relationship that holds up between regression curves fitted to touch points despite rotation/scaling
 - Identify fingers behind each tap, possible to get [radius](http://easyplace.wordpress.com/2013/04/09/how-to-detect-touch-size-in-ios/), then compare relative sizes
-- Least Squares as a Maximum Likelihood Estimator (Numerical Recipes)
+- ➽ Ask about speeding up touch recognition on Apple developer forums
+- ➽ Dictionary grouping words of same length: small arithmetic for a few thousand elements -> not bad, right?
+- ➽ Horizontal and vertical fraction paths
+    - +/– for direction and scaled with total distances
 
+---
 
-## ☆ The x problem
+### 🔴 Getting rid of x
 
-x definition is messing up a lot of words -> Bash user input and compare with everything that matches! Will there be any reason to use xs then?
+Look in different snake paths of just rs and ls. Probably better than going through all words of the same length.
 
-## ☆ Timer
+---
 
-- Wait for all of input then calculate word score
-    - 0.5 second timer
-    - Show when it's up to see calculation time
-
-## ★ Brain 
+### 🔴 Brain 
 
 - Combines several analyses
     - Snake path: +1 if unbashed path has best of anything
     - Fraction path: take top N from each list
-    - UpDown: 
+    - TwoDim: 
     - Mountains: 
 
-## Neighbors
+---
+
+### ⚪️ Neighbors
 
 - Letters right next to each other could give some information. 
 - Example: `l` pressed, short distance detected between strokes, then it's probably one of `m` `k` `o` `p`. 
 - Go through list of candidates and check that min distances correspond to adjacent letters. Boost likelihood score if so.
 
-## TwoDim
+---
+
+### 🔵 TwoDim
 
 - Gaussian distribution?
+    - Fit, scale: get endpoints, compress/expand comparisons, integrate difference
 - NOT relative to last press if possible -> two modes
 - Do a least-squares fit of points suspected to be on same row, shuffle around points to get most parallel set of lines.
 - Trace a path through points suspected to be on the same row, and note its curviness.
 
-## Mountains
+---
 
-- Gaussian distribution
-- Fit, scale
-    - Get endpoints, compress/expand comparisons, integrate difference
-
-## Optimizations
+### ⚡️ Optimizations
 
 - Can make plist format dictionaries using __Python__
 - Use __NSSet__ in snakeDictionary instead of NSMutableArray to do intersection stuff and maybe speedup
 - __Average__ fraction paths for words and keep in an __NSMutableDictionary__
 
-## THE FUTURE
+---
+
+### 🚀 THE FUTURE
 
 - Short words
 - Combined score
@@ -60,9 +58,13 @@ x definition is messing up a lot of words -> Bash user input and compare with ev
     - Frequency
 - Pressing space, shift, punctuation
 
-## Resources
+---
+
+### 📚 Resources
 
 - [Gutenberg frequency lists](https://en.wiktionary.org/wiki/Wiktionary:Frequency_lists#Project_Gutenberg)
+- Least Squares as a Maximum Likelihood Estimator (Numerical Recipes)
 
 ![](viz.png)
 
+Useful symbols: ⚫️⚪️🔴🔵🔨🔫🌀⭐️⚡️🌙‼️⭕️
