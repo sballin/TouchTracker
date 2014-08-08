@@ -65,6 +65,4 @@ Look in different snake paths of just rs and ls. Probably better than going thro
 - [Gutenberg frequency lists](https://en.wiktionary.org/wiki/Wiktionary:Frequency_lists#Project_Gutenberg)
 - Least Squares as a Maximum Likelihood Estimator (Numerical Recipes)
 
-![](viz.png)
-
 Useful symbols: ⚫️⚪️🔴🔵🔨🔫🌀⭐️⚡️🌙‼️⭕️
