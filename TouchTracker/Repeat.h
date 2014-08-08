@@ -9,11 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface Repeat : NSObject
-
-+ (NSString *)repeatMap:(NSMutableArray *)touchSequence
-              withTolerance:(int)pixels;
-+ (BOOL)repeatFor:(CGPoint)firstTouch
-              and:(CGPoint)secondTouch
-    withTolerance:(int)pixels;
-
+- (NSString *)repeatMapForWord:(NSString *)word
+                 withTolerance:(int)pixels;
 @end

@@ -8,22 +8,31 @@
 
 #import "DictionaryBuilder.h"
 #import "Snake.h"
+#import "Repeat.h"
 
 @interface DictionaryBuilder ()
 @property (nonatomic, strong) NSArray *dictionaryWords;
 @property (nonatomic, strong) Snake *snake;
+@property (nonatomic, strong) Repeat *repeat;
 @end
 
 @implementation DictionaryBuilder
 
 @synthesize dictionaryWords = _dictionaryWords;
 @synthesize snake = _snake;
+@synthesize repeat = _repeat;
 @synthesize snakeDictionary = _snakeDictionary;
 @synthesize countDictionary = _countDictionary;
+@synthesize repeatDictionary = _repeatDictionary;
 
 - (Snake *) snake {
     if (!_snake) _snake = [[Snake alloc] init];
     return _snake;
+}
+
+- (Repeat *) repeat {
+    if (!_repeat) _repeat = [[Repeat alloc] init];
+    return _repeat;
 }
 
 - (NSMutableDictionary *)snakeDictionary {
@@ -34,6 +43,11 @@
 - (NSMutableDictionary *)countDictionary{
     if (!_countDictionary) _countDictionary = [[NSMutableDictionary alloc] init];
     return _countDictionary;
+}
+
+- (NSMutableDictionary *)repeatDictionary {
+    if (!_repeatDictionary) _repeatDictionary = [[NSMutableDictionary alloc] init];
+    return _repeatDictionary;
 }
 
 - (NSArray *)dictionaryWords {
@@ -50,6 +64,7 @@
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *dictName = [[@"snakeDictionary" stringByAppendingString:[NSString stringWithFormat:@"%d", spread]] stringByAppendingString:@".plist"];
 	NSString *dictPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:dictName];
+    
 	_snakeDictionary = [NSMutableDictionary dictionaryWithCapacity:[self.dictionaryWords count]];
 	for (NSString *word in self.dictionaryWords) {
 		if ([word length] >= 3) {
@@ -66,8 +81,9 @@
 #define MAX_WORD_LENGTH 30
 - (void)writeCountDictionary {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *dictName = @"countDictionary";
+    NSString *dictName = @"countDictionary.plist";
     NSString *dictPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:dictName];
+    
     _countDictionary = [NSMutableDictionary dictionaryWithCapacity:[self.dictionaryWords count]];
     for (int i = 1; i < MAX_WORD_LENGTH; i++)
         [_countDictionary setObject:[[NSMutableArray alloc] init] forKey:[NSString stringWithFormat:@"%d", i]];
@@ -78,6 +94,24 @@
         [_countDictionary setObject:list forKey:length];
     }
     [self.countDictionary writeToFile:dictPath atomically:YES];
+}
+
+- (void)writeRepeatDictionary:(int)tolerance {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *dictName = [[@"repeatDictionary" stringByAppendingString:[NSString stringWithFormat:@"%d", tolerance]] stringByAppendingString:@".plist"];
+    NSString *dictPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:dictName];
+    
+    _repeatDictionary = [NSMutableDictionary dictionaryWithCapacity:[self.dictionaryWords count]];
+    for (NSString *word in self.dictionaryWords) {
+		if ([word length] >= 2) {
+			NSString *path = [self.repeat repeatMapForWord:word withTolerance:tolerance];
+			NSMutableArray *list = [_repeatDictionary objectForKey:path];
+			if (list == nil) list = [[NSMutableArray alloc] init];
+			[list addObject:word];
+			[_repeatDictionary setObject:list forKey:path];
+		}
+	}
+	[self.repeatDictionary writeToFile:dictPath atomically:YES];
 }
 
 @end

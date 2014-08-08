@@ -10,10 +10,27 @@
 #import "KeyMath.h"
 
 @interface Repeat ()
-
+@property (nonatomic, strong) KeyMath *keyboard;
++ (BOOL)repeatFor:(CGPoint)firstTouch
+              and:(CGPoint)secondTouch
+    withTolerance:(int)pixels;
++ (NSString *)repeatMap:(NSMutableArray *)touchSequence
+          withTolerance:(int)pixels;
 @end
 
 @implementation Repeat
+
+@synthesize keyboard = _keyboard;
+
+- (KeyMath *)keyboard {
+    if (!_keyboard) _keyboard = [[KeyMath alloc] init];
+    return _keyboard;
+}
+
+- (NSString *)repeatMapForWord:(NSString *)word
+                 withTolerance:(int)pixels {
+    return [Repeat repeatMap:[self.keyboard modelTouchSequenceFor:word] withTolerance:pixels];
+}
 
 + (NSString *)repeatMap:(NSMutableArray *)touchSequence
           withTolerance:(int)pixels {
@@ -24,8 +41,8 @@
         CGPoint secondTouch;
         [[touchSequence objectAtIndex:i+1] getValue:&secondTouch];
         if ([Repeat repeatFor:firstTouch and:secondTouch withTolerance:pixels])
-            map = [map stringByAppendingString:@"y"];
-        else map = [map stringByAppendingString:@"n"];
+            map = [map stringByAppendingString:@"r"];
+        else map = [map stringByAppendingString:@"x"];
     }
     return @"";
 }

@@ -1,16 +1,16 @@
 ### ☁ Ideas
 
-- Identify fingers behind each tap, possible to get [radius](http://easyplace.wordpress.com/2013/04/09/how-to-detect-touch-size-in-ios/), then compare relative sizes
-- ➽ Ask about speeding up touch recognition on Apple developer forums
-- ➽ Dictionary grouping words of same length: small arithmetic for a few thousand elements -> not bad, right?
-- ➽ Horizontal and vertical fraction paths
+- Identify __finger__ behind each tap, possible to get [radius](http://easyplace.wordpress.com/2013/04/09/how-to-detect-touch-size-in-ios/), then compare relative sizes
+- ➽ Ask about __speeding up__ touch recognition on Apple developer forums
+- ➽ Dictionary grouping words of __same length__: small arithmetic for a few thousand elements -> not bad, right?
+- ➽ __Horizontal__ and __vertical__ fraction paths
     - +/– for direction and scaled with total distances
 
 ---
 
 ### 🔴 Getting rid of x
 
-Look in different snake paths of just rs and ls. Probably better than going through all words of the same length.
+Look in different snake paths of just `r`s and `l`s. Probably better than going through all words of the same length.
 
 ---
 
@@ -26,7 +26,7 @@ Look in different snake paths of just rs and ls. Probably better than going thro
 
 ### ⚪️ Neighbors
 
-- Letters right next to each other could give some information. 
+- Letters __right next to each other__ could give some information. 
 - Example: `l` pressed, short distance detected between strokes, then it's probably one of `m` `k` `o` `p`. 
 - Go through list of candidates and check that min distances correspond to adjacent letters. Boost likelihood score if so.
 
@@ -52,7 +52,7 @@ Look in different snake paths of just rs and ls. Probably better than going thro
 
 ### 🚀 THE FUTURE
 
-- Short words
+- 🔴 Short words
 - Combined score
     - Touch data interpretation
     - Frequency
