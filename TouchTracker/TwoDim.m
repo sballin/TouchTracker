@@ -9,17 +9,17 @@
 #import "TwoDim.h"
 
 @interface TwoDim ()
-+ (NSString *)UpDownFrom:(CGPoint)firstTouch
++ (NSString *)upDownFrom:(CGPoint)firstTouch
                       to:(CGPoint)secondTouch
            withTolerance:(int)pixels;
-+ (NSString *)LeftRightFrom:(CGPoint)firstTouch
++ (NSString *)leftRightFrom:(CGPoint)firstTouch
                          to:(CGPoint)secondTouch
               withTolerance:(int)pixels;
 @end
 
 @implementation TwoDim
 
-+ (NSString *)UpDownFrom:(CGPoint)firstTouch
++ (NSString *)upDownFrom:(CGPoint)firstTouch
                       to:(CGPoint)secondTouch
            withTolerance:(int)pixels {
     float difference = firstTouch.y-secondTouch.y;
@@ -30,7 +30,7 @@
     return @"x";
 }
 
-+ (NSString *)LeftRightFrom:(CGPoint)firstTouch
++ (NSString *)leftRightFrom:(CGPoint)firstTouch
                          to:(CGPoint)secondTouch
               withTolerance:(int)pixels {
     float difference = firstTouch.x-secondTouch.x;
@@ -49,7 +49,7 @@
         CGPoint firstTouch, secondTouch;
         [[touchSequence objectAtIndex:i] getValue:&firstTouch];
         [[touchSequence objectAtIndex:i+1] getValue:&secondTouch];
-        path = [path stringByAppendingString:[TwoDim LeftRightFrom:firstTouch to:secondTouch withTolerance:pixels]];
+        path = [path stringByAppendingString:[TwoDim leftRightFrom:firstTouch to:secondTouch withTolerance:pixels]];
     }
     return path;
 }
@@ -61,7 +61,7 @@
         CGPoint firstTouch, secondTouch;
         [[touchSequence objectAtIndex:i] getValue:&firstTouch];
         [[touchSequence objectAtIndex:i+1] getValue:&secondTouch];
-        path = [path stringByAppendingString:[TwoDim UpDownFrom:firstTouch to:secondTouch withTolerance:pixels]];
+        path = [path stringByAppendingString:[TwoDim upDownFrom:firstTouch to:secondTouch withTolerance:pixels]];
     }
     return path;
 }
