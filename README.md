@@ -12,6 +12,8 @@
 
 Look in different snake paths of just `r`s and `l`s. Probably better than going through all words of the same length.
 
+Maybe don't get rid of it, actually, but instead use x as a marker to generate different permutations. Wouldn't have to do as many key requests from dict if there were no x, but lists would be bigger... probably no improvement.
+
 ---
 
 ### 🔴 Brain 

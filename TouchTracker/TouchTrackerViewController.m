@@ -70,6 +70,7 @@
 //	self.matchesDisplay.text = @"";
 //	self.pathDisplay.text = @"";
 //	self.bestMatchDisplay.text = @"";
+    [self.dictBuild writeHorizontalDictionary:10];
     NSString *path = [Snake snakePath:self.brain.touchSequence withSpread:SPREAD];
     self.pathDisplay.text = path;
     if (self.pathDisplay.text) {
@@ -102,7 +103,6 @@
 - (void)touchesBegan:(NSSet *)touches
            withEvent:(UIEvent *)event {
 	for (UITouch *t in touches) {
-//        [self.dictBuild writeSnakeDictionary:SPREAD];
 		CGPoint point = [t locationInView:self.view];
 		[self.brain addToSequence:point];
 	}

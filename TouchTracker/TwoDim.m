@@ -22,8 +22,8 @@
 + (NSString *)upDownFrom:(CGPoint)firstTouch
                       to:(CGPoint)secondTouch
            withTolerance:(int)pixels {
-    float difference = firstTouch.y-secondTouch.y;
-    if (fabs(difference) < pixels) {
+    float difference = (float) firstTouch.y-secondTouch.y;
+    if (fabs(difference) > pixels) {
         if (difference > 0) return @"d";
         else return @"u";
     }
@@ -34,7 +34,7 @@
                          to:(CGPoint)secondTouch
               withTolerance:(int)pixels {
     float difference = firstTouch.x-secondTouch.x;
-    if (fabs(difference) < pixels) {
+    if (fabs(difference) > pixels) {
         if (difference > 0) return @"l";
         else return @"r";
     }
