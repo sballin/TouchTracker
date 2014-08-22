@@ -47,8 +47,8 @@
     NSString *path = @"";
     for (int i = 0; i < [touchSequence count] - 1; i++) {
         CGPoint firstTouch, secondTouch;
-        [[touchSequence objectAtIndex:i] getValue:&firstTouch];
-        [[touchSequence objectAtIndex:i+1] getValue:&secondTouch];
+        [touchSequence[i] getValue:&firstTouch];
+        [touchSequence[i+1] getValue:&secondTouch];
         path = [path stringByAppendingString:[TwoDim leftRightFrom:firstTouch to:secondTouch withTolerance:pixels]];
     }
     return path;
@@ -59,8 +59,8 @@
     NSString *path = @"";
     for (int i = 0; i < [touchSequence count] - 1; i++) {
         CGPoint firstTouch, secondTouch;
-        [[touchSequence objectAtIndex:i] getValue:&firstTouch];
-        [[touchSequence objectAtIndex:i+1] getValue:&secondTouch];
+        [touchSequence[i] getValue:&firstTouch];
+        [touchSequence[i+1] getValue:&secondTouch];
         path = [path stringByAppendingString:[TwoDim upDownFrom:firstTouch to:secondTouch withTolerance:pixels]];
     }
     return path;

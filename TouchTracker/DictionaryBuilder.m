@@ -78,16 +78,16 @@
 - (void)writeSnakeDictionary:(int)spread {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *dictName = [[@"snakeDictionary" stringByAppendingString:[NSString stringWithFormat:@"%d", spread]] stringByAppendingString:@".plist"];
-	NSString *dictPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:dictName];
+	NSString *dictPath = [paths[0] stringByAppendingPathComponent:dictName];
     
 	_snakeDictionary = [NSMutableDictionary dictionaryWithCapacity:[self.dictionaryWords count]];
 	for (NSString *word in self.dictionaryWords) {
 		if ([word length] >= 3) {
 			NSString *path = [self.snake snakePathOfWord:word withSpread:spread];
-			NSMutableArray *list = [_snakeDictionary objectForKey:path];
+			NSMutableArray *list = _snakeDictionary[path];
 			if (list == nil) list = [[NSMutableArray alloc] init];
 			[list addObject:word];
-			[_snakeDictionary setObject:list forKey:path];
+			_snakeDictionary[path] = list;
 		}
 	}
 	[self.snakeDictionary writeToFile:dictPath atomically:YES];
@@ -97,16 +97,16 @@
 - (void)writeCountDictionary {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *dictName = @"countDictionary.plist";
-    NSString *dictPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:dictName];
+    NSString *dictPath = [paths[0] stringByAppendingPathComponent:dictName];
     
     _countDictionary = [NSMutableDictionary dictionaryWithCapacity:[self.dictionaryWords count]];
     for (int i = 1; i < MAX_WORD_LENGTH; i++)
-        [_countDictionary setObject:[[NSMutableArray alloc] init] forKey:[NSString stringWithFormat:@"%d", i]];
+        _countDictionary[[NSString stringWithFormat:@"%d", i]] = [[NSMutableArray alloc] init];
     for (NSString *word in self.dictionaryWords) {
         NSString *length = [NSString stringWithFormat:@"%lu", (unsigned long)[word length]];
-        NSMutableArray *list = [_countDictionary objectForKey:length];
+        NSMutableArray *list = _countDictionary[length];
         [list addObject:word];
-        [_countDictionary setObject:list forKey:length];
+        _countDictionary[length] = list;
     }
     [self.countDictionary writeToFile:dictPath atomically:YES];
 }
@@ -114,16 +114,16 @@
 - (void)writeRepeatDictionary:(int)tolerance {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *dictName = [[@"repeatDictionary" stringByAppendingString:[NSString stringWithFormat:@"%d", tolerance]] stringByAppendingString:@".plist"];
-    NSString *dictPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:dictName];
+    NSString *dictPath = [paths[0] stringByAppendingPathComponent:dictName];
     
     _repeatDictionary = [NSMutableDictionary dictionaryWithCapacity:[self.dictionaryWords count]];
     for (NSString *word in self.dictionaryWords) {
 		if ([word length] >= 2) {
 			NSString *path = [self.repeat repeatMapForWord:word withTolerance:tolerance];
-			NSMutableArray *list = [_repeatDictionary objectForKey:path];
+			NSMutableArray *list = _repeatDictionary[path];
 			if (list == nil) list = [[NSMutableArray alloc] init];
 			[list addObject:word];
-			[_repeatDictionary setObject:list forKey:path];
+			_repeatDictionary[path] = list;
 		}
 	}
 	[self.repeatDictionary writeToFile:dictPath atomically:YES];
@@ -132,17 +132,17 @@
 - (void)writeHorizontalDictionary:(int)tolerance {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *dictName = [[@"horizontalDictionary" stringByAppendingString:[NSString stringWithFormat:@"%d", tolerance]] stringByAppendingString:@".plist"];
-    NSString *dictPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:dictName];
+    NSString *dictPath = [paths[0] stringByAppendingPathComponent:dictName];
     
     _horizontalDictionary = [NSMutableDictionary dictionaryWithCapacity:[self.dictionaryWords count]];
     for (NSString *word in self.dictionaryWords) {
 		if ([word length] >= 2) {
             NSMutableArray *touchSequence = [self.keyboard modelTouchSequenceFor:word];
             NSString *path = [TwoDim horizontalPathFor:touchSequence withTolerance:tolerance];
-			NSMutableArray *list = [_horizontalDictionary objectForKey:path];
+			NSMutableArray *list = _horizontalDictionary[path];
 			if (!list) list = [[NSMutableArray alloc] init];
 			[list addObject:word];
-			[_horizontalDictionary setObject:list forKey:path];
+			_horizontalDictionary[path] = list;
 		}
 	}
 	[self.horizontalDictionary writeToFile:dictPath atomically:YES];

@@ -43,8 +43,7 @@
     	CGPoint x;    x.x = d1+k1;      x.y = r1;
     	CGPoint y;    y.x = d3+5*k3;    y.y = r3;
     	CGPoint z;    z.x = d1;         z.y = r1;
-        NSArray *coordinates = [NSArray arrayWithObjects:
-                                [NSValue value:&a withObjCType:@encode(CGPoint)],
+        NSArray *coordinates = @[[NSValue value:&a withObjCType:@encode(CGPoint)],
                                 [NSValue value:&b withObjCType:@encode(CGPoint)],
                                 [NSValue value:&c withObjCType:@encode(CGPoint)],
                                 [NSValue value:&d withObjCType:@encode(CGPoint)],
@@ -69,7 +68,7 @@
                                 [NSValue value:&w withObjCType:@encode(CGPoint)],
                                 [NSValue value:&x withObjCType:@encode(CGPoint)],
                                 [NSValue value:&y withObjCType:@encode(CGPoint)],
-                                [NSValue value:&z withObjCType:@encode(CGPoint)],nil];
+                                [NSValue value:&z withObjCType:@encode(CGPoint)]];
         NSArray *alphabet = [[NSString stringWithFormat:@"a b c d e f g h i j k l m n o p q r s t u v w x y z"] componentsSeparatedByString:@" "];
         _alphabetCoordinates = [NSDictionary dictionaryWithObjects:coordinates forKeys:alphabet];
     }
@@ -87,7 +86,7 @@
 
 - (CGPoint)getCoordinatesOf:(NSString *)letter {
 	CGPoint coordinates;
-	[[self.alphabetCoordinates objectForKey:letter] getValue:&coordinates];
+	[(self.alphabetCoordinates)[letter] getValue:&coordinates];
 	return coordinates;
 }
 

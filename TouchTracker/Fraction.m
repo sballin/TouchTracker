@@ -28,15 +28,15 @@
 	NSMutableArray *path = [[NSMutableArray alloc] init];
 	for (int i = 0; i < [touchSequence count] - 1; i++) {
         CGPoint firstPoint, secondPoint;
-        [[touchSequence objectAtIndex:i] getValue:&firstPoint];
-        [[touchSequence objectAtIndex:i+1] getValue:&secondPoint];
+        [touchSequence[i] getValue:&firstPoint];
+        [touchSequence[i+1] getValue:&secondPoint];
 		float distance =  [KeyMath distanceBetween:firstPoint and:secondPoint];
-		[path addObject:[NSNumber numberWithFloat:distance]];
+		[path addObject:@(distance)];
 		total += distance;
 	}
 	for (int i = 0; i < [path count]; i++) {
-		float fraction = [[path objectAtIndex:i] floatValue] / total;
-		[path replaceObjectAtIndex:i withObject:[NSNumber numberWithFloat:fraction]];
+		float fraction = [path[i] floatValue] / total;
+		path[i] = @(fraction);
 	}
 	return [path copy];
 }
@@ -48,7 +48,7 @@
 	float totalError = 0.0;
     // Add errors in quadrature.
 	for (int i = 0; i < [touchPath count]; i++)
-        totalError += powf([KeyMath errorBetween:[[touchPath objectAtIndex:i] floatValue] and:[[wordPath objectAtIndex:i] floatValue]], 2.0);
+        totalError += powf([KeyMath errorBetween:[touchPath[i] floatValue] and:[wordPath[i] floatValue]], 2.0);
 	return sqrtf(totalError);
 }
 

@@ -28,7 +28,7 @@
 
 - (CGPoint)getTouchAtIndex:(int)i {
 	CGPoint touch;
-	[[self.touchSequence objectAtIndex:i] getValue:&touch];
+	[(self.touchSequence)[i] getValue:&touch];
 	return touch;
 }
 

@@ -37,9 +37,9 @@
     NSString *map = @"";
     for (int i = 0; i < [touchSequence count]-1; i++) {
         CGPoint firstTouch;
-        [[touchSequence objectAtIndex:i] getValue:&firstTouch];
+        [touchSequence[i] getValue:&firstTouch];
         CGPoint secondTouch;
-        [[touchSequence objectAtIndex:i+1] getValue:&secondTouch];
+        [touchSequence[i+1] getValue:&secondTouch];
         if ([Repeat repeatFor:firstTouch and:secondTouch withTolerance:pixels])
             map = [map stringByAppendingString:@"r"];
         else map = [map stringByAppendingString:@"x"];

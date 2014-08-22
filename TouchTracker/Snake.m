@@ -76,11 +76,11 @@
 	if ([touchSequence count] >= 3)
 		for (int i = 0; i < [touchSequence count] - 2; i++) {
 			CGPoint firstTouch;
-			[[touchSequence objectAtIndex:i] getValue:&firstTouch];
+			[touchSequence[i] getValue:&firstTouch];
 			CGPoint secondTouch;
-			[[touchSequence objectAtIndex:i + 1] getValue:&secondTouch];
+			[touchSequence[i + 1] getValue:&secondTouch];
 			CGPoint thirdTouch;
-			[[touchSequence objectAtIndex:i + 2] getValue:&thirdTouch];
+			[touchSequence[i + 2] getValue:&thirdTouch];
 			path = [path stringByAppendingString:[Snake directionBash:firstTouch:secondTouch:thirdTouch:spread]];
 		}
 	return path;

@@ -76,7 +76,7 @@
     self.pathDisplay.text = path;
     if (self.pathDisplay.text) {
         NSLog(@"%@", [self matchesText:path]);
-        NSMutableArray *bestWords = [self.fraction bestMatchFor:[self.snake.snakeDictionary objectForKey:path] against:self.brain.touchSequence];
+        NSMutableArray *bestWords = [self.fraction bestMatchFor:(self.snake.snakeDictionary)[path] against:self.brain.touchSequence];
         self.bestMatchDisplay.text = [bestWords description];
         self.topCandidateDisplay.text = bestWords[0];
     }
@@ -93,7 +93,7 @@
 }
 
 - (NSString *)matchesText:(NSString *)path {
-	NSMutableArray *list = [self.snake.snakeDictionary objectForKey:path];
+	NSMutableArray *list = (self.snake.snakeDictionary)[path];
 	NSString *matches = @"";
 	for (NSString *word in list)
 		matches = [matches stringByAppendingString:[word stringByAppendingString:@" "]];
