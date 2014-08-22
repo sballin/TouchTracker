@@ -13,5 +13,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *pathDisplay;
 @property (weak, nonatomic) IBOutlet UILabel *bestMatchDisplay;
+@property (weak, nonatomic) IBOutlet UILabel *topCandidateDisplay;
 
 @end

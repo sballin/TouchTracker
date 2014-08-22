@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TouchTracker/TouchTrackerViewController.m"
-            timestampString = "430265629.539733"
+            timestampString = "430439134.024828"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
             landmarkName = "-dumpPressed"
             landmarkType = "5">
          </BreakpointContent>

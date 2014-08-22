@@ -30,6 +30,7 @@
 
 @synthesize pathDisplay = _pathDisplay;
 @synthesize bestMatchDisplay = _bestMatchDisplay;
+@synthesize topCandidateDisplay = _topCandidateDisplay;
 @synthesize brain = _brain;
 @synthesize snake = _snake;
 @synthesize dictBuild = _dictBuild;
@@ -67,16 +68,17 @@
 
 #define SPREAD 25
 - (IBAction)clearPressed:(id)sender {
-//	self.matchesDisplay.text = @"";
-//	self.pathDisplay.text = @"";
-//	self.bestMatchDisplay.text = @"";
-    [self.dictBuild writeHorizontalDictionary:10];
+	self.bestMatchDisplay.text = @"";
+    self.topCandidateDisplay.adjustsFontSizeToFitWidth = YES;
+    self.topCandidateDisplay.minimumScaleFactor = 0;
+    //[self.dictBuild writeHorizontalDictionary:20];
     NSString *path = [Snake snakePath:self.brain.touchSequence withSpread:SPREAD];
     self.pathDisplay.text = path;
     if (self.pathDisplay.text) {
         NSLog(@"%@", [self matchesText:path]);
-        NSString *bestWords = [self.fraction bestMatchFor:[self.snake.snakeDictionary objectForKey:path] against:self.brain.touchSequence];
-        self.bestMatchDisplay.text = bestWords;
+        NSMutableArray *bestWords = [self.fraction bestMatchFor:[self.snake.snakeDictionary objectForKey:path] against:self.brain.touchSequence];
+        self.bestMatchDisplay.text = [bestWords description];
+        self.topCandidateDisplay.text = bestWords[0];
     }
 	[self.brain clearTouchSequence];
 }

@@ -52,7 +52,7 @@
 	return sqrtf(totalError);
 }
 
-- (NSString *)bestMatchFor:(NSMutableArray *)words
+- (NSMutableArray *)bestMatchFor:(NSMutableArray *)words
                    against:(NSMutableArray *)touchSequence {
 	float leastError = INFINITY;
 	NSString *bestMatch;
@@ -63,10 +63,10 @@
 			bestMatch = word;
 			leastError = error;
 		}
-        [bestMatches addObject:[NSString stringWithFormat:@"%f %@", error, word]];
+        [bestMatches addObject:[NSString stringWithFormat:@"%.2f %@", error, word]];
 	}
     [bestMatches sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-    return [bestMatches description];
+    return bestMatches;
 }
 
 @end

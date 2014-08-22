@@ -11,6 +11,6 @@
 @interface Fraction : NSObject
 - (float)errorForWord:(NSString *)word
               against:(NSMutableArray *)touchSequence;
-- (NSString *)bestMatchFor:(NSMutableArray *)words
+- (NSMutableArray *)bestMatchFor:(NSMutableArray *)words
                    against:(NSMutableArray *)touchSequence;
 @end
