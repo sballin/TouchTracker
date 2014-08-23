@@ -78,7 +78,7 @@
         NSLog(@"%@", [self matchesText:path]);
         NSMutableArray *bestWords = [self.fraction bestMatchFor:(self.snake.snakeDictionary)[path] against:self.brain.touchSequence];
         self.bestMatchDisplay.text = [bestWords description];
-        self.topCandidateDisplay.text = bestWords[0];
+        self.topCandidateDisplay.text = [bestWords[0] substringWithRange:NSMakeRange(5, [bestWords[0] length]-5)];
     }
 	[self.brain clearTouchSequence];
 }
