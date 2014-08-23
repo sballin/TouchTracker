@@ -14,6 +14,6 @@
                   withTolerance:(int)pixels;
 + (NSString *)verticalPathFor:(NSMutableArray *)touchSequence
                 withTolerance:(int)pixels;
++ (NSMutableSet *) xPansion:(NSString *)path;
 - (NSString *)rowSequence:(NSMutableArray *)touchSequence;
-
 @end

@@ -66,6 +66,24 @@
     return path;
 }
 
+/**
+ Replace all xs in a path with l/r directions.
+ @param path
+    Direction sequence to analyze
+ @return NSSet of all possible paths.
+ */
++ (NSMutableSet *)xPansion:(NSString *)path {
+    NSMutableSet *set = [[NSMutableSet alloc] init];
+    if ([path rangeOfString:@"x"].location == NSNotFound)
+        set = [NSMutableSet setWithObject:path];
+    else {
+        NSRange range = [path rangeOfString:@"x"];
+        [set unionSet:[TwoDim xPansion:[path stringByReplacingCharactersInRange:range withString:@"l"]]];
+        [set unionSet:[TwoDim xPansion:[path stringByReplacingCharactersInRange:range withString:@"r"]]];
+    }
+    return set;
+}
+
 - (NSString *)rowSequence:(NSMutableArray *)touchSequence {
     // must check whether row locations have been established after enough input
     return @"";
