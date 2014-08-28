@@ -13,8 +13,10 @@
 @property (nonatomic, strong) NSMutableDictionary *countDictionary;
 @property (nonatomic, strong) NSMutableDictionary *repeatDictionary;
 @property (nonatomic, strong) NSMutableDictionary *horizontalDictionary;
+@property (nonatomic, strong) NSMutableDictionary *binaryHorizontalDictionary;
 - (void)writeSnakeDictionary:(int)spread;
 - (void)writeCountDictionary;
 - (void)writeRepeatDictionary:(int)tolerance;
 - (void)writeHorizontalDictionary:(int)tolerance;
+- (void)writeBinaryHorizontalDictionary;
 @end

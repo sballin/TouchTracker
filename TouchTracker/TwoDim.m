@@ -15,6 +15,8 @@
 + (NSString *)leftRightFrom:(CGPoint)firstTouch
                          to:(CGPoint)secondTouch
               withTolerance:(int)pixels;
++ (NSString *)leftRightFrom:(CGPoint)firstTouch
+                         to:(CGPoint)secondTouch;
 @end
 
 @implementation TwoDim
@@ -25,6 +27,15 @@
 		_horizontalDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
 	}
 	return _horizontalDictionary;
+}
+
+
+- (NSDictionary *)binaryHorizontalDictionary {
+	if (!_binaryHorizontalDictionary) {
+		NSString *path = [[NSBundle mainBundle] pathForResource:@"binaryHorizontalDictionary" ofType:@"plist"];
+		_binaryHorizontalDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
+	}
+	return _binaryHorizontalDictionary;
 }
 
 + (NSString *)upDownFrom:(CGPoint)firstTouch
@@ -49,6 +60,15 @@
     return @"x";
 }
 
+/**
+ For use in dictionary creation. Defaults to right direction, nothing undefined.
+ */
++ (NSString *)leftRightFrom:(CGPoint)firstTouch
+                         to:(CGPoint)secondTouch {
+    if (firstTouch.x-secondTouch.x > 0) return @"l";
+    return @"r";
+}
+
 #define DEFAULT_TOLERANCE 25
 + (NSString *)horizontalPathFor:(NSMutableArray *)touchSequence
                   withTolerance:(int)pixels {
@@ -58,6 +78,20 @@
         [touchSequence[i] getValue:&firstTouch];
         [touchSequence[i+1] getValue:&secondTouch];
         path = [path stringByAppendingString:[TwoDim leftRightFrom:firstTouch to:secondTouch withTolerance:pixels]];
+    }
+    return path;
+}
+
+/**
+ For use in dictionary creation.
+ */
++ (NSString *)binaryHorizontalPathFor:(NSMutableArray *)touchSequence {
+    NSString *path = @"";
+    for (int i = 0; i < [touchSequence count] - 1; i++) {
+        CGPoint firstTouch, secondTouch;
+        [touchSequence[i] getValue:&firstTouch];
+        [touchSequence[i+1] getValue:&secondTouch];
+        path = [path stringByAppendingString:[TwoDim leftRightFrom:firstTouch to:secondTouch]];
     }
     return path;
 }
@@ -81,7 +115,7 @@
  @return NSSet of all possible paths.
  */
 + (NSMutableSet *)xPansion:(NSString *)path {
-    NSMutableSet *set = [[NSMutableSet alloc] init];
+    NSMutableSet *set = [[NSMutableSet alloc] init]; // get rid of alloc/init
     if ([path rangeOfString:@"x"].location == NSNotFound)
         set = [NSMutableSet setWithObject:path];
     else {

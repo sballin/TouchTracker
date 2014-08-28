@@ -52,11 +52,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TouchTracker/TwoDim.m"
-            timestampString = "430432378.198758"
+            timestampString = "430922269.556306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
             landmarkName = "+leftRightFrom:to:withTolerance:"
             landmarkType = "5">
          </BreakpointContent>
@@ -68,11 +68,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TouchTracker/TwoDim.m"
-            timestampString = "430432378.198758"
+            timestampString = "430922269.556306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
             landmarkName = "+leftRightFrom:to:withTolerance:"
             landmarkType = "5">
          </BreakpointContent>
@@ -90,6 +90,22 @@
             startingLineNumber = "82"
             endingLineNumber = "82"
             landmarkName = "-clearPressed:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TouchTracker/DictionaryBuilder.m"
+            timestampString = "430922409.026909"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "174"
+            endingLineNumber = "174"
+            landmarkName = "-writeBinaryHorizontalDictionary"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -1,11 +1,14 @@
 ### 🔫 To-Do
 
 - Fix hard-coded radius in dictionary fetching
+    - More lookups or do something like default to `l` if equal in dictionary creation?
+- Fading, expanding disk animation for each press
 
 ---
 
 ### ☁ Ideas
 
+- Add errors from horizontal and vertical paths in __quadrature__!
 - Identify __finger__ behind each tap, possible to get [radius](http://easyplace.wordpress.com/2013/04/09/how-to-detect-touch-size-in-ios/), then compare relative sizes
 - ➽ Ask about __speeding up__ touch recognition on Apple developer forums
 - ➽ Dictionary grouping words of __same length__: small arithmetic for a few thousand elements -> not bad, right?

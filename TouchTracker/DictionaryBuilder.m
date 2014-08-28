@@ -65,6 +65,12 @@
     return _horizontalDictionary;
 }
 
+
+- (NSMutableDictionary *)binaryHorizontalDictionary {
+    if (!_binaryHorizontalDictionary) _binaryHorizontalDictionary = [[NSMutableDictionary alloc] init];
+    return _binaryHorizontalDictionary;
+}
+
 - (NSArray *)dictionaryWords {
 	if (!_dictionaryWords) {
 		_dictionaryWords = [[NSMutableArray alloc] init];
@@ -146,6 +152,26 @@
 		}
 	}
 	[self.horizontalDictionary writeToFile:dictPath atomically:YES];
+    NSLog(@"%@", dictPath);
+}
+
+- (void)writeBinaryHorizontalDictionary {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *dictName = @"binaryHorizontalDictionary.plist";
+    NSString *dictPath = [paths[0] stringByAppendingPathComponent:dictName];
+    
+    _binaryHorizontalDictionary = [NSMutableDictionary dictionaryWithCapacity:[self.dictionaryWords count]];
+    for (NSString *word in self.dictionaryWords) {
+		if ([word length] >= 2) {
+            NSMutableArray *touchSequence = [self.keyboard modelTouchSequenceFor:word];
+            NSString *path = [TwoDim binaryHorizontalPathFor:touchSequence];
+			NSMutableArray *list = _binaryHorizontalDictionary[path];
+			if (!list) list = [[NSMutableArray alloc] init];
+			[list addObject:word];
+			_binaryHorizontalDictionary[path] = list;
+		}
+	}
+	[self.binaryHorizontalDictionary writeToFile:dictPath atomically:YES];
     NSLog(@"%@", dictPath);
 }
 

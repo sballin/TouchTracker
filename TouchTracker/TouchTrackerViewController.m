@@ -71,7 +71,7 @@
 	self.bestMatchDisplay.text = @"";
     self.topCandidateDisplay.adjustsFontSizeToFitWidth = YES;
     self.topCandidateDisplay.minimumScaleFactor = 0;
-    //[self.dictBuild writeHorizontalDictionary:20];
+    [self.dictBuild writeBinaryHorizontalDictionary];
     NSString *path = [Snake snakePath:self.brain.touchSequence withSpread:SPREAD];
     self.pathDisplay.text = path;
     if (self.pathDisplay.text) {
