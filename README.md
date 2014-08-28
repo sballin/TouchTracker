@@ -1,3 +1,9 @@
+### 🔫 To-Do
+
+- Fix hard-coded radius in dictionary fetching
+
+---
+
 ### ☁ Ideas
 
 - Identify __finger__ behind each tap, possible to get [radius](http://easyplace.wordpress.com/2013/04/09/how-to-detect-touch-size-in-ios/), then compare relative sizes

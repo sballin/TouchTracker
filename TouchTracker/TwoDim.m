@@ -19,6 +19,14 @@
 
 @implementation TwoDim
 
+- (NSDictionary *)horizontalDictionary {
+	if (!_horizontalDictionary) {
+		NSString *path = [[NSBundle mainBundle] pathForResource:@"horizontalDictionary0" ofType:@"plist"];
+		_horizontalDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
+	}
+	return _horizontalDictionary;
+}
+
 + (NSString *)upDownFrom:(CGPoint)firstTouch
                       to:(CGPoint)secondTouch
            withTolerance:(int)pixels {

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface TwoDim : NSObject
-
+@property (nonatomic, strong) NSDictionary *horizontalDictionary;
 + (NSString *)horizontalPathFor:(NSMutableArray *)touchSequence
                   withTolerance:(int)pixels;
 + (NSString *)verticalPathFor:(NSMutableArray *)touchSequence
