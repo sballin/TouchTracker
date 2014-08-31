@@ -105,7 +105,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "70"
             endingLineNumber = "70"
-            landmarkName = "-getOrderedBestMatches"
+            landmarkName = "-getRankedMatches"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

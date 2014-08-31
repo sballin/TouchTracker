@@ -7,13 +7,11 @@
 //
 
 #import "TouchTrackerBrain.h"
-#import "Snake.h"
 #import "TwoDim.h"
 #import "Fraction.h"
 #import "KeyMath.h"
 
 @interface TouchTrackerBrain ()
-@property (nonatomic, strong) Snake *snake;
 @property (nonatomic, strong) TwoDim *twodim;
 @property (nonatomic, strong) Fraction *fraction;
 @end
@@ -21,18 +19,12 @@
 @implementation TouchTrackerBrain
 
 @synthesize touchSequence = _touchSequence;
-@synthesize snake = _snake;
 @synthesize twodim = _twodim;
 @synthesize fraction = _fraction;
 
 - (NSMutableArray *)touchSequence {
 	if (!_touchSequence) _touchSequence = [[NSMutableArray alloc] init];
 	return _touchSequence;
-}
-
-- (Snake *)snake {
-	if (!_snake) _snake = [[Snake alloc] init];
-	return _snake;
 }
 
 - (TwoDim *)twodim {
@@ -59,7 +51,7 @@
 	self.touchSequence = nil;
 }
 
-- (NSArray *)getOrderedBestMatches {
+- (NSArray *)getRankedMatches {
     NSString *horizpath = [TwoDim horizontalPathFor:self.touchSequence withTolerance:10];
     NSMutableSet *neighborPaths = [TwoDim xPansion:horizpath];
     NSMutableArray *allNeighborWords = [[NSMutableArray alloc] init];

@@ -47,7 +47,7 @@
     self.topCandidateDisplay.adjustsFontSizeToFitWidth = YES;
     self.topCandidateDisplay.minimumScaleFactor = 0;
     if ([self.touchList count] > 2) {
-        NSArray *bestWords = [self.brain getOrderedBestMatches];
+        NSArray *bestWords = [self.brain getRankedMatches];
         self.bestMatchDisplay.text = [bestWords description];
         NSLog(@"%@", [bestWords description]);
         if ([bestWords count] > 0)
