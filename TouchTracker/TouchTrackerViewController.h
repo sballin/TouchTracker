@@ -11,7 +11,7 @@
 
 @interface TouchTrackerViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UILabel *bestMatchDisplay;
-@property (weak, nonatomic) IBOutlet UILabel *topCandidateDisplay;
+@property (weak, nonatomic) IBOutlet UILabel *rankedMatchesDisplay;
+@property (weak, nonatomic) IBOutlet UILabel *bigCandidateDisplay;
 
 @end

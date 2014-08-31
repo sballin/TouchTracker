@@ -14,7 +14,6 @@
 #import "TypingSpace.h"
 
 @interface TouchTrackerViewController ()
-@property (nonatomic, strong) NSMutableArray *touchList;
 @property (nonatomic, strong) TouchTrackerBrain *brain;
 @property (nonatomic, strong) DictionaryBuilder *dictBuild;
 @property (weak, nonatomic) IBOutlet TypingSpace *typingSpace;
@@ -22,8 +21,8 @@
 
 @implementation TouchTrackerViewController
 
-@synthesize bestMatchDisplay = _bestMatchDisplay;
-@synthesize topCandidateDisplay = _topCandidateDisplay;
+@synthesize rankedMatchesDisplay = _rankedMatchesDisplay;
+@synthesize bigCandidateDisplay = _bigCandidateDisplay;
 @synthesize brain = _brain;
 @synthesize dictBuild = _dictBuild;
 
@@ -43,16 +42,16 @@
 
 #define SPREAD 25
 - (IBAction)clearPressed:(id)sender {
-	self.bestMatchDisplay.text = @"";
-    self.topCandidateDisplay.adjustsFontSizeToFitWidth = YES;
-    self.topCandidateDisplay.minimumScaleFactor = 0;
-    if ([self.touchList count] > 2) {
+	self.rankedMatchesDisplay.text = @"";
+    self.bigCandidateDisplay.adjustsFontSizeToFitWidth = YES;
+    self.bigCandidateDisplay.minimumScaleFactor = 0;
+    if ([self.brain.touchSequence count] > 2) {
         NSArray *bestWords = [self.brain getRankedMatches];
-        self.bestMatchDisplay.text = [bestWords description];
+        self.rankedMatchesDisplay.text = [bestWords description];
         NSLog(@"%@", [bestWords description]);
         if ([bestWords count] > 0)
-            self.topCandidateDisplay.text = [bestWords[0] substringWithRange:NSMakeRange(5, [bestWords[0] length]-5)];
-        else self.topCandidateDisplay.text = @"";
+            self.bigCandidateDisplay.text = [bestWords[0] substringWithRange:NSMakeRange(5, [bestWords[0] length]-5)];
+        else self.bigCandidateDisplay.text = @"";
     }
 	[self.brain clearTouchSequence];
 }
