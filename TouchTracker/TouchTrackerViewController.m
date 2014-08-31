@@ -18,12 +18,10 @@
 @property (nonatomic, strong) TouchTrackerBrain *brain;
 @property (nonatomic, strong) DictionaryBuilder *dictBuild;
 @property (weak, nonatomic) IBOutlet TypingSpace *typingSpace;
-//- (NSString *)matchesText:(NSString *)path;
 @end
 
 @implementation TouchTrackerViewController
 
-@synthesize pathDisplay = _pathDisplay;
 @synthesize bestMatchDisplay = _bestMatchDisplay;
 @synthesize topCandidateDisplay = _topCandidateDisplay;
 @synthesize brain = _brain;
@@ -48,12 +46,10 @@
 	self.bestMatchDisplay.text = @"";
     self.topCandidateDisplay.adjustsFontSizeToFitWidth = YES;
     self.topCandidateDisplay.minimumScaleFactor = 0;
-    //NSString *path = [Snake snakePath:self.brain.touchSequence withSpread:SPREAD];
-    //self.pathDisplay.text = path;
-    if (self.pathDisplay.text) {
-        //NSLog(@"%@", [self matchesText:path]);
+    if ([self.touchList count] > 2) {
         NSArray *bestWords = [self.brain getOrderedBestMatches];
         self.bestMatchDisplay.text = [bestWords description];
+        NSLog(@"%@", [bestWords description]);
         if ([bestWords count] > 0)
             self.topCandidateDisplay.text = [bestWords[0] substringWithRange:NSMakeRange(5, [bestWords[0] length]-5)];
         else self.topCandidateDisplay.text = @"";
@@ -69,15 +65,6 @@
     }
     NSLog(@"%@", dumpText);
 }
-
-//- (NSString *)matchesText:(NSString *)path {
-//	NSMutableArray *list = (self.snake.snakeDictionary)[path];
-//	NSString *matches = @"";
-//	for (NSString *word in list)
-//		matches = [matches stringByAppendingString:[word stringByAppendingString:@" "]];
-//	matches = [matches stringByAppendingString:[NSString stringWithFormat:@"%lu", (unsigned long)[list count]]];
-//	return matches;
-//}
 
 - (void)touchesBegan:(NSSet *)touches
            withEvent:(UIEvent *)event {

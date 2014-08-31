@@ -60,7 +60,6 @@
 }
 
 - (NSArray *)getOrderedBestMatches {
-    //NSMutableArray *bestWords = [self.fraction bestMatchFor:(self.snake.snakeDictionary)[path] against:self.brain.touchSequence];
     NSString *horizpath = [TwoDim horizontalPathFor:self.touchSequence withTolerance:10];
     NSMutableSet *neighborPaths = [TwoDim xPansion:horizpath];
     NSMutableArray *allNeighborWords = [[NSMutableArray alloc] init];
