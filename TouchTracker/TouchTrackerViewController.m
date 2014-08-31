@@ -10,20 +10,15 @@
 #import "TouchDrawView.h"
 #import "TouchTrackerAppDelegate.h"
 #import "TouchTrackerBrain.h"
-#import "Snake.h"
 #import "DictionaryBuilder.h"
-#import "Fraction.h"
 #import "TypingSpace.h"
 
 @interface TouchTrackerViewController ()
 @property (nonatomic, strong) NSMutableArray *touchList;
 @property (nonatomic, strong) TouchTrackerBrain *brain;
-@property (nonatomic, strong) Snake *snake;
 @property (nonatomic, strong) DictionaryBuilder *dictBuild;
-@property (nonatomic, strong) Fraction *fraction;
-@property (nonatomic) double lastTouchTime;
 @property (weak, nonatomic) IBOutlet TypingSpace *typingSpace;
-- (NSString *)matchesText:(NSString *)path;
+//- (NSString *)matchesText:(NSString *)path;
 @end
 
 @implementation TouchTrackerViewController
@@ -32,33 +27,15 @@
 @synthesize bestMatchDisplay = _bestMatchDisplay;
 @synthesize topCandidateDisplay = _topCandidateDisplay;
 @synthesize brain = _brain;
-@synthesize snake = _snake;
 @synthesize dictBuild = _dictBuild;
-@synthesize fraction = _fraction;
-@synthesize lastTouchTime = _lastTouchTime;
 
 - (IBAction)swipeLeft:(UISwipeGestureRecognizer *)sender {
     [self clearPressed:nil];
 }
 
-- (double)lastTouchTime {
-    if (!_lastTouchTime) _lastTouchTime = INFINITY;
-    return _lastTouchTime;
-}
-
-- (Fraction *)fraction {
-    if (!_fraction) _fraction = [[Fraction alloc] init];
-    return _fraction;
-}
-
 - (DictionaryBuilder *)dictBuild {
 	if (!_dictBuild) _dictBuild = [[DictionaryBuilder alloc] init];
 	return _dictBuild;
-}
-
-- (Snake *)snake {
-	if (!_snake) _snake = [[Snake alloc] init];
-	return _snake;
 }
 
 - (TouchTrackerBrain *)brain {
@@ -71,12 +48,11 @@
 	self.bestMatchDisplay.text = @"";
     self.topCandidateDisplay.adjustsFontSizeToFitWidth = YES;
     self.topCandidateDisplay.minimumScaleFactor = 0;
-    [self.dictBuild writeBinaryHorizontalDictionary];
-    NSString *path = [Snake snakePath:self.brain.touchSequence withSpread:SPREAD];
-    self.pathDisplay.text = path;
+    //NSString *path = [Snake snakePath:self.brain.touchSequence withSpread:SPREAD];
+    //self.pathDisplay.text = path;
     if (self.pathDisplay.text) {
-        NSLog(@"%@", [self matchesText:path]);
-        NSMutableArray *bestWords = [self.fraction bestMatchFor:(self.snake.snakeDictionary)[path] against:self.brain.touchSequence];
+        //NSLog(@"%@", [self matchesText:path]);
+        NSArray *bestWords = [self.brain getOrderedBestMatches];
         self.bestMatchDisplay.text = [bestWords description];
         if ([bestWords count] > 0)
             self.topCandidateDisplay.text = [bestWords[0] substringWithRange:NSMakeRange(5, [bestWords[0] length]-5)];
@@ -94,14 +70,14 @@
     NSLog(@"%@", dumpText);
 }
 
-- (NSString *)matchesText:(NSString *)path {
-	NSMutableArray *list = (self.snake.snakeDictionary)[path];
-	NSString *matches = @"";
-	for (NSString *word in list)
-		matches = [matches stringByAppendingString:[word stringByAppendingString:@" "]];
-	matches = [matches stringByAppendingString:[NSString stringWithFormat:@"%lu", (unsigned long)[list count]]];
-	return matches;
-}
+//- (NSString *)matchesText:(NSString *)path {
+//	NSMutableArray *list = (self.snake.snakeDictionary)[path];
+//	NSString *matches = @"";
+//	for (NSString *word in list)
+//		matches = [matches stringByAppendingString:[word stringByAppendingString:@" "]];
+//	matches = [matches stringByAppendingString:[NSString stringWithFormat:@"%lu", (unsigned long)[list count]]];
+//	return matches;
+//}
 
 - (void)touchesBegan:(NSSet *)touches
            withEvent:(UIEvent *)event {

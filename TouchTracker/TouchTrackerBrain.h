@@ -13,4 +13,5 @@
 - (void)addToSequence:(CGPoint)touch;
 - (CGPoint)getTouchAtIndex:(int)i;
 - (void)clearTouchSequence;
+- (NSArray *)getOrderedBestMatches;
 @end

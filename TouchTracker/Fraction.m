@@ -52,8 +52,8 @@
 	return sqrtf(totalError);
 }
 
-- (NSMutableArray *)bestMatchFor:(NSMutableArray *)words
-                   against:(NSMutableArray *)touchSequence {
+- (NSMutableArray *)combinedFractionOrderedMatchesFor:(NSMutableArray *)words
+                                              against:(NSMutableArray *)touchSequence {
 	float leastError = INFINITY;
 	NSString *bestMatch;
     NSMutableArray *bestMatches = [[NSMutableArray alloc] init];

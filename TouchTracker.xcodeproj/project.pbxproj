@@ -39,6 +39,7 @@
 		14E696CA1940818200E3764A /* snakeDictionary.plist in Resources */ = {isa = PBXBuildFile; fileRef = 14E696C81940818200E3764A /* snakeDictionary.plist */; };
 		14E696CD1940FE9C00E3764A /* Snake.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E696CC1940FE9C00E3764A /* Snake.m */; };
 		14E696CE1940FE9C00E3764A /* Snake.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E696CC1940FE9C00E3764A /* Snake.m */; };
+		14E9684119B37DB400615B5E /* binaryHorizontalDictionary.plist in Resources */ = {isa = PBXBuildFile; fileRef = 14E9684019B37DB400615B5E /* binaryHorizontalDictionary.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +97,7 @@
 		14E696C81940818200E3764A /* snakeDictionary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = snakeDictionary.plist; sourceTree = "<group>"; };
 		14E696CB1940FE9C00E3764A /* Snake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Snake.h; sourceTree = "<group>"; };
 		14E696CC1940FE9C00E3764A /* Snake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Snake.m; sourceTree = "<group>"; };
+		14E9684019B37DB400615B5E /* binaryHorizontalDictionary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = binaryHorizontalDictionary.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 				14C606EE194803ED002D4E4E /* DictionaryBuilder.h */,
 				14C606EF194803ED002D4E4E /* DictionaryBuilder.m */,
 				14E696CB1940FE9C00E3764A /* Snake.h */,
+				14E9684019B37DB400615B5E /* binaryHorizontalDictionary.plist */,
 				14E696CC1940FE9C00E3764A /* Snake.m */,
 				141B4F10198E25F600BE1E99 /* CenterOfGravity.h */,
 				141B4F11198E25F600BE1E99 /* CenterOfGravity.m */,
@@ -305,6 +308,7 @@
 				14E696C91940818200E3764A /* snakeDictionary.plist in Resources */,
 				14B7225F193AF2830059E7BD /* InfoPlist.strings in Resources */,
 				146CEF44193F18E5002E5220 /* dict.txt in Resources */,
+				14E9684119B37DB400615B5E /* binaryHorizontalDictionary.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
