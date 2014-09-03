@@ -29,6 +29,8 @@
 @synthesize countDictionary = _countDictionary;
 @synthesize repeatDictionary = _repeatDictionary;
 @synthesize horizontalDictionary = _horizontalDictionary;
+@synthesize binaryHorizontalDictionary = _binaryHorizontalDictionary;
+@synthesize binaryVerticalDictionary = _binaryVerticalDictionary;
 
 - (Snake *)snake {
     if (!_snake) _snake = [[Snake alloc] init];
@@ -69,6 +71,11 @@
 - (NSMutableDictionary *)binaryHorizontalDictionary {
     if (!_binaryHorizontalDictionary) _binaryHorizontalDictionary = [[NSMutableDictionary alloc] init];
     return _binaryHorizontalDictionary;
+}
+
+- (NSMutableDictionary *)binaryVerticalDictionary {
+    if (!_binaryVerticalDictionary) _binaryVerticalDictionary = [[NSMutableDictionary alloc] init];
+    return _binaryVerticalDictionary;
 }
 
 - (NSArray *)dictionaryWords {
@@ -172,6 +179,26 @@
 		}
 	}
 	[self.binaryHorizontalDictionary writeToFile:dictPath atomically:YES];
+    NSLog(@"%@", dictPath);
+}
+
+- (void)writeBinaryVerticalDictionary {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *dictName = @"binaryVerticalDictionary.plist";
+    NSString *dictPath = [paths[0] stringByAppendingPathComponent:dictName];
+    
+    _binaryVerticalDictionary = [NSMutableDictionary dictionaryWithCapacity:[self.dictionaryWords count]];
+    for (NSString *word in self.dictionaryWords) {
+        if ([word length] >= 2) {
+            NSMutableArray *touchSequence = [self.keyboard modelTouchSequenceFor:word];
+            NSString *path = [TwoDim binaryVerticalPathFor:touchSequence];
+            NSMutableArray *list = _binaryVerticalDictionary[path];
+            if (!list) list = [[NSMutableArray alloc] init];
+            [list addObject:word];
+            _binaryVerticalDictionary[path] = list;
+        }
+    }
+    [self.binaryVerticalDictionary writeToFile:dictPath atomically:YES];
     NSLog(@"%@", dictPath);
 }
 

@@ -17,6 +17,8 @@
               withTolerance:(int)pixels;
 + (NSString *)leftRightFrom:(CGPoint)firstTouch
                          to:(CGPoint)secondTouch;
++ (NSString *)upDownFrom:(CGPoint)firstTouch
+                      to:(CGPoint)secondTouch;
 @end
 
 @implementation TwoDim
@@ -38,6 +40,14 @@
 	return _binaryHorizontalDictionary;
 }
 
+- (NSDictionary *)binaryVerticalDictionary {
+    if (!_binaryVerticalDictionary) {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"binaryVerticalDictionary" ofType:@"plist"];
+        _binaryVerticalDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
+    }
+    return _binaryVerticalDictionary;
+}
+
 + (NSString *)upDownFrom:(CGPoint)firstTouch
                       to:(CGPoint)secondTouch
            withTolerance:(int)pixels {
@@ -47,6 +57,15 @@
         else return @"u";
     }
     return @"x";
+}
+
+/**
+ For use in dictionary creation. Defaults to up direction, nothing undefined.
+ */
++ (NSString *)upDownFrom:(CGPoint)firstTouch
+                      to:(CGPoint)secondTouch {
+    if (firstTouch.y-secondTouch.y > 0) return @"d";
+    return @"u";
 }
 
 + (NSString *)leftRightFrom:(CGPoint)firstTouch
@@ -104,6 +123,20 @@
         [touchSequence[i] getValue:&firstTouch];
         [touchSequence[i+1] getValue:&secondTouch];
         path = [path stringByAppendingString:[TwoDim upDownFrom:firstTouch to:secondTouch withTolerance:pixels]];
+    }
+    return path;
+}
+
+/**
+ For use in dictionary creation.
+ */
++ (NSString *)binaryVerticalPathFor:(NSMutableArray *)touchSequence {
+    NSString *path = @"";
+    for (int i = 0; i < [touchSequence count] - 1; i++) {
+        CGPoint firstTouch, secondTouch;
+        [touchSequence[i] getValue:&firstTouch];
+        [touchSequence[i+1] getValue:&secondTouch];
+        path = [path stringByAppendingString:[TwoDim upDownFrom:firstTouch to:secondTouch]];
     }
     return path;
 }

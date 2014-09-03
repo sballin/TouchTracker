@@ -11,11 +11,13 @@
 @interface TwoDim : NSObject
 @property (nonatomic, strong) NSDictionary *horizontalDictionary;
 @property (nonatomic, strong) NSDictionary *binaryHorizontalDictionary;
+@property (nonatomic, strong) NSDictionary *binaryVerticalDictionary;
 + (NSString *)horizontalPathFor:(NSMutableArray *)touchSequence
                   withTolerance:(int)pixels;
 + (NSString *)binaryHorizontalPathFor:(NSMutableArray *)touchSequence;
 + (NSString *)verticalPathFor:(NSMutableArray *)touchSequence
                 withTolerance:(int)pixels;
-+ (NSMutableSet *) xPansion:(NSString *)path;
++ (NSString *)binaryVerticalPathFor:(NSMutableArray *)touchSequence;
++ (NSMutableSet *)xPansion:(NSString *)path;
 - (NSString *)rowSequence:(NSMutableArray *)touchSequence;
 @end

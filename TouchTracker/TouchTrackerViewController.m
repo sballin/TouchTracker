@@ -53,6 +53,7 @@
             self.bigCandidateDisplay.text = [bestWords[0] substringWithRange:NSMakeRange(5, [bestWords[0] length]-5)];
         else self.bigCandidateDisplay.text = @"";
     }
+    else self.bigCandidateDisplay.text = @"";
 	[self.brain clearTouchSequence];
 }
 

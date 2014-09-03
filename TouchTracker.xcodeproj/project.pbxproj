@@ -11,6 +11,7 @@
 		141B4F12198E25F600BE1E99 /* CenterOfGravity.m in Sources */ = {isa = PBXBuildFile; fileRef = 141B4F11198E25F600BE1E99 /* CenterOfGravity.m */; };
 		1451B977198092A600C221BE /* TypingSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 1451B976198092A600C221BE /* TypingSpace.m */; };
 		145DD966196A5FF20088243D /* Repeat.m in Sources */ = {isa = PBXBuildFile; fileRef = 145DD965196A5FF20088243D /* Repeat.m */; };
+		146129FD19B6CE1B004DC904 /* binaryVerticalDictionary.plist in Resources */ = {isa = PBXBuildFile; fileRef = 146129FC19B6CE1B004DC904 /* binaryVerticalDictionary.plist */; };
 		146CEF44193F18E5002E5220 /* dict.txt in Resources */ = {isa = PBXBuildFile; fileRef = 146CEF43193F18E5002E5220 /* dict.txt */; };
 		146CEF45193F18E5002E5220 /* dict.txt in Resources */ = {isa = PBXBuildFile; fileRef = 146CEF43193F18E5002E5220 /* dict.txt */; };
 		14B72255193AF2830059E7BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14B72254193AF2830059E7BD /* Foundation.framework */; };
@@ -60,6 +61,7 @@
 		1451B976198092A600C221BE /* TypingSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TypingSpace.m; sourceTree = "<group>"; };
 		145DD964196A5FF20088243D /* Repeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Repeat.h; sourceTree = "<group>"; };
 		145DD965196A5FF20088243D /* Repeat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Repeat.m; sourceTree = "<group>"; };
+		146129FC19B6CE1B004DC904 /* binaryVerticalDictionary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = binaryVerticalDictionary.plist; sourceTree = "<group>"; };
 		146CEF43193F18E5002E5220 /* dict.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dict.txt; sourceTree = "<group>"; };
 		14B72251193AF2830059E7BD /* TouchTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TouchTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14B72254193AF2830059E7BD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -163,8 +165,6 @@
 				14B72264193AF2830059E7BD /* TouchTrackerAppDelegate.m */,
 				14B7228F193AF6250059E7BD /* TouchDrawView.h */,
 				14B72290193AF6250059E7BD /* TouchDrawView.m */,
-				14E696C81940818200E3764A /* snakeDictionary.plist */,
-				14D6C6E5195BCC5F001D7E11 /* snakeDictionary25.plist */,
 				14B72266193AF2830059E7BD /* Main_iPhone.storyboard */,
 				14B72269193AF2830059E7BD /* Main_iPad.storyboard */,
 				1451B975198092A600C221BE /* TypingSpace.h */,
@@ -176,7 +176,6 @@
 				14C606EE194803ED002D4E4E /* DictionaryBuilder.h */,
 				14C606EF194803ED002D4E4E /* DictionaryBuilder.m */,
 				14E696CB1940FE9C00E3764A /* Snake.h */,
-				14E9684019B37DB400615B5E /* binaryHorizontalDictionary.plist */,
 				14E696CC1940FE9C00E3764A /* Snake.m */,
 				141B4F10198E25F600BE1E99 /* CenterOfGravity.h */,
 				141B4F11198E25F600BE1E99 /* CenterOfGravity.m */,
@@ -188,6 +187,10 @@
 				14D1807119629023009D16E4 /* TwoDim.m */,
 				14C606EB1947FC39002D4E4E /* KeyMath.h */,
 				14C606EC1947FC39002D4E4E /* KeyMath.m */,
+				14E696C81940818200E3764A /* snakeDictionary.plist */,
+				14D6C6E5195BCC5F001D7E11 /* snakeDictionary25.plist */,
+				14E9684019B37DB400615B5E /* binaryHorizontalDictionary.plist */,
+				146129FC19B6CE1B004DC904 /* binaryVerticalDictionary.plist */,
 				14B7226F193AF2830059E7BD /* Images.xcassets */,
 				14B7225B193AF2830059E7BD /* Supporting Files */,
 			);
@@ -301,6 +304,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				14B7226B193AF2830059E7BD /* Main_iPad.storyboard in Resources */,
+				146129FD19B6CE1B004DC904 /* binaryVerticalDictionary.plist in Resources */,
 				14B72270193AF2830059E7BD /* Images.xcassets in Resources */,
 				14D6C6E6195BCC5F001D7E11 /* snakeDictionary25.plist in Resources */,
 				14B72268193AF2830059E7BD /* Main_iPhone.storyboard in Resources */,

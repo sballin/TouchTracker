@@ -14,9 +14,11 @@
 @property (nonatomic, strong) NSMutableDictionary *repeatDictionary;
 @property (nonatomic, strong) NSMutableDictionary *horizontalDictionary;
 @property (nonatomic, strong) NSMutableDictionary *binaryHorizontalDictionary;
+@property (nonatomic, strong) NSMutableDictionary *binaryVerticalDictionary;
 - (void)writeSnakeDictionary:(int)spread;
 - (void)writeCountDictionary;
 - (void)writeRepeatDictionary:(int)tolerance;
 - (void)writeHorizontalDictionary:(int)tolerance;
 - (void)writeBinaryHorizontalDictionary;
+- (void)writeBinaryVerticalDictionary;
 @end
