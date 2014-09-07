@@ -19,10 +19,10 @@
 		14B72259193AF2830059E7BD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14B72258193AF2830059E7BD /* UIKit.framework */; };
 		14B7225F193AF2830059E7BD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14B7225D193AF2830059E7BD /* InfoPlist.strings */; };
 		14B72261193AF2830059E7BD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B72260193AF2830059E7BD /* main.m */; };
-		14B72265193AF2830059E7BD /* TouchTrackerAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B72264193AF2830059E7BD /* TouchTrackerAppDelegate.m */; };
+		14B72265193AF2830059E7BD /* TTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B72264193AF2830059E7BD /* TTAppDelegate.m */; };
 		14B72268193AF2830059E7BD /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14B72266193AF2830059E7BD /* Main_iPhone.storyboard */; };
 		14B7226B193AF2830059E7BD /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14B72269193AF2830059E7BD /* Main_iPad.storyboard */; };
-		14B7226E193AF2830059E7BD /* TouchTrackerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B7226D193AF2830059E7BD /* TouchTrackerViewController.m */; };
+		14B7226E193AF2830059E7BD /* TTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B7226D193AF2830059E7BD /* TTViewController.m */; };
 		14B72270193AF2830059E7BD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14B7226F193AF2830059E7BD /* Images.xcassets */; };
 		14B72277193AF2830059E7BD /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14B72276193AF2830059E7BD /* XCTest.framework */; };
 		14B72278193AF2830059E7BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14B72254193AF2830059E7BD /* Foundation.framework */; };
@@ -30,7 +30,7 @@
 		14B72281193AF2830059E7BD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14B7227F193AF2830059E7BD /* InfoPlist.strings */; };
 		14B72283193AF2830059E7BD /* TouchTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B72282193AF2830059E7BD /* TouchTrackerTests.m */; };
 		14B72291193AF6250059E7BD /* TouchDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B72290193AF6250059E7BD /* TouchDrawView.m */; };
-		14B72298193B37C50059E7BD /* TouchTrackerBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B72297193B37C50059E7BD /* TouchTrackerBrain.m */; };
+		14B72298193B37C50059E7BD /* TTBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B72297193B37C50059E7BD /* TTBrain.m */; };
 		14C606ED1947FC39002D4E4E /* KeyMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C606EC1947FC39002D4E4E /* KeyMath.m */; };
 		14C606F0194803ED002D4E4E /* DictionaryBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C606EF194803ED002D4E4E /* DictionaryBuilder.m */; };
 		14D0F18F196F9B87003BB7C2 /* Fraction.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D0F18E196F9B87003BB7C2 /* Fraction.m */; };
@@ -71,12 +71,12 @@
 		14B7225E193AF2830059E7BD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		14B72260193AF2830059E7BD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		14B72262193AF2830059E7BD /* TouchTracker-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TouchTracker-Prefix.pch"; sourceTree = "<group>"; };
-		14B72263193AF2830059E7BD /* TouchTrackerAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TouchTrackerAppDelegate.h; sourceTree = "<group>"; };
-		14B72264193AF2830059E7BD /* TouchTrackerAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouchTrackerAppDelegate.m; sourceTree = "<group>"; };
+		14B72263193AF2830059E7BD /* TTAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTAppDelegate.h; sourceTree = "<group>"; };
+		14B72264193AF2830059E7BD /* TTAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTAppDelegate.m; sourceTree = "<group>"; };
 		14B72267193AF2830059E7BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		14B7226A193AF2830059E7BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
-		14B7226C193AF2830059E7BD /* TouchTrackerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TouchTrackerViewController.h; sourceTree = "<group>"; };
-		14B7226D193AF2830059E7BD /* TouchTrackerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouchTrackerViewController.m; sourceTree = "<group>"; };
+		14B7226C193AF2830059E7BD /* TTViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTViewController.h; sourceTree = "<group>"; };
+		14B7226D193AF2830059E7BD /* TTViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTViewController.m; sourceTree = "<group>"; };
 		14B7226F193AF2830059E7BD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		14B72275193AF2830059E7BD /* TouchTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TouchTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		14B72276193AF2830059E7BD /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -85,8 +85,8 @@
 		14B72282193AF2830059E7BD /* TouchTrackerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouchTrackerTests.m; sourceTree = "<group>"; };
 		14B7228F193AF6250059E7BD /* TouchDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchDrawView.h; sourceTree = "<group>"; };
 		14B72290193AF6250059E7BD /* TouchDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchDrawView.m; sourceTree = "<group>"; };
-		14B72296193B37C50059E7BD /* TouchTrackerBrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchTrackerBrain.h; sourceTree = "<group>"; };
-		14B72297193B37C50059E7BD /* TouchTrackerBrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchTrackerBrain.m; sourceTree = "<group>"; };
+		14B72296193B37C50059E7BD /* TTBrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTBrain.h; sourceTree = "<group>"; };
+		14B72297193B37C50059E7BD /* TTBrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTBrain.m; sourceTree = "<group>"; };
 		14C606EB1947FC39002D4E4E /* KeyMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyMath.h; sourceTree = "<group>"; };
 		14C606EC1947FC39002D4E4E /* KeyMath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyMath.m; sourceTree = "<group>"; };
 		14C606EE194803ED002D4E4E /* DictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionaryBuilder.h; sourceTree = "<group>"; };
@@ -161,18 +161,18 @@
 		14B7225A193AF2830059E7BD /* TouchTracker */ = {
 			isa = PBXGroup;
 			children = (
-				14B72263193AF2830059E7BD /* TouchTrackerAppDelegate.h */,
-				14B72264193AF2830059E7BD /* TouchTrackerAppDelegate.m */,
+				14B72263193AF2830059E7BD /* TTAppDelegate.h */,
+				14B72264193AF2830059E7BD /* TTAppDelegate.m */,
 				14B7228F193AF6250059E7BD /* TouchDrawView.h */,
 				14B72290193AF6250059E7BD /* TouchDrawView.m */,
 				14B72266193AF2830059E7BD /* Main_iPhone.storyboard */,
 				14B72269193AF2830059E7BD /* Main_iPad.storyboard */,
 				1451B975198092A600C221BE /* TypingSpace.h */,
 				1451B976198092A600C221BE /* TypingSpace.m */,
-				14B7226C193AF2830059E7BD /* TouchTrackerViewController.h */,
-				14B7226D193AF2830059E7BD /* TouchTrackerViewController.m */,
-				14B72296193B37C50059E7BD /* TouchTrackerBrain.h */,
-				14B72297193B37C50059E7BD /* TouchTrackerBrain.m */,
+				14B7226C193AF2830059E7BD /* TTViewController.h */,
+				14B7226D193AF2830059E7BD /* TTViewController.m */,
+				14B72296193B37C50059E7BD /* TTBrain.h */,
+				14B72297193B37C50059E7BD /* TTBrain.m */,
 				14C606EE194803ED002D4E4E /* DictionaryBuilder.h */,
 				14C606EF194803ED002D4E4E /* DictionaryBuilder.m */,
 				14E696CB1940FE9C00E3764A /* Snake.h */,
@@ -270,7 +270,7 @@
 		14B72249193AF2830059E7BD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				CLASSPREFIX = TouchTracker;
+				CLASSPREFIX = TT;
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Sean;
 				TargetAttributes = {
@@ -335,14 +335,14 @@
 			files = (
 				14D1807219629023009D16E4 /* TwoDim.m in Sources */,
 				14E696CD1940FE9C00E3764A /* Snake.m in Sources */,
-				14B7226E193AF2830059E7BD /* TouchTrackerViewController.m in Sources */,
+				14B7226E193AF2830059E7BD /* TTViewController.m in Sources */,
 				14B72291193AF6250059E7BD /* TouchDrawView.m in Sources */,
 				14C606F0194803ED002D4E4E /* DictionaryBuilder.m in Sources */,
 				141B4F12198E25F600BE1E99 /* CenterOfGravity.m in Sources */,
 				14B72261193AF2830059E7BD /* main.m in Sources */,
-				14B72265193AF2830059E7BD /* TouchTrackerAppDelegate.m in Sources */,
+				14B72265193AF2830059E7BD /* TTAppDelegate.m in Sources */,
 				145DD966196A5FF20088243D /* Repeat.m in Sources */,
-				14B72298193B37C50059E7BD /* TouchTrackerBrain.m in Sources */,
+				14B72298193B37C50059E7BD /* TTBrain.m in Sources */,
 				14C606ED1947FC39002D4E4E /* KeyMath.m in Sources */,
 				1451B977198092A600C221BE /* TypingSpace.m in Sources */,
 				14D0F18F196F9B87003BB7C2 /* Fraction.m in Sources */,

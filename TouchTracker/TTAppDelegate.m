@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Sean. All rights reserved.
 //
 
-#import "TouchTrackerAppDelegate.h"
+#import "TTAppDelegate.h"
 
 @implementation TouchTrackerAppDelegate
 

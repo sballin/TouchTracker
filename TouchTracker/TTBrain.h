@@ -14,4 +14,5 @@
 - (CGPoint)getTouchAtIndex:(int)i;
 - (void)clearTouchSequence;
 - (NSArray *)getRankedMatches;
+- (NSArray *)getRankedIntersectMatches;
 @end

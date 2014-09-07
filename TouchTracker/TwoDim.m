@@ -147,14 +147,32 @@
     Direction sequence to analyze
  @return NSSet of all possible paths.
  */
-+ (NSMutableSet *)xPansion:(NSString *)path {
++ (NSMutableSet *)horizontalExpansion:(NSString *)path {
     NSMutableSet *set = [[NSMutableSet alloc] init]; // get rid of alloc/init
     if ([path rangeOfString:@"x"].location == NSNotFound)
         set = [NSMutableSet setWithObject:path];
     else {
         NSRange range = [path rangeOfString:@"x"];
-        [set unionSet:[TwoDim xPansion:[path stringByReplacingCharactersInRange:range withString:@"l"]]];
-        [set unionSet:[TwoDim xPansion:[path stringByReplacingCharactersInRange:range withString:@"r"]]];
+        [set unionSet:[TwoDim horizontalExpansion:[path stringByReplacingCharactersInRange:range withString:@"l"]]];
+        [set unionSet:[TwoDim horizontalExpansion:[path stringByReplacingCharactersInRange:range withString:@"r"]]];
+    }
+    return set;
+}
+
+/**
+ Replace all xs in a path with u/d directions.
+ @param path
+ Direction sequence to analyze
+ @return NSSet of all possible paths.
+ */
++ (NSMutableSet *)verticalExpansion:(NSString *)path {
+    NSMutableSet *set = [[NSMutableSet alloc] init]; // get rid of alloc/init
+    if ([path rangeOfString:@"x"].location == NSNotFound)
+        set = [NSMutableSet setWithObject:path];
+    else {
+        NSRange range = [path rangeOfString:@"x"];
+        [set unionSet:[TwoDim verticalExpansion:[path stringByReplacingCharactersInRange:range withString:@"u"]]];
+        [set unionSet:[TwoDim verticalExpansion:[path stringByReplacingCharactersInRange:range withString:@"d"]]];
     }
     return set;
 }

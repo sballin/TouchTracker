@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Sean. All rights reserved.
 //
 
-#import "TouchTrackerBrain.h"
+#import "TTBrain.h"
 #import "TwoDim.h"
 #import "Fraction.h"
 #import "KeyMath.h"
@@ -53,12 +53,30 @@
 
 - (NSArray *)getRankedMatches {
     NSString *horizpath = [TwoDim horizontalPathFor:self.touchSequence withTolerance:10];
-    NSMutableSet *neighborPaths = [TwoDim xPansion:horizpath];
+    NSMutableSet *neighborPaths = [TwoDim horizontalExpansion:horizpath];
     NSMutableArray *allNeighborWords = [[NSMutableArray alloc] init];
     for (NSString *neighborPath in neighborPaths) {
         [allNeighborWords addObjectsFromArray:self.twodim.binaryHorizontalDictionary[neighborPath]];
     }
     return [self.fraction combinedFractionOrderedMatchesFor:allNeighborWords against:self.touchSequence];
+}
+
+- (NSArray *)getRankedIntersectMatches {
+    NSString *horizpath = [TwoDim horizontalPathFor:self.touchSequence withTolerance:10];
+    NSString *vertpath = [TwoDim verticalPathFor:self.touchSequence withTolerance:10];
+    NSMutableSet *horizontalNeighborPaths = [TwoDim horizontalExpansion:horizpath];
+    NSMutableSet *verticalNeighborPaths = [TwoDim verticalExpansion:horizpath];
+    NSMutableSet *horizontalNeighborWords = [[NSMutableSet alloc] init];
+    NSMutableSet *verticalNeighborWords = [[NSMutableSet alloc] init];
+    for (NSString *neighborPath in horizontalNeighborPaths) {
+        [horizontalNeighborWords addObjectsFromArray:[self.twodim.binaryHorizontalDictionary[neighborPath] copy]];
+    }
+    for (NSString *neighborPath in verticalNeighborPaths) {
+        [verticalNeighborWords addObjectsFromArray:[self.twodim.binaryVerticalDictionary[neighborPath] copy]];
+    }
+    [horizontalNeighborWords intersectSet:verticalNeighborWords];
+    NSMutableArray *allCandidateWords = [[horizontalNeighborWords allObjects] mutableCopy];
+    return [self.fraction combinedFractionOrderedMatchesFor:allCandidateWords against:self.touchSequence];
 }
 
 /* WRITE ME PLS */
