@@ -62,10 +62,10 @@
 }
 
 - (NSArray *)getRankedIntersectMatches {
-    NSString *horizpath = [TwoDim horizontalPathFor:self.touchSequence withTolerance:10];
-    NSString *vertpath = [TwoDim verticalPathFor:self.touchSequence withTolerance:10];
+    NSString *horizpath = [TwoDim horizontalPathFor:self.touchSequence withTolerance:25];
+    NSString *vertpath = [TwoDim verticalPathFor:self.touchSequence withTolerance:25];
     NSMutableSet *horizontalNeighborPaths = [TwoDim horizontalExpansion:horizpath];
-    NSMutableSet *verticalNeighborPaths = [TwoDim verticalExpansion:horizpath];
+    NSMutableSet *verticalNeighborPaths = [TwoDim verticalExpansion:vertpath];
     NSMutableSet *horizontalNeighborWords = [[NSMutableSet alloc] init];
     NSMutableSet *verticalNeighborWords = [[NSMutableSet alloc] init];
     for (NSString *neighborPath in horizontalNeighborPaths) {

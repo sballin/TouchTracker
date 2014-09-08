@@ -104,7 +104,7 @@
     
     CABasicAnimation *grow = [CABasicAnimation animationWithKeyPath:@"transform"];
     grow.fromValue = [layer valueForKey:@"transform"];
-    CATransform3D t = CATransform3DMakeScale(6.f, 6.f, 1.f);
+    CATransform3D t = CATransform3DMakeScale(12.f, 12.f, 1.f);
     grow.toValue = [NSValue valueWithCATransform3D:t];
     grow.duration = 1.f;
     grow.delegate = self;
