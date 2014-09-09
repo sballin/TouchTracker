@@ -31,7 +31,6 @@
 	return _horizontalDictionary;
 }
 
-
 - (NSDictionary *)binaryHorizontalDictionary {
 	if (!_binaryHorizontalDictionary) {
 		NSString *path = [[NSBundle mainBundle] pathForResource:@"binaryHorizontalDictionary" ofType:@"plist"];

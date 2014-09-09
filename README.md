@@ -1,8 +1,8 @@
 ### 🔫 To-Do
 
-- Fix hard-coded radius in dictionary fetching
-    - More lookups or do something like default to `l` if equal in dictionary creation?
-- Fading, expanding disk animation for each press
+- Look through all words of particular length if no matches
+- Keep last best match for rudimentary sentence writing
+- Support faster input
 
 ---
 
