@@ -48,7 +48,6 @@
     if ([self.brain.touchSequence count] > 2) {
         NSArray *bestWords = [self.brain getRankedIntersectMatches];
         self.rankedMatchesDisplay.text = [bestWords description];
-        NSLog(@"%@", [bestWords description]);
         if ([bestWords count] > 0)
             self.bigCandidateDisplay.text = [bestWords[0] substringWithRange:NSMakeRange(5, [bestWords[0] length]-5)];
         else self.bigCandidateDisplay.text = @"";
@@ -66,11 +65,27 @@
     NSLog(@"%@", dumpText);
 }
 
+- (void)spacePressed {
+    self.bigCandidateDisplay.text = [self.bigCandidateDisplay.text stringByAppendingString:@" "];
+    if ([self.brain.touchSequence count] > 2) {
+        NSArray *bestWords = [self.brain getRankedIntersectMatches];
+        self.rankedMatchesDisplay.text = [bestWords description];
+        if ([bestWords count] > 0)
+            self.bigCandidateDisplay.text = [self.bigCandidateDisplay.text stringByAppendingString: [bestWords[0] substringWithRange:NSMakeRange(5, [bestWords[0] length]-5)]];
+        else self.bigCandidateDisplay.text = [self.bigCandidateDisplay.text stringByAppendingString: @"nmatch"];
+    }
+    else self.bigCandidateDisplay.text = [self.bigCandidateDisplay.text stringByAppendingString:@"ntouch"];
+	[self.brain clearTouchSequence];
+}
+
 - (void)touchesBegan:(NSSet *)touches
            withEvent:(UIEvent *)event {
 	for (UITouch *t in touches) {
 		CGPoint point = [t locationInView:self.view];
-		[self.brain addToSequence:point];
+        float thickness = [[t valueForKey:@"pathMajorRadius"] floatValue];
+        if (thickness < 10)
+            [self.brain addToSequence:point];
+        else [self spacePressed];
 	}
     [self addGrowingCircleAtPoint:[[touches anyObject] locationInView:self.view]];
 }
@@ -123,5 +138,63 @@
     [fade setValue:layer forKey:@"layer"];
     [layer addAnimation:fade forKey:@"opacity"];
 }
+
+//#define GSEVENT_TYPE 2
+//#define GSEVENT_FLAGS 12
+//#define GSEVENTKEY_KEYCODE 15
+//#define GSEVENT_TYPE_KEYUP 11
+//#define KGSEVENTHAND 3001
+//
+//NSString *const GSEventKeyUpNotification = @"GSEventKeyUpHackNotification";
+//
+//- (void)sendEvent:(UIEvent *)event
+//{
+//    [super sendEvent:event];
+//    
+//    if ([event respondsToSelector:@selector(_gsEvent)]) {
+//        
+//        // Key events come in form of UIInternalEvents.
+//        // They contain a GSEvent object which contains
+//        // a GSEventRecord among other things
+//        
+//        int *eventMem;
+//        eventMem = (int *)[event performSelector:@selector(_gsEvent)];
+//        if (eventMem) {
+//            
+//            // So far we got a GSEvent :)
+//            
+//            int eventType = eventMem[GSEVENT_TYPE];
+//            if (eventType == GSEVENT_TYPE_KEYUP) {
+//                
+//                // Now we got a GSEventKey!
+//                
+//                // Read flags from GSEvent
+//                int eventFlags = eventMem[GSEVENT_FLAGS];
+//                if (eventFlags) {
+//                    
+//                    // This example post notifications only when
+//                    // pressed key has Shift, Ctrl, Cmd or Alt flags
+//                    
+//                    // Read keycode from GSEventKey
+//                    int tmp = eventMem[GSEVENTKEY_KEYCODE];
+//                    UniChar *keycode = (UniChar *)&tmp;
+//                    
+//                    // Post notification
+//                    NSDictionary *inf;
+//                    inf = [[NSDictionary alloc] initWithObjectsAndKeys:
+//                           [NSNumber numberWithShort:keycode[0]],
+//                           @"keycode",
+//                           [NSNumber numberWithInt:eventFlags],
+//                           @"eventFlags",
+//                           nil];
+//                    [[NSNotificationCenter defaultCenter]
+//                     postNotificationName:GSEventKeyUpNotification
+//                     object:nil
+//                     userInfo:userInfo];
+//                }
+//            }
+//        }
+//    }
+//}
 
 @end

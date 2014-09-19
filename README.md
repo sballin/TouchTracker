@@ -8,20 +8,13 @@
 
 ### ☁ Ideas
 
+- Identify space pressed based on __pathMajorRadius__: thumb is bigger than rest of fingers
 - Add errors from horizontal and vertical paths in __quadrature__!
 - Identify __finger__ behind each tap, possible to get [radius](http://easyplace.wordpress.com/2013/04/09/how-to-detect-touch-size-in-ios/), then compare relative sizes
 - ➽ Ask about __speeding up__ touch recognition on Apple developer forums
 - ➽ Dictionary grouping words of __same length__: small arithmetic for a few thousand elements -> not bad, right?
 - ➽ __Horizontal__ and __vertical__ fraction paths
     - +/– for direction and scaled with total distances
-
----
-
-### 🔴 Getting rid of x
-
-Look in different snake paths of just `r`s and `l`s. Probably better than going through all words of the same length.
-
-Maybe don't get rid of it, actually, but instead use x as a marker to generate different permutations. Wouldn't have to do as many key requests from dict if there were no x, but lists would be bigger... probably no improvement.
 
 ---
 
