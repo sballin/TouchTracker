@@ -118,10 +118,6 @@
     NSMutableArray *bestMatches = [[NSMutableArray alloc] init];
 	for (NSString *word in words) {
 		float error = [self twoDimErrorForWord:word against:touchSequence];
-		if (error < leastError) {
-			bestMatch = word;
-			leastError = error;
-		}
         [bestMatches addObject:[NSString stringWithFormat:@"%.2f %@", error, word]];
 	}
     [bestMatches sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];

@@ -1,20 +1,19 @@
 ### 🔫 To-Do
 
-- Look through all words of particular length if no matches
-- Keep last best match for rudimentary sentence writing
+- ➽➽➽ Look through all words of particular length if no matches
 - Support faster input
 
 ---
 
 ### ☁ Ideas
 
-- Identify space pressed based on __pathMajorRadius__: thumb is bigger than rest of fingers
 - Add errors from horizontal and vertical paths in __quadrature__!
-- Identify __finger__ behind each tap, possible to get [radius](http://easyplace.wordpress.com/2013/04/09/how-to-detect-touch-size-in-ios/), then compare relative sizes
-- ➽ Ask about __speeding up__ touch recognition on Apple developer forums
-- ➽ Dictionary grouping words of __same length__: small arithmetic for a few thousand elements -> not bad, right?
-- ➽ __Horizontal__ and __vertical__ fraction paths
-    - +/– for direction and scaled with total distances
+- Identify __finger__ behind each tap using radius
+- ➽ Repeat dictionary
+- ➽ Different color for space pressed, back pressed
+- ➽ Back one word with two-finger tap
+- Ask about __speeding up__ touch recognition on Apple developer forums
+- ➽ Dictionary grouping words of __same length__
 
 ---
 

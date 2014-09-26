@@ -40,6 +40,11 @@
 	return _brain;
 }
 
+- (NSMutableArray *)userText {
+    if (!_userText) _userText = [[NSMutableArray alloc] init];
+    return _userText;
+}
+
 #define SPREAD 25
 - (IBAction)clearPressed:(id)sender {
 	self.rankedMatchesDisplay.text = @"";
@@ -49,7 +54,7 @@
         NSArray *bestWords = [self.brain getRankedIntersectMatches];
         self.rankedMatchesDisplay.text = [bestWords description];
         if ([bestWords count] > 0)
-            self.bigCandidateDisplay.text = [bestWords[0] substringWithRange:NSMakeRange(5, [bestWords[0] length]-5)];
+            self.bigCandidateDisplay.text = [self getFormattedUserText];
         else self.bigCandidateDisplay.text = @"";
     }
     else self.bigCandidateDisplay.text = @"";
@@ -65,29 +70,55 @@
     NSLog(@"%@", dumpText);
 }
 
+- (NSString *)getFormattedUserText {
+    NSString *outputText = @"";
+    for (NSString *word in self.userText)
+        outputText = [outputText stringByAppendingString:[NSString stringWithFormat:@"%@ ", word]];
+    return outputText;
+}
+
 - (void)spacePressed {
-    self.bigCandidateDisplay.text = [self.bigCandidateDisplay.text stringByAppendingString:@" "];
     if ([self.brain.touchSequence count] > 2) {
         NSArray *bestWords = [self.brain getRankedIntersectMatches];
         self.rankedMatchesDisplay.text = [bestWords description];
         if ([bestWords count] > 0)
-            self.bigCandidateDisplay.text = [self.bigCandidateDisplay.text stringByAppendingString: [bestWords[0] substringWithRange:NSMakeRange(5, [bestWords[0] length]-5)]];
+            [self.userText addObject:[bestWords[0] substringWithRange:NSMakeRange(5, [bestWords[0] length]-5)]];
         else self.bigCandidateDisplay.text = [self.bigCandidateDisplay.text stringByAppendingString: @"nmatch"];
+        self.bigCandidateDisplay.text = [self getFormattedUserText];
     }
     else self.bigCandidateDisplay.text = [self.bigCandidateDisplay.text stringByAppendingString:@"ntouch"];
 	[self.brain clearTouchSequence];
 }
 
+- (void)backspacePressed {
+    [self.userText removeLastObject];
+    self.bigCandidateDisplay.text = [self getFormattedUserText];
+    self.rankedMatchesDisplay.text = @"";
+}
+
+#define THUMB_THRESHOLD 40
 - (void)touchesBegan:(NSSet *)touches
            withEvent:(UIEvent *)event {
-	for (UITouch *t in touches) {
-		CGPoint point = [t locationInView:self.view];
-        float thickness = [[t valueForKey:@"pathMajorRadius"] floatValue];
-        if (thickness < 10)
-            [self.brain addToSequence:point];
-        else [self spacePressed];
-	}
-    [self addGrowingCircleAtPoint:[[touches anyObject] locationInView:self.view]];
+    if ([[event allTouches] count] == 1) {
+        for (UITouch *t in touches) {
+            CGPoint point = [t locationInView:self.view];
+            float thickness = [[t valueForKey:@"pathMajorRadius"] floatValue];
+            if (thickness < THUMB_THRESHOLD) {
+                [self.brain addToSequence:point];
+                [self addGrowingCircleAtPoint:[[touches anyObject] locationInView:self.view] withColor:[UIColor blueColor]];
+            }
+            else {
+                [self spacePressed];
+                [self addGrowingCircleAtPoint:[[touches anyObject] locationInView:self.view] withColor:[UIColor greenColor]];
+            }
+            
+        }
+    }
+    else {
+        [self backspacePressed];
+        [self addGrowingCircleAtPoint:[[touches anyObject] locationInView:self.view] withColor:[UIColor redColor]];
+    }
+        
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
@@ -98,7 +129,7 @@
     }
 }
 
-- (void)addGrowingCircleAtPoint:(CGPoint)point {
+- (void)addGrowingCircleAtPoint:(CGPoint)point withColor:(UIColor *)color {
     // create a circle path
     CGMutablePathRef circlePath = CGPathCreateMutable();
     CGPathAddArc(circlePath, NULL, 0.f, 0.f, 20.f, 0.f, (float)2.f*M_PI, true);
@@ -112,7 +143,7 @@
     layer.delegate = self;
     
     // set up the attributes of the shape layer and add it to our view's layer
-    layer.fillColor = [[UIColor purpleColor] CGColor];
+    layer.fillColor = [color CGColor];
     layer.position = point;
     layer.anchorPoint = CGPointMake(.5f, .5f);
     [self.view.layer addSublayer:layer];
@@ -139,17 +170,17 @@
     [layer addAnimation:fade forKey:@"opacity"];
 }
 
-//#define GSEVENT_TYPE 2
-//#define GSEVENT_FLAGS 12
-//#define GSEVENTKEY_KEYCODE 15
-//#define GSEVENT_TYPE_KEYUP 11
-//#define KGSEVENTHAND 3001
+#define GSEVENT_TYPE 2
+#define GSEVENT_FLAGS 12
+#define GSEVENTKEY_KEYCODE 15
+#define GSEVENT_TYPE_KEYUP 11
+#define KGSEVENTHAND 3001
 //
 //NSString *const GSEventKeyUpNotification = @"GSEventKeyUpHackNotification";
 //
 //- (void)sendEvent:(UIEvent *)event
 //{
-//    [super sendEvent:event];
+//    [UIApplication sendEvent:event];
 //    
 //    if ([event respondsToSelector:@selector(_gsEvent)]) {
 //        
@@ -157,8 +188,8 @@
 //        // They contain a GSEvent object which contains
 //        // a GSEventRecord among other things
 //        
-//        int *eventMem;
-//        eventMem = (int *)[event performSelector:@selector(_gsEvent)];
+//        int eventMem = [event performSelector:@selector(_gsEvent)];
+//        
 //        if (eventMem) {
 //            
 //            // So far we got a GSEvent :)
