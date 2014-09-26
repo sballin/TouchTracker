@@ -116,9 +116,10 @@
     }
     else {
         [self backspacePressed];
-        [self addGrowingCircleAtPoint:[[touches anyObject] locationInView:self.view] withColor:[UIColor redColor]];
+        NSArray *touches = [event.allTouches allObjects];
+        [self addGrowingCircleAtPoint:[touches[0] locationInView:self.view] withColor:[UIColor redColor]];
+        [self addGrowingCircleAtPoint:[touches[1] locationInView:self.view] withColor:[UIColor redColor]];
     }
-        
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
