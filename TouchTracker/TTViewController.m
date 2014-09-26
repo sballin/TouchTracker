@@ -82,7 +82,7 @@
         NSArray *bestWords = [self.brain getRankedIntersectMatches];
         self.rankedMatchesDisplay.text = [bestWords description];
         if ([bestWords count] > 0)
-            [self.userText addObject:[bestWords[0] substringWithRange:NSMakeRange(5, [bestWords[0] length]-5)]];
+            [self.userText addObject:[bestWords[0] substringWithRange:NSMakeRange(7, [bestWords[0] length]-7)]];
         else self.bigCandidateDisplay.text = [self.bigCandidateDisplay.text stringByAppendingString: @"nmatch"];
         self.bigCandidateDisplay.text = [self getFormattedUserText];
     }
