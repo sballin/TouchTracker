@@ -79,6 +79,24 @@
     return [self.fraction combinedFractionOrderedMatchesFor:allCandidateWords against:self.touchSequence];
 }
 
+- (NSArray *)getRankedUnionMatches {
+    NSString *horizpath = [TwoDim horizontalPathFor:self.touchSequence withTolerance:25];
+    NSString *vertpath = [TwoDim verticalPathFor:self.touchSequence withTolerance:25];
+    NSMutableSet *horizontalNeighborPaths = [TwoDim horizontalExpansion:horizpath];
+    NSMutableSet *verticalNeighborPaths = [TwoDim verticalExpansion:vertpath];
+    NSMutableSet *horizontalNeighborWords = [[NSMutableSet alloc] init];
+    NSMutableSet *verticalNeighborWords = [[NSMutableSet alloc] init];
+    for (NSString *neighborPath in horizontalNeighborPaths) {
+        [horizontalNeighborWords addObjectsFromArray:[self.twodim.binaryHorizontalDictionary[neighborPath] copy]];
+    }
+    for (NSString *neighborPath in verticalNeighborPaths) {
+        [verticalNeighborWords addObjectsFromArray:[self.twodim.binaryVerticalDictionary[neighborPath] copy]];
+    }
+    [horizontalNeighborWords unionSet:verticalNeighborWords];
+    NSMutableArray *allCandidateWords = [[horizontalNeighborWords allObjects] mutableCopy];
+    return [self.fraction combinedFractionOrderedMatchesFor:allCandidateWords against:self.touchSequence];
+}
+
 /* WRITE ME PLS */
 - (NSString *)topScoringWords {
     // get all bashed snake path words

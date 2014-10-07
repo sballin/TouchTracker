@@ -15,4 +15,5 @@
 - (void)clearTouchSequence;
 - (NSArray *)getRankedMatches;
 - (NSArray *)getRankedIntersectMatches;
+- (NSArray *)getRankedUnionMatches;
 @end

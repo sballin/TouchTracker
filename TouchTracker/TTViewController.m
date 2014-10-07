@@ -80,10 +80,15 @@
 - (void)spacePressed {
     if ([self.brain.touchSequence count] > 2) {
         NSArray *bestWords = [self.brain getRankedIntersectMatches];
+        if ([bestWords count] == 0)
+            bestWords = [self.brain getRankedUnionMatches];
         self.rankedMatchesDisplay.text = [bestWords description];
+        
         if ([bestWords count] > 0)
             [self.userText addObject:[bestWords[0] substringWithRange:NSMakeRange(7, [bestWords[0] length]-7)]];
-        else self.bigCandidateDisplay.text = [self.bigCandidateDisplay.text stringByAppendingString: @"nmatch"];
+        else
+            self.bigCandidateDisplay.text = [self.bigCandidateDisplay.text stringByAppendingString: @"[empty]"];
+        
         self.bigCandidateDisplay.text = [self getFormattedUserText];
     }
     else self.bigCandidateDisplay.text = [self.bigCandidateDisplay.text stringByAppendingString:@"ntouch"];
