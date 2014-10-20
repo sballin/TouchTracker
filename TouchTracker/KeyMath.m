@@ -44,35 +44,40 @@
     	CGPoint y;    y.x = d3+5*k3;    y.y = r3;
     	CGPoint z;    z.x = d1;         z.y = r1;
         NSArray *coordinates = @[[NSValue value:&a withObjCType:@encode(CGPoint)],
-                                [NSValue value:&b withObjCType:@encode(CGPoint)],
-                                [NSValue value:&c withObjCType:@encode(CGPoint)],
-                                [NSValue value:&d withObjCType:@encode(CGPoint)],
-                                [NSValue value:&e withObjCType:@encode(CGPoint)],
-                                [NSValue value:&f withObjCType:@encode(CGPoint)],
-                                [NSValue value:&g withObjCType:@encode(CGPoint)],
-                                [NSValue value:&h withObjCType:@encode(CGPoint)],
-                                [NSValue value:&i withObjCType:@encode(CGPoint)],
-                                [NSValue value:&j withObjCType:@encode(CGPoint)],
-                                [NSValue value:&k withObjCType:@encode(CGPoint)],
-                                [NSValue value:&l withObjCType:@encode(CGPoint)],
-                                [NSValue value:&m withObjCType:@encode(CGPoint)],
-                                [NSValue value:&n withObjCType:@encode(CGPoint)],
-                                [NSValue value:&o withObjCType:@encode(CGPoint)],
-                                [NSValue value:&p withObjCType:@encode(CGPoint)],
-                                [NSValue value:&q withObjCType:@encode(CGPoint)],
-                                [NSValue value:&r withObjCType:@encode(CGPoint)],
-                                [NSValue value:&s withObjCType:@encode(CGPoint)],
-                                [NSValue value:&t withObjCType:@encode(CGPoint)],
-                                [NSValue value:&u withObjCType:@encode(CGPoint)],
-                                [NSValue value:&v withObjCType:@encode(CGPoint)],
-                                [NSValue value:&w withObjCType:@encode(CGPoint)],
-                                [NSValue value:&x withObjCType:@encode(CGPoint)],
-                                [NSValue value:&y withObjCType:@encode(CGPoint)],
-                                [NSValue value:&z withObjCType:@encode(CGPoint)]];
+                                 [NSValue value:&b withObjCType:@encode(CGPoint)],
+                                 [NSValue value:&c withObjCType:@encode(CGPoint)],
+                                 [NSValue value:&d withObjCType:@encode(CGPoint)],
+                                 [NSValue value:&e withObjCType:@encode(CGPoint)],
+                                 [NSValue value:&f withObjCType:@encode(CGPoint)],
+                                 [NSValue value:&g withObjCType:@encode(CGPoint)],
+                                 [NSValue value:&h withObjCType:@encode(CGPoint)],
+                                 [NSValue value:&i withObjCType:@encode(CGPoint)],
+                                 [NSValue value:&j withObjCType:@encode(CGPoint)],
+                                 [NSValue value:&k withObjCType:@encode(CGPoint)],
+                                 [NSValue value:&l withObjCType:@encode(CGPoint)],
+                                 [NSValue value:&m withObjCType:@encode(CGPoint)],
+                                 [NSValue value:&n withObjCType:@encode(CGPoint)],
+                                 [NSValue value:&o withObjCType:@encode(CGPoint)],
+                                 [NSValue value:&p withObjCType:@encode(CGPoint)],
+                                 [NSValue value:&q withObjCType:@encode(CGPoint)],
+                                 [NSValue value:&r withObjCType:@encode(CGPoint)],
+                                 [NSValue value:&s withObjCType:@encode(CGPoint)],
+                                 [NSValue value:&t withObjCType:@encode(CGPoint)],
+                                 [NSValue value:&u withObjCType:@encode(CGPoint)],
+                                 [NSValue value:&v withObjCType:@encode(CGPoint)],
+                                 [NSValue value:&w withObjCType:@encode(CGPoint)],
+                                 [NSValue value:&x withObjCType:@encode(CGPoint)],
+                                 [NSValue value:&y withObjCType:@encode(CGPoint)],
+                                 [NSValue value:&z withObjCType:@encode(CGPoint)]];
         NSArray *alphabet = [[NSString stringWithFormat:@"a b c d e f g h i j k l m n o p q r s t u v w x y z"] componentsSeparatedByString:@" "];
         _alphabetCoordinates = [NSDictionary dictionaryWithObjects:coordinates forKeys:alphabet];
     }
     return _alphabetCoordinates;
+}
+
+// TODO: write adaptive
+- (NSDictionary *)adaptiveCoordinates {
+    return NULL;
 }
 
 - (NSMutableArray *)modelTouchSequenceFor:(NSString *)word {

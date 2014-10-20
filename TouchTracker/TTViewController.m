@@ -50,7 +50,7 @@
 	self.rankedMatchesDisplay.text = @"";
     self.bigCandidateDisplay.adjustsFontSizeToFitWidth = YES;
     self.bigCandidateDisplay.minimumScaleFactor = 0;
-    if ([self.brain.touchSequence count] > 2) {
+    if ([self.brain.liveTouches count] > 2) {
         NSArray *bestWords = [self.brain getRankedIntersectMatches];
         self.rankedMatchesDisplay.text = [bestWords description];
         if ([bestWords count] > 0)
@@ -58,12 +58,12 @@
         else self.bigCandidateDisplay.text = @"";
     }
     else self.bigCandidateDisplay.text = @"";
-	[self.brain clearTouchSequence];
+	[self.brain clearLiveTouches];
 }
 
 - (IBAction)dumpPressed {
     NSString *dumpText = @"";
-    for (int i = 0; i < [self.brain.touchSequence count]; i++) {
+    for (int i = 0; i < [self.brain.liveTouches count]; i++) {
         CGPoint touch =  [self.brain getTouchAtIndex:i];
         dumpText = [dumpText stringByAppendingString:[NSString stringWithFormat:@"(%f,%f),", touch.x, touch.y]];
     }
@@ -78,25 +78,40 @@
 }
 
 - (void)spacePressed {
-    if ([self.brain.touchSequence count] > 2) {
+    // Get ranked words if enough touches have been made
+    if ([self.brain.liveTouches count] > 2) {
         NSArray *bestWords = [self.brain getRankedIntersectMatches];
-        if ([bestWords count] == 0)
+        if ([bestWords count] == 0) {
             bestWords = [self.brain getRankedUnionMatches];
+            if ([bestWords count] < 10)
+                bestWords = [self.brain getRankedCountMatches];
+        }
         self.rankedMatchesDisplay.text = [bestWords description];
         
-        if ([bestWords count] > 0)
+        // Add top candidate to user text
+        if ([bestWords count] > 0) {
             [self.userText addObject:[bestWords[0] substringWithRange:NSMakeRange(7, [bestWords[0] length]-7)]];
-        else
+            [self.brain.touchHistory addObject:self.brain.liveTouches];
+            NSLog(@"%@", [self.userText description]);
+            NSLog(@"%@", [self.brain.touchHistory description]);
+        }
+        else {
             self.bigCandidateDisplay.text = [self.bigCandidateDisplay.text stringByAppendingString: @"[empty]"];
+        }
         
+        // Rewrite display
         self.bigCandidateDisplay.text = [self getFormattedUserText];
     }
     else self.bigCandidateDisplay.text = [self.bigCandidateDisplay.text stringByAppendingString:@"ntouch"];
-	[self.brain clearTouchSequence];
+    // Clear slate for live touches
+	[self.brain clearLiveTouches];
 }
 
 - (void)backspacePressed {
+    // Remove unwanted word from user text, clear liveTouches, redisplay
     [self.userText removeLastObject];
+    [self.brain.touchHistory removeLastObject];
+    [self.brain clearLiveTouches];
     self.bigCandidateDisplay.text = [self getFormattedUserText];
     self.rankedMatchesDisplay.text = @"";
 }
@@ -104,14 +119,17 @@
 #define THUMB_THRESHOLD 40
 - (void)touchesBegan:(NSSet *)touches
            withEvent:(UIEvent *)event {
+    // One finger
     if ([[event allTouches] count] == 1) {
         for (UITouch *t in touches) {
             CGPoint point = [t locationInView:self.view];
             float thickness = [[t valueForKey:@"pathMajorRadius"] floatValue];
+            // Letter
             if (thickness < THUMB_THRESHOLD) {
-                [self.brain addToSequence:point];
+                [self.brain addToLiveTouches:point];
                 [self addGrowingCircleAtPoint:[[touches anyObject] locationInView:self.view] withColor:[UIColor blueColor]];
             }
+            // Thumb -> space
             else {
                 [self spacePressed];
                 [self addGrowingCircleAtPoint:[[touches anyObject] locationInView:self.view] withColor:[UIColor greenColor]];
@@ -119,6 +137,7 @@
             
         }
     }
+    // Multiple fingers -> backspace
     else {
         [self backspacePressed];
         NSArray *touches = [event.allTouches allObjects];

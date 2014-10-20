@@ -10,6 +10,7 @@
 
 @interface KeyMath : NSObject
 @property (nonatomic, strong) NSDictionary *alphabetCoordinates;
+- (NSDictionary *)adaptiveCoordinates;
 - (NSMutableArray *)modelTouchSequenceFor:(NSString *)word;
 - (CGPoint)getCoordinatesOf:(NSString *)letter;
 + (float)crossProduct2D:(CGPoint)vectorA

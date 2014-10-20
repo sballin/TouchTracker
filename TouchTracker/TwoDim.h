@@ -10,8 +10,8 @@
 
 @interface TwoDim : NSObject
 @property (nonatomic, strong) NSDictionary *horizontalDictionary;
-@property (nonatomic, strong) NSDictionary *binaryHorizontalDictionary;
-@property (nonatomic, strong) NSDictionary *binaryVerticalDictionary;
+@property (nonatomic, strong) NSDictionary *harshLeftRightDictionary;
+@property (nonatomic, strong) NSDictionary *harshUpDownDictionary;
 + (NSString *)horizontalPathFor:(NSMutableArray *)touchSequence
                   withTolerance:(int)pixels;
 + (NSString *)binaryHorizontalPathFor:(NSMutableArray *)touchSequence;

@@ -1,6 +1,5 @@
 ### 🔫 To-Do
 
-- ➽➽➽ Look through all words of particular length if no matches
 - Support faster input
 
 ---

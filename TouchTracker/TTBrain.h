@@ -9,11 +9,14 @@
 #import <Foundation/Foundation.h>
 
 @interface TouchTrackerBrain : NSObject
-@property (nonatomic, strong) NSMutableArray *touchSequence;
-- (void)addToSequence:(CGPoint)touch;
+@property (nonatomic, strong) NSMutableArray *liveTouches;
+@property (nonatomic, strong) NSMutableArray *touchHistory;
+@property (nonatomic, strong) NSDictionary *countDictionary;
+- (void)addToLiveTouches:(CGPoint)touch;
 - (CGPoint)getTouchAtIndex:(int)i;
-- (void)clearTouchSequence;
+- (void)clearLiveTouches;
 - (NSArray *)getRankedMatches;
 - (NSArray *)getRankedIntersectMatches;
 - (NSArray *)getRankedUnionMatches;
+- (NSArray *)getRankedCountMatches;
 @end

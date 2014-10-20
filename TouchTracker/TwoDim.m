@@ -23,30 +23,32 @@
 
 @implementation TwoDim
 
-- (NSDictionary *)horizontalDictionary {
-	if (!_horizontalDictionary) {
-		NSString *path = [[NSBundle mainBundle] pathForResource:@"horizontalDictionary0" ofType:@"plist"];
-		_horizontalDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
+/**
+ Lazy instantiation of horizontal dictionary with no undefined direction.
+ */
+- (NSDictionary *)harshLeftRightDictionary {
+	if (!_harshLeftRightDictionary) {
+		NSString *path = [[NSBundle mainBundle] pathForResource:@"harshLeftDictionary" ofType:@"plist"];
+		_harshLeftRightDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
 	}
-	return _horizontalDictionary;
+	return _harshLeftRightDictionary;
 }
 
-- (NSDictionary *)binaryHorizontalDictionary {
-	if (!_binaryHorizontalDictionary) {
-		NSString *path = [[NSBundle mainBundle] pathForResource:@"binaryHorizontalDictionary" ofType:@"plist"];
-		_binaryHorizontalDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
-	}
-	return _binaryHorizontalDictionary;
-}
-
-- (NSDictionary *)binaryVerticalDictionary {
-    if (!_binaryVerticalDictionary) {
+/**
+ Lazy instantiation of vertical dictionary with no undefined direction.
+ */
+- (NSDictionary *)harshUpDownDictionary {
+    if (!_harshUpDownDictionary) {
         NSString *path = [[NSBundle mainBundle] pathForResource:@"binaryVerticalDictionary" ofType:@"plist"];
-        _binaryVerticalDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
+        _harshUpDownDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
     }
-    return _binaryVerticalDictionary;
+    return _harshUpDownDictionary;
 }
 
+
+/**
+ Vertical direction including undefined.
+ */
 + (NSString *)upDownFrom:(CGPoint)firstTouch
                       to:(CGPoint)secondTouch
            withTolerance:(int)pixels {
@@ -59,7 +61,7 @@
 }
 
 /**
- For use in dictionary creation. Defaults to up direction, nothing undefined.
+ Vertical direction with no undefined. For use in dictionary creation.
  */
 + (NSString *)upDownFrom:(CGPoint)firstTouch
                       to:(CGPoint)secondTouch {
@@ -67,6 +69,9 @@
     return @"u";
 }
 
+/**
+ Horizontal direction including undefined.
+ */
 + (NSString *)leftRightFrom:(CGPoint)firstTouch
                          to:(CGPoint)secondTouch
               withTolerance:(int)pixels {
@@ -79,7 +84,7 @@
 }
 
 /**
- For use in dictionary creation. Defaults to right direction, nothing undefined.
+ Horizontal direction with no undefined. For use in dictionary creation.
  */
 + (NSString *)leftRightFrom:(CGPoint)firstTouch
                          to:(CGPoint)secondTouch {

@@ -122,6 +122,7 @@
         _countDictionary[length] = list;
     }
     [self.countDictionary writeToFile:dictPath atomically:YES];
+    NSLog(@"%@", dictPath);
 }
 
 - (void)writeRepeatDictionary:(int)tolerance {
