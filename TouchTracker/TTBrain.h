@@ -15,6 +15,7 @@
 - (void)addToLiveTouches:(CGPoint)touch;
 - (CGPoint)getTouchAtIndex:(int)i;
 - (void)clearLiveTouches;
+- (NSArray *)getBestWords;
 - (NSArray *)getRankedMatches;
 - (NSArray *)getRankedIntersectMatches;
 - (NSArray *)getRankedUnionMatches;

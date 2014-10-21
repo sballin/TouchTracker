@@ -1,18 +1,19 @@
 ### 🔫 To-Do
 
+- Adaptive coordinates
+    - How to fill in blanks for letters that haven't been typed yet?
+    - Iterate moving by sum of error vectors to position keypresses to be compared
+- Determine most costly operation for long lists
+- Make settings page and make tolerance, result count tweakable
 - Support faster input
 
 ---
 
 ### ☁ Ideas
-
-- Add errors from horizontal and vertical paths in __quadrature__!
+   
 - Identify __finger__ behind each tap using radius
 - ➽ Repeat dictionary
 - ➽ Different color for space pressed, back pressed
-- ➽ Back one word with two-finger tap
-- Ask about __speeding up__ touch recognition on Apple developer forums
-- ➽ Dictionary grouping words of __same length__
 
 ---
 
@@ -22,7 +23,7 @@
     - Snake path: +1 if unbashed path has best of anything
     - Fraction path: take top N from each list
     - TwoDim: 
-    - Mountains: 
+    - Mountains: ???
 
 ---
 

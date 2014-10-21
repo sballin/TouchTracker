@@ -141,6 +141,7 @@
 		}
 	}
 	[self.repeatDictionary writeToFile:dictPath atomically:YES];
+    NSLog(@"%@", dictPath);
 }
 
 - (void)writeHorizontalDictionary:(int)tolerance {

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1412490D194F9FF7007785EE /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 1412490C194F9FF7007785EE /* README.md */; };
 		141B4F12198E25F600BE1E99 /* CenterOfGravity.m in Sources */ = {isa = PBXBuildFile; fileRef = 141B4F11198E25F600BE1E99 /* CenterOfGravity.m */; };
+		143BCA9519F5FDDC0022897D /* repeatDictionary10.plist in Resources */ = {isa = PBXBuildFile; fileRef = 143BCA9419F5FDDC0022897D /* repeatDictionary10.plist */; };
 		1451B977198092A600C221BE /* TypingSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 1451B976198092A600C221BE /* TypingSpace.m */; };
 		145DD966196A5FF20088243D /* Repeat.m in Sources */ = {isa = PBXBuildFile; fileRef = 145DD965196A5FF20088243D /* Repeat.m */; };
 		146129FD19B6CE1B004DC904 /* binaryVerticalDictionary.plist in Resources */ = {isa = PBXBuildFile; fileRef = 146129FC19B6CE1B004DC904 /* binaryVerticalDictionary.plist */; };
@@ -58,6 +59,7 @@
 		1412490C194F9FF7007785EE /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		141B4F10198E25F600BE1E99 /* CenterOfGravity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterOfGravity.h; sourceTree = "<group>"; };
 		141B4F11198E25F600BE1E99 /* CenterOfGravity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterOfGravity.m; sourceTree = "<group>"; };
+		143BCA9419F5FDDC0022897D /* repeatDictionary10.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = repeatDictionary10.plist; sourceTree = "<group>"; };
 		1451B975198092A600C221BE /* TypingSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypingSpace.h; sourceTree = "<group>"; };
 		1451B976198092A600C221BE /* TypingSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TypingSpace.m; sourceTree = "<group>"; };
 		145DD964196A5FF20088243D /* Repeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Repeat.h; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 				14D6C6E5195BCC5F001D7E11 /* snakeDictionary25.plist */,
 				14E9684019B37DB400615B5E /* binaryHorizontalDictionary.plist */,
 				146129FC19B6CE1B004DC904 /* binaryVerticalDictionary.plist */,
+				143BCA9419F5FDDC0022897D /* repeatDictionary10.plist */,
 				14ADAD3819F4DD1300702CD1 /* countDictionary.plist */,
 				14B7226F193AF2830059E7BD /* Images.xcassets */,
 				14B7225B193AF2830059E7BD /* Supporting Files */,
@@ -308,6 +311,7 @@
 			files = (
 				14B7226B193AF2830059E7BD /* Main_iPad.storyboard in Resources */,
 				146129FD19B6CE1B004DC904 /* binaryVerticalDictionary.plist in Resources */,
+				143BCA9519F5FDDC0022897D /* repeatDictionary10.plist in Resources */,
 				14B72270193AF2830059E7BD /* Images.xcassets in Resources */,
 				14ADAD3919F4DD1300702CD1 /* countDictionary.plist in Resources */,
 				14D6C6E6195BCC5F001D7E11 /* snakeDictionary25.plist in Resources */,

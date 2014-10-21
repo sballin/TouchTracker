@@ -80,12 +80,7 @@
 - (void)spacePressed {
     // Get ranked words if enough touches have been made
     if ([self.brain.liveTouches count] > 2) {
-        NSArray *bestWords = [self.brain getRankedIntersectMatches];
-        if ([bestWords count] == 0) {
-            bestWords = [self.brain getRankedUnionMatches];
-            if ([bestWords count] < 10)
-                bestWords = [self.brain getRankedCountMatches];
-        }
+        NSArray *bestWords = [self.brain getBestWords];
         self.rankedMatchesDisplay.text = [bestWords description];
         
         // Add top candidate to user text

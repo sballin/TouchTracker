@@ -69,6 +69,16 @@
 	self.liveTouches = nil;
 }
 
+- (NSArray *)getBestWords {
+    NSArray *bestWords = [self getRankedIntersectMatches];
+    if ([bestWords count] == 0) {
+        bestWords = [self getRankedUnionMatches];
+        if ([bestWords count] < 10)
+            bestWords = [self getRankedCountMatches];
+    }
+    return bestWords;
+}
+
 - (NSArray *)getRankedMatches {
     NSString *horizpath = [TwoDim horizontalPathFor:self.liveTouches withTolerance:10];
     NSMutableSet *neighborPaths = [TwoDim horizontalExpansion:horizpath];

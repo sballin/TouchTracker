@@ -75,9 +75,9 @@
     return _alphabetCoordinates;
 }
 
-// TODO: write adaptive
+// TODO: adaptiveCoordinates
 - (NSDictionary *)adaptiveCoordinates {
-    return NULL;
+    return nil;
 }
 
 - (NSMutableArray *)modelTouchSequenceFor:(NSString *)word {
