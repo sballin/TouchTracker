@@ -10,10 +10,12 @@
 #import "TwoDim.h"
 #import "Fraction.h"
 #import "KeyMath.h"
+#import "Repeat.h"
 
 @interface TouchTrackerBrain ()
 @property (nonatomic, strong) TwoDim *twodim;
 @property (nonatomic, strong) Fraction *fraction;
+@property (nonatomic, strong) Repeat *repeat;
 @end
 
 @implementation TouchTrackerBrain
@@ -22,7 +24,9 @@
 @synthesize touchHistory = _touchHistory;
 @synthesize twodim = _twodim;
 @synthesize fraction = _fraction;
+@synthesize repeat = _repeat;
 @synthesize countDictionary = _countDictionary;
+@synthesize repeatDictionary = _repeatDictionary;
 
 - (NSMutableArray *)liveTouches {
 	if (!_liveTouches) _liveTouches = [[NSMutableArray alloc] init];
@@ -44,6 +48,11 @@
     return _fraction;
 }
 
+- (Repeat *)repeat {
+    if (!_repeat) _repeat = [[Repeat alloc] init];
+    return _repeat;
+}
+
 /**
  Load word length dictionary from file.
  */
@@ -53,6 +62,17 @@
         _countDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
     }
     return _countDictionary;
+}
+
+/**
+ Load letter repetition dictionary from file.
+ */
+- (NSDictionary *)repeatDictionary:(int)tolerance {
+    if (!_repeatDictionary) {
+        NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"repeatDictionary%d", tolerance] ofType:@"plist"];
+        _repeatDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
+    }
+    return _repeatDictionary;
 }
 
 - (void)addToLiveTouches:(CGPoint)touch {
@@ -71,22 +91,20 @@
 
 - (NSArray *)getBestWords {
     NSArray *bestWords = [self getRankedIntersectMatches];
+    if ([Repeat containsRepeat:self.liveTouches withTolerance:50])
+        bestWords = [self getRankedRepeatWords:50];
     if ([bestWords count] == 0) {
         bestWords = [self getRankedUnionMatches];
-        if ([bestWords count] < 10)
+        if ([bestWords count] < 5)
             bestWords = [self getRankedCountMatches];
     }
     return bestWords;
 }
 
-- (NSArray *)getRankedMatches {
-    NSString *horizpath = [TwoDim horizontalPathFor:self.liveTouches withTolerance:10];
-    NSMutableSet *neighborPaths = [TwoDim horizontalExpansion:horizpath];
-    NSMutableArray *allNeighborWords = [[NSMutableArray alloc] init];
-    for (NSString *neighborPath in neighborPaths) {
-        [allNeighborWords addObjectsFromArray:self.twodim.harshLeftRightDictionary[neighborPath]];
-    }
-    return [self.fraction combinedFractionOrderedMatchesFor:allNeighborWords against:self.liveTouches];
+- (NSArray *)getRankedRepeatWords:(int)tolerance {
+    NSString *map = [Repeat repeatMap:self.liveTouches withTolerance:tolerance];
+    NSMutableArray *repeatWords = self.repeatDictionary[map];
+    return [self.fraction combinedFractionOrderedMatchesFor:repeatWords against:self.liveTouches];
 }
 
 #define TOLERANCE 25

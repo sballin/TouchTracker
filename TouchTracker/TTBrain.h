@@ -12,11 +12,12 @@
 @property (nonatomic, strong) NSMutableArray *liveTouches;
 @property (nonatomic, strong) NSMutableArray *touchHistory;
 @property (nonatomic, strong) NSDictionary *countDictionary;
+@property (nonatomic, strong) NSDictionary *repeatDictionary;
 - (void)addToLiveTouches:(CGPoint)touch;
 - (CGPoint)getTouchAtIndex:(int)i;
 - (void)clearLiveTouches;
 - (NSArray *)getBestWords;
-- (NSArray *)getRankedMatches;
+- (NSArray *)getRankedRepeatWords;
 - (NSArray *)getRankedIntersectMatches;
 - (NSArray *)getRankedUnionMatches;
 - (NSArray *)getRankedCountMatches;

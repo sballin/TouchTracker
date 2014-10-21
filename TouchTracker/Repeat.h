@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface Repeat : NSObject
++ (BOOL)containsRepeat:(NSMutableArray *)touchSequence
+         withTolerance:(int)pixels;
++ (NSString *)repeatMap:(NSMutableArray *)touchSequence
+          withTolerance:(int)pixels;
 - (NSString *)repeatMapForWord:(NSString *)word
                  withTolerance:(int)pixels;
 @end

@@ -27,6 +27,14 @@
     return _keyboard;
 }
 
++ (BOOL)containsRepeat:(NSMutableArray *)touchSequence
+         withTolerance:(int)pixels {
+    NSString *map = [Repeat repeatMap:touchSequence withTolerance:pixels];
+    if ([map rangeOfString:@"r"].location != NSNotFound)
+        return YES;
+    return NO;
+}
+
 - (NSString *)repeatMapForWord:(NSString *)word
                  withTolerance:(int)pixels {
     return [Repeat repeatMap:[self.keyboard modelTouchSequenceFor:word] withTolerance:pixels];
@@ -44,7 +52,7 @@
             map = [map stringByAppendingString:@"r"];
         else map = [map stringByAppendingString:@"x"];
     }
-    return @"";
+    return map;
 }
 
 + (BOOL)repeatFor:(CGPoint)firstTouch
