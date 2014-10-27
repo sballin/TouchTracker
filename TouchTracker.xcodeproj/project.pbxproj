@@ -39,8 +39,6 @@
 		14D6C6E6195BCC5F001D7E11 /* snakeDictionary25.plist in Resources */ = {isa = PBXBuildFile; fileRef = 14D6C6E5195BCC5F001D7E11 /* snakeDictionary25.plist */; };
 		14E696C91940818200E3764A /* snakeDictionary.plist in Resources */ = {isa = PBXBuildFile; fileRef = 14E696C81940818200E3764A /* snakeDictionary.plist */; };
 		14E696CA1940818200E3764A /* snakeDictionary.plist in Resources */ = {isa = PBXBuildFile; fileRef = 14E696C81940818200E3764A /* snakeDictionary.plist */; };
-		14E696CD1940FE9C00E3764A /* Snake.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E696CC1940FE9C00E3764A /* Snake.m */; };
-		14E696CE1940FE9C00E3764A /* Snake.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E696CC1940FE9C00E3764A /* Snake.m */; };
 		14E9684119B37DB400615B5E /* binaryHorizontalDictionary.plist in Resources */ = {isa = PBXBuildFile; fileRef = 14E9684019B37DB400615B5E /* binaryHorizontalDictionary.plist */; };
 /* End PBXBuildFile section */
 
@@ -98,8 +96,6 @@
 		14D1807119629023009D16E4 /* TwoDim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwoDim.m; sourceTree = "<group>"; };
 		14D6C6E5195BCC5F001D7E11 /* snakeDictionary25.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = snakeDictionary25.plist; sourceTree = "<group>"; };
 		14E696C81940818200E3764A /* snakeDictionary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = snakeDictionary.plist; sourceTree = "<group>"; };
-		14E696CB1940FE9C00E3764A /* Snake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Snake.h; sourceTree = "<group>"; };
-		14E696CC1940FE9C00E3764A /* Snake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Snake.m; sourceTree = "<group>"; };
 		14E9684019B37DB400615B5E /* binaryHorizontalDictionary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = binaryHorizontalDictionary.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -141,6 +137,38 @@
 			name = Dictionaries;
 			sourceTree = "<group>";
 		};
+		143E732119FEE10100FA3B0A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				14B72296193B37C50059E7BD /* TTBrain.h */,
+				14B72297193B37C50059E7BD /* TTBrain.m */,
+				14D0F18D196F9B87003BB7C2 /* Fraction.h */,
+				14D0F18E196F9B87003BB7C2 /* Fraction.m */,
+				145DD964196A5FF20088243D /* Repeat.h */,
+				145DD965196A5FF20088243D /* Repeat.m */,
+				14D1807019629023009D16E4 /* TwoDim.h */,
+				14D1807119629023009D16E4 /* TwoDim.m */,
+				14C606EB1947FC39002D4E4E /* KeyMath.h */,
+				14C606EC1947FC39002D4E4E /* KeyMath.m */,
+				14C606EE194803ED002D4E4E /* DictionaryBuilder.h */,
+				14C606EF194803ED002D4E4E /* DictionaryBuilder.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		143E732219FEE11300FA3B0A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				14B7228F193AF6250059E7BD /* TouchDrawView.h */,
+				14B72290193AF6250059E7BD /* TouchDrawView.m */,
+				14B72266193AF2830059E7BD /* Main_iPhone.storyboard */,
+				14B72269193AF2830059E7BD /* Main_iPad.storyboard */,
+				1451B975198092A600C221BE /* TypingSpace.h */,
+				1451B976198092A600C221BE /* TypingSpace.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		14B72248193AF2830059E7BD = {
 			isa = PBXGroup;
 			children = (
@@ -175,31 +203,13 @@
 		14B7225A193AF2830059E7BD /* TouchTracker */ = {
 			isa = PBXGroup;
 			children = (
-				14B7228F193AF6250059E7BD /* TouchDrawView.h */,
-				14B72290193AF6250059E7BD /* TouchDrawView.m */,
-				14B72266193AF2830059E7BD /* Main_iPhone.storyboard */,
-				14B72269193AF2830059E7BD /* Main_iPad.storyboard */,
-				1451B975198092A600C221BE /* TypingSpace.h */,
-				1451B976198092A600C221BE /* TypingSpace.m */,
 				14B7226C193AF2830059E7BD /* TTViewController.h */,
 				14B7226D193AF2830059E7BD /* TTViewController.m */,
-				14B72296193B37C50059E7BD /* TTBrain.h */,
-				14B72297193B37C50059E7BD /* TTBrain.m */,
-				14C606EE194803ED002D4E4E /* DictionaryBuilder.h */,
-				14C606EF194803ED002D4E4E /* DictionaryBuilder.m */,
-				14E696CB1940FE9C00E3764A /* Snake.h */,
-				14E696CC1940FE9C00E3764A /* Snake.m */,
-				14D0F18D196F9B87003BB7C2 /* Fraction.h */,
-				14D0F18E196F9B87003BB7C2 /* Fraction.m */,
-				145DD964196A5FF20088243D /* Repeat.h */,
-				145DD965196A5FF20088243D /* Repeat.m */,
-				14D1807019629023009D16E4 /* TwoDim.h */,
-				14D1807119629023009D16E4 /* TwoDim.m */,
-				14C606EB1947FC39002D4E4E /* KeyMath.h */,
-				14C606EC1947FC39002D4E4E /* KeyMath.m */,
+				143E732119FEE10100FA3B0A /* Model */,
+				143E732219FEE11300FA3B0A /* View */,
 				143E732019FEDA6800FA3B0A /* Dictionaries */,
-				14B7226F193AF2830059E7BD /* Images.xcassets */,
 				14B7225B193AF2830059E7BD /* Supporting Files */,
+				14B7226F193AF2830059E7BD /* Images.xcassets */,
 			);
 			path = TouchTracker;
 			sourceTree = "<group>";
@@ -345,7 +355,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				14D1807219629023009D16E4 /* TwoDim.m in Sources */,
-				14E696CD1940FE9C00E3764A /* Snake.m in Sources */,
 				14B7226E193AF2830059E7BD /* TTViewController.m in Sources */,
 				14B72291193AF6250059E7BD /* TouchDrawView.m in Sources */,
 				14C606F0194803ED002D4E4E /* DictionaryBuilder.m in Sources */,
@@ -363,7 +372,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14E696CE1940FE9C00E3764A /* Snake.m in Sources */,
 				14B72283193AF2830059E7BD /* TouchTrackerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

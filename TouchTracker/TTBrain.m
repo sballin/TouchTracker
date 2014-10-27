@@ -149,11 +149,4 @@
     return [self.fraction combinedFractionOrderedMatchesFor:words against:self.liveTouches];
 }
 
-/* TODO: scoring method */
-- (NSString *)topScoringWords {
-    // get all bashed snake path words
-    // do other stuff
-    return @"";
-}
-
 @end

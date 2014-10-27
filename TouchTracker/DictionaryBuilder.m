@@ -7,14 +7,12 @@
 //
 
 #import "DictionaryBuilder.h"
-#import "Snake.h"
 #import "Repeat.h"
 #import "TwoDim.h"
 #import "KeyMath.h"
 
 @interface DictionaryBuilder ()
 @property (nonatomic, strong) NSArray *dictionaryWords;
-@property (nonatomic, strong) Snake *snake;
 @property (nonatomic, strong) Repeat *repeat;
 @property (nonatomic, strong) KeyMath *keyboard;
 @end
@@ -22,20 +20,13 @@
 @implementation DictionaryBuilder
 
 @synthesize dictionaryWords = _dictionaryWords;
-@synthesize snake = _snake;
 @synthesize repeat = _repeat;
 @synthesize keyboard = _keyboard;
-@synthesize snakeDictionary = _snakeDictionary;
 @synthesize countDictionary = _countDictionary;
 @synthesize repeatDictionary = _repeatDictionary;
 @synthesize horizontalDictionary = _horizontalDictionary;
 @synthesize binaryHorizontalDictionary = _binaryHorizontalDictionary;
 @synthesize binaryVerticalDictionary = _binaryVerticalDictionary;
-
-- (Snake *)snake {
-    if (!_snake) _snake = [[Snake alloc] init];
-    return _snake;
-}
 
 - (Repeat *)repeat {
     if (!_repeat) _repeat = [[Repeat alloc] init];
@@ -45,11 +36,6 @@
 - (KeyMath *)keyboard {
     if (!_keyboard) _keyboard = [[KeyMath alloc] init];
     return _keyboard;
-}
-
-- (NSMutableDictionary *)snakeDictionary {
-    if (!_snakeDictionary) _snakeDictionary = [[NSMutableDictionary alloc] init];
-    return _snakeDictionary;
 }
 
 - (NSMutableDictionary *)countDictionary{
@@ -86,24 +72,6 @@
 		_dictionaryWords = [content componentsSeparatedByString:@"\r"];
 	}
 	return _dictionaryWords;
-}
-
-- (void)writeSnakeDictionary:(int)spread {
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *dictName = [[@"snakeDictionary" stringByAppendingString:[NSString stringWithFormat:@"%d", spread]] stringByAppendingString:@".plist"];
-	NSString *dictPath = [paths[0] stringByAppendingPathComponent:dictName];
-    
-	_snakeDictionary = [NSMutableDictionary dictionaryWithCapacity:[self.dictionaryWords count]];
-	for (NSString *word in self.dictionaryWords) {
-		if ([word length] >= 3) {
-			NSString *path = [self.snake snakePathOfWord:word withSpread:spread];
-			NSMutableArray *list = _snakeDictionary[path];
-			if (list == nil) list = [[NSMutableArray alloc] init];
-			[list addObject:word];
-			_snakeDictionary[path] = list;
-		}
-	}
-	[self.snakeDictionary writeToFile:dictPath atomically:YES];
 }
 
 #define MAX_WORD_LENGTH 30

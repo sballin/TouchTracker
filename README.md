@@ -1,21 +1,21 @@
 ### 🔫 To-Do
 
-- Hundreds of tiny invisible views to support faster input
-    - Rearrangement on orientation change
+- ➽ Repeat dictionary
 - Adaptive coordinates
     - How to fill in blanks for letters that haven't been typed yet?
     - Iterate moving by sum of error vectors to position keypresses to be compared
 - Determine most costly operation for long lists
 - Make settings page and make tolerance, result count tweakable
+    - Make tolerance a property instead of passing from argument to argument
 - AsyncDisplayKit
 
 ---
 
 ### ☁ Ideas
    
+- Hundreds of tiny invisible views to support faster input
+    - Rearrangement on orientation change
 - Identify __finger__ behind each tap using radius
-- ➽ Repeat dictionary
-- ➽ Different color for space pressed, back pressed
 
 ---
 

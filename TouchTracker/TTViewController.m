@@ -58,7 +58,8 @@
         else self.bigCandidateDisplay.text = @"";
     }
     else self.bigCandidateDisplay.text = @"";
-	[self.brain clearLiveTouches];
+    [self spacePressed];
+//	[self.brain clearLiveTouches];
 }
 
 - (IBAction)dumpPressed {
