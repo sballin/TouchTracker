@@ -13,6 +13,6 @@
               against:(NSMutableArray *)touchSequence;
 - (float)twoDimErrorForWord:(NSString *)word
                     against:(NSMutableArray *)touchSequence;
-- (NSMutableArray *)combinedFractionOrderedMatchesFor:(NSMutableArray *)words
+- (NSMutableArray *)twoDimFractionOrderedMatches:(NSMutableArray *)words
                    against:(NSMutableArray *)touchSequence;
 @end

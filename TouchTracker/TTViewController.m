@@ -98,16 +98,21 @@
         // Rewrite display
         self.bigCandidateDisplay.text = [self getFormattedUserText];
     }
-    else self.bigCandidateDisplay.text = [self.bigCandidateDisplay.text stringByAppendingString:@"ntouch"];
+    else self.bigCandidateDisplay.text = [self.bigCandidateDisplay.text stringByAppendingString:@"ntouches"];
+    
     // Clear slate for live touches
 	[self.brain clearLiveTouches];
 }
 
 - (void)backspacePressed {
-    // Remove unwanted word from user text, clear liveTouches, redisplay
+    // Remove unwanted word from user text
     [self.userText removeLastObject];
     [self.brain.touchHistory removeLastObject];
+    
+    // Clear liveTouches
     [self.brain clearLiveTouches];
+    
+    // Reset display
     self.bigCandidateDisplay.text = [self getFormattedUserText];
     self.rankedMatchesDisplay.text = @"";
 }
@@ -115,16 +120,18 @@
 #define THUMB_THRESHOLD 40
 - (void)touchesBegan:(NSSet *)touches
            withEvent:(UIEvent *)event {
-    // One finger
+    // One finger -> letter or space
     if ([[event allTouches] count] == 1) {
         for (UITouch *t in touches) {
             CGPoint point = [t locationInView:self.view];
             float thickness = [[t valueForKey:@"pathMajorRadius"] floatValue];
-            // Letter
+            
+            // Non-thumb finger -> letter
             if (thickness < THUMB_THRESHOLD) {
                 [self.brain addToLiveTouches:point];
                 [self addGrowingCircleAtPoint:[[touches anyObject] locationInView:self.view] withColor:[UIColor blueColor]];
             }
+            
             // Thumb -> space
             else {
                 [self spacePressed];
@@ -133,6 +140,7 @@
             
         }
     }
+    
     // Multiple fingers -> backspace
     else {
         [self backspacePressed];
@@ -143,27 +151,27 @@
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
+    // When the fade animation is complete, remove the layer
     if (flag && [[anim valueForKey:@"name"] isEqual:@"fade"]) {
-        // when the fade animation is complete, we remove the layer
         CALayer* layer = [anim valueForKey:@"layer"];
         [layer removeFromSuperlayer];
     }
 }
 
 - (void)addGrowingCircleAtPoint:(CGPoint)point withColor:(UIColor *)color {
-    // create a circle path
+    // Create circle path
     CGMutablePathRef circlePath = CGPathCreateMutable();
     CGPathAddArc(circlePath, NULL, 0.f, 0.f, 20.f, 0.f, (float)2.f*M_PI, true);
     
-    // create a shape layer
+    // Create shape layer
     CAShapeLayer* layer = [[CAShapeLayer alloc] init];
     layer.path = circlePath;
     
-    // don't leak, please
+    // Don't leak
     CGPathRelease(circlePath);
     layer.delegate = self;
     
-    // set up the attributes of the shape layer and add it to our view's layer
+    // Set up attributes of shape layer and add it to our view's layer
     layer.fillColor = [color CGColor];
     layer.position = point;
     layer.anchorPoint = CGPointMake(.5f, .5f);

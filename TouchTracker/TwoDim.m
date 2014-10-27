@@ -27,11 +27,11 @@
  Lazy instantiation of horizontal dictionary with no undefined direction.
  */
 - (NSDictionary *)harshLeftRightDictionary {
-	if (!_harshLeftRightDictionary) {
-		NSString *path = [[NSBundle mainBundle] pathForResource:@"harshLeftDictionary" ofType:@"plist"];
-		_harshLeftRightDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
-	}
-	return _harshLeftRightDictionary;
+    if (!_harshLeftRightDictionary) {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"harshLeftDictionary" ofType:@"plist"];
+        _harshLeftRightDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
+    }
+    return _harshLeftRightDictionary;
 }
 
 /**
@@ -44,7 +44,6 @@
     }
     return _harshUpDownDictionary;
 }
-
 
 /**
  Vertical direction including undefined.
@@ -147,9 +146,8 @@
 
 /**
  Replace all xs in a path with l/r directions.
- @param path
-    Direction sequence to analyze
- @return NSSet of all possible paths.
+ @param path direction sequence to analyze
+ @return NSSet of all possible paths
  */
 + (NSMutableSet *)horizontalExpansion:(NSString *)path {
     NSMutableSet *set = [[NSMutableSet alloc] init]; // get rid of alloc/init
@@ -165,9 +163,8 @@
 
 /**
  Replace all xs in a path with u/d directions.
- @param path
- Direction sequence to analyze
- @return NSSet of all possible paths.
+ @param path direction sequence to analyze
+ @return NSSet of all possible paths
  */
 + (NSMutableSet *)verticalExpansion:(NSString *)path {
     NSMutableSet *set = [[NSMutableSet alloc] init]; // get rid of alloc/init
@@ -182,7 +179,7 @@
 }
 
 - (NSString *)rowSequence:(NSMutableArray *)touchSequence {
-    // must check whether row locations have been established after enough input
+    // TODO: check whether row locations have been established after enough input
     return @"";
 }
 

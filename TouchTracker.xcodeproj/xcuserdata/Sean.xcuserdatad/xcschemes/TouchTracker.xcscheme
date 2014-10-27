@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "14B72250193AF2830059E7BD"
-               BuildableName = "Lokey.app"
+               BuildableName = "TouchTracker.app"
                BlueprintName = "TouchTracker"
                ReferencedContainer = "container:TouchTracker.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "14B72274193AF2830059E7BD"
-               BuildableName = "LokeyTests.xctest"
+               BuildableName = "TouchTrackerTests.xctest"
                BlueprintName = "TouchTrackerTests"
                ReferencedContainer = "container:TouchTracker.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "14B72250193AF2830059E7BD"
-            BuildableName = "Lokey.app"
+            BuildableName = "TouchTracker.app"
             BlueprintName = "TouchTracker"
             ReferencedContainer = "container:TouchTracker.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "14B72250193AF2830059E7BD"
-            BuildableName = "Lokey.app"
+            BuildableName = "TouchTracker.app"
             BlueprintName = "TouchTracker"
             ReferencedContainer = "container:TouchTracker.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "14B72250193AF2830059E7BD"
-            BuildableName = "Lokey.app"
+            BuildableName = "TouchTracker.app"
             BlueprintName = "TouchTracker"
             ReferencedContainer = "container:TouchTracker.xcodeproj">
          </BuildableReference>

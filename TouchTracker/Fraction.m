@@ -87,8 +87,9 @@
               against:(NSMutableArray *)touchSequence {
 	NSArray *touchPath = [self fractionPath:touchSequence];
     NSArray *wordPath = [self fractionPath:[self.keyboard modelTouchSequenceFor:word]];
+    
+    // Add errors in quadrature
 	float totalError = 0.0;
-    // Add errors in quadrature.
 	for (int i = 0; i < [touchPath count]; i++)
         totalError += powf([KeyMath errorBetween:[touchPath[i] floatValue] and:[wordPath[i] floatValue]], 2.0);
 	return sqrtf(totalError);
@@ -107,12 +108,13 @@
         horizontalError += powf([KeyMath errorBetween:[horizontalPath[i] floatValue] and:[horizontalWordPath[i] floatValue]], 2.0);
         verticalError += powf([KeyMath errorBetween:[verticalPath[i] floatValue] and:[verticalWordPath[i] floatValue]], 2.0);
     }
-    // Add total errors in quadrature.
+    
+    // Add total errors in quadrature
     return sqrtf(horizontalError+verticalError);
 }
 
-- (NSMutableArray *)combinedFractionOrderedMatchesFor:(NSMutableArray *)words
-                                              against:(NSMutableArray *)touchSequence {
+- (NSMutableArray *)twoDimFractionOrderedMatches:(NSMutableArray *)words
+                                         against:(NSMutableArray *)touchSequence {
 	float leastError = INFINITY;
 	NSString *bestMatch;
     NSMutableArray *bestMatches = [[NSMutableArray alloc] init];

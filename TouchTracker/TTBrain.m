@@ -104,7 +104,7 @@
 - (NSArray *)getRankedRepeatWords:(int)tolerance {
     NSString *map = [Repeat repeatMap:self.liveTouches withTolerance:tolerance];
     NSMutableArray *repeatWords = self.repeatDictionary[map];
-    return [self.fraction combinedFractionOrderedMatchesFor:repeatWords against:self.liveTouches];
+    return [self.fraction twoDimFractionOrderedMatches:repeatWords against:self.liveTouches];
 }
 
 #define TOLERANCE 25
@@ -123,7 +123,7 @@
     }
     [horizontalNeighborWords intersectSet:verticalNeighborWords];
     NSMutableArray *allCandidateWords = [[horizontalNeighborWords allObjects] mutableCopy];
-    return [self.fraction combinedFractionOrderedMatchesFor:allCandidateWords against:self.liveTouches];
+    return [self.fraction twoDimFractionOrderedMatches:allCandidateWords against:self.liveTouches];
 }
 
 - (NSArray *)getRankedUnionMatches {
@@ -141,12 +141,12 @@
     }
     [horizontalNeighborWords unionSet:verticalNeighborWords];
     NSMutableArray *allCandidateWords = [[horizontalNeighborWords allObjects] mutableCopy];
-    return [self.fraction combinedFractionOrderedMatchesFor:allCandidateWords against:self.liveTouches];
+    return [self.fraction twoDimFractionOrderedMatches:allCandidateWords against:self.liveTouches];
 }
 
 - (NSArray *)getRankedCountMatches {
     NSMutableArray *words = self.countDictionary[[NSString stringWithFormat:@"%d", [self.liveTouches count]]];
-    return [self.fraction combinedFractionOrderedMatchesFor:words against:self.liveTouches];
+    return [self.fraction twoDimFractionOrderedMatches:words against:self.liveTouches];
 }
 
 @end
