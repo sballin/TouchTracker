@@ -28,7 +28,7 @@
  */
 - (NSDictionary *)harshLeftRightDictionary {
     if (!_harshLeftRightDictionary) {
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"harshLeftDictionary" ofType:@"plist"];
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"binaryHorizontalDictionary" ofType:@"plist"];
         _harshLeftRightDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
     }
     return _harshLeftRightDictionary;

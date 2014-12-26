@@ -89,64 +89,62 @@
 	self.liveTouches = nil;
 }
 
-- (NSArray *)getBestWords {
-    NSArray *bestWords = [self getRankedIntersectMatches];
-    if ([Repeat containsRepeat:self.liveTouches withTolerance:50])
-        bestWords = [self getRankedRepeatWords:50];
-    if ([bestWords count] == 0) {
-        bestWords = [self getRankedUnionMatches];
-        if ([bestWords count] < 5)
-            bestWords = [self getRankedCountMatches];
+- (NSArray *)getFilteredRankedCandidates {
+    NSMutableSet *horizCandidates = [self getHorizontalCandidates];
+    NSSet *vertCandidates = [self getVerticalCandidates];
+    NSMutableSet *horizCandidatesCopy = [horizCandidates mutableCopy];
+    NSLog(@"horiz: %lu", (unsigned long)[horizCandidates count]);
+    NSLog(@"vert: %lu", (unsigned long)[vertCandidates count]);
+    
+    if ([Repeat containsRepeat:self.liveTouches withTolerance:50]) {
+        NSArray *repeatCandidates = [self getRepeatCandidates:50];
+        NSLog(@"Repeats: %lu", (unsigned long)[repeatCandidates count]);
     }
-    return bestWords;
+    
+    [horizCandidates intersectSet:vertCandidates];
+    NSLog(@"Intersect: %lu", (unsigned long)[horizCandidates count]);
+    
+    NSArray *words = [horizCandidates allObjects];
+    if ([words count] == 0) {
+        [horizCandidatesCopy unionSet:vertCandidates];
+        words = [horizCandidatesCopy copy];
+        NSLog(@"Union: %lu", (unsigned long)[horizCandidatesCopy count]);
+        
+        if ([words count] < 5) {
+            words = [self getCountCandidates];
+            NSLog(@"Letter count: %lu", (unsigned long)[words count]);
+        }
+    }
+    return [self.fraction twoDimFractionSort:[words mutableCopy] using:self.liveTouches];
 }
 
-- (NSArray *)getRankedRepeatWords:(int)tolerance {
+- (NSArray *)getRepeatCandidates:(int)tolerance {
     NSString *map = [Repeat repeatMap:self.liveTouches withTolerance:tolerance];
     NSMutableArray *repeatWords = self.repeatDictionary[map];
-    return [self.fraction twoDimFractionOrderedMatches:repeatWords against:self.liveTouches];
+    return [self.fraction twoDimFractionSort:repeatWords using:self.liveTouches];
 }
 
 #define TOLERANCE 25
-- (NSArray *)getRankedIntersectMatches {
+- (NSMutableSet *)getHorizontalCandidates {
     NSString *horizpath = [TwoDim horizontalPathFor:self.liveTouches withTolerance:TOLERANCE];
-    NSString *vertpath = [TwoDim verticalPathFor:self.liveTouches withTolerance:TOLERANCE];
     NSMutableSet *horizontalNeighborPaths = [TwoDim horizontalExpansion:horizpath];
-    NSMutableSet *verticalNeighborPaths = [TwoDim verticalExpansion:vertpath];
     NSMutableSet *horizontalNeighborWords = [[NSMutableSet alloc] init];
-    NSMutableSet *verticalNeighborWords = [[NSMutableSet alloc] init];
-    for (NSString *neighborPath in horizontalNeighborPaths) {
+    for (NSString *neighborPath in horizontalNeighborPaths)
         [horizontalNeighborWords addObjectsFromArray:[self.twodim.harshLeftRightDictionary[neighborPath] copy]];
-    }
-    for (NSString *neighborPath in verticalNeighborPaths) {
-        [verticalNeighborWords addObjectsFromArray:[self.twodim.harshUpDownDictionary[neighborPath] copy]];
-    }
-    [horizontalNeighborWords intersectSet:verticalNeighborWords];
-    NSMutableArray *allCandidateWords = [[horizontalNeighborWords allObjects] mutableCopy];
-    return [self.fraction twoDimFractionOrderedMatches:allCandidateWords against:self.liveTouches];
+    return horizontalNeighborWords;
 }
 
-- (NSArray *)getRankedUnionMatches {
-    NSString *horizpath = [TwoDim horizontalPathFor:self.liveTouches withTolerance:TOLERANCE];
+- (NSMutableSet *)getVerticalCandidates {
     NSString *vertpath = [TwoDim verticalPathFor:self.liveTouches withTolerance:TOLERANCE];
-    NSMutableSet *horizontalNeighborPaths = [TwoDim horizontalExpansion:horizpath];
     NSMutableSet *verticalNeighborPaths = [TwoDim verticalExpansion:vertpath];
-    NSMutableSet *horizontalNeighborWords = [[NSMutableSet alloc] init];
     NSMutableSet *verticalNeighborWords = [[NSMutableSet alloc] init];
-    for (NSString *neighborPath in horizontalNeighborPaths) {
-        [horizontalNeighborWords addObjectsFromArray:[self.twodim.harshLeftRightDictionary[neighborPath] copy]];
-    }
-    for (NSString *neighborPath in verticalNeighborPaths) {
+    for (NSString *neighborPath in verticalNeighborPaths)
         [verticalNeighborWords addObjectsFromArray:[self.twodim.harshUpDownDictionary[neighborPath] copy]];
-    }
-    [horizontalNeighborWords unionSet:verticalNeighborWords];
-    NSMutableArray *allCandidateWords = [[horizontalNeighborWords allObjects] mutableCopy];
-    return [self.fraction twoDimFractionOrderedMatches:allCandidateWords against:self.liveTouches];
+    return verticalNeighborWords;
 }
 
-- (NSArray *)getRankedCountMatches {
-    NSMutableArray *words = self.countDictionary[[NSString stringWithFormat:@"%d", [self.liveTouches count]]];
-    return [self.fraction twoDimFractionOrderedMatches:words against:self.liveTouches];
+- (NSArray *)getCountCandidates {
+    return self.countDictionary[[NSString stringWithFormat:@"%lu", (unsigned long)[self.liveTouches count]]];
 }
 
 @end

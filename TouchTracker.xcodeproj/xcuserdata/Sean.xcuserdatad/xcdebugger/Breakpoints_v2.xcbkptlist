@@ -68,11 +68,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TouchTracker/TTViewController.m"
-            timestampString = "436134762.144284"
+            timestampString = "441152932.861595"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "132"
-            endingLineNumber = "132"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
             landmarkName = "-touchesBegan:withEvent:"
             landmarkType = "5">
          </BreakpointContent>
@@ -100,12 +100,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TouchTracker/TTBrain.m"
-            timestampString = "435558113.22509"
+            timestampString = "441251604.975568"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
-            landmarkName = "-getBestWords"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
+            landmarkName = "-getFilteredRankedCandidates"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -51,7 +51,7 @@
     self.bigCandidateDisplay.adjustsFontSizeToFitWidth = YES;
     self.bigCandidateDisplay.minimumScaleFactor = 0;
     if ([self.brain.liveTouches count] > 2) {
-        NSArray *bestWords = [self.brain getRankedIntersectMatches];
+        NSArray *bestWords = [self.brain getFilteredRankedCandidates];
         self.rankedMatchesDisplay.text = [bestWords description];
         if ([bestWords count] > 0)
             self.bigCandidateDisplay.text = [self getFormattedUserText];
@@ -81,15 +81,14 @@
 - (void)spacePressed {
     // Get ranked words if enough touches have been made
     if ([self.brain.liveTouches count] > 2) {
-        NSArray *bestWords = [self.brain getBestWords];
+        NSArray *bestWords = [self.brain getFilteredRankedCandidates];
         self.rankedMatchesDisplay.text = [bestWords description];
         
         // Add top candidate to user text
         if ([bestWords count] > 0) {
             [self.userText addObject:[bestWords[0] substringWithRange:NSMakeRange(7, [bestWords[0] length]-7)]];
             [self.brain.touchHistory addObject:self.brain.liveTouches];
-            NSLog(@"%@", [self.userText description]);
-            NSLog(@"%@", [self.brain.touchHistory description]);
+            NSLog(@"Latest word: %@", [[self.userText lastObject] description]);
         }
         else {
             self.bigCandidateDisplay.text = [self.bigCandidateDisplay.text stringByAppendingString: @"[empty]"];

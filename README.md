@@ -1,6 +1,7 @@
 ### 🔫 To-Do
 
 - ➽ Repeat dictionary
+- ➽ Live stats on set sizes, score distributions
 - Adaptive coordinates
     - How to fill in blanks for letters that haven't been typed yet?
     - Iterate moving by sum of error vectors to position keypresses to be compared
@@ -13,9 +14,11 @@
 
 ### ☁ Ideas
    
+- Center of gravity could be defined as origin
 - Hundreds of tiny invisible views to support faster input
     - Rearrangement on orientation change
-- Identify __finger__ behind each tap using radius
+- Guess __finger__ behind each tap using radius
+- Put a ball corresponding to the location of each letter, have them all attract each other and cluster together, then see which ones are touching and use that graph to look up. Will work. 4sho. 
 
 ---
 

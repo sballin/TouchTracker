@@ -113,8 +113,9 @@
     return sqrtf(horizontalError+verticalError);
 }
 
-- (NSMutableArray *)twoDimFractionOrderedMatches:(NSMutableArray *)words
-                                         against:(NSMutableArray *)touchSequence {
+// TODO: optimize sorting
+- (NSMutableArray *)twoDimFractionSort:(NSMutableArray *)words
+                                 using:(NSMutableArray *)touchSequence {
 	float leastError = INFINITY;
 	NSString *bestMatch;
     NSMutableArray *bestMatches = [[NSMutableArray alloc] init];
