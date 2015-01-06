@@ -178,9 +178,4 @@
     return set;
 }
 
-- (NSString *)rowSequence:(NSMutableArray *)touchSequence {
-    // TODO: check whether row locations have been established after enough input
-    return @"";
-}
-
 @end

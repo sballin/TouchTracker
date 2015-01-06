@@ -27,7 +27,7 @@
 @synthesize dictBuild = _dictBuild;
 
 - (IBAction)swipeLeft:(UISwipeGestureRecognizer *)sender {
-    [self clearPressed:nil];
+    [self spacePressed];
 }
 
 - (DictionaryBuilder *)dictBuild {
@@ -43,32 +43,6 @@
 - (NSMutableArray *)userText {
     if (!_userText) _userText = [[NSMutableArray alloc] init];
     return _userText;
-}
-
-#define SPREAD 25
-- (IBAction)clearPressed:(id)sender {
-	self.rankedMatchesDisplay.text = @"";
-    self.bigCandidateDisplay.adjustsFontSizeToFitWidth = YES;
-    self.bigCandidateDisplay.minimumScaleFactor = 0;
-    if ([self.brain.liveTouches count] > 2) {
-        NSArray *bestWords = [self.brain getFilteredRankedCandidates];
-        self.rankedMatchesDisplay.text = [bestWords description];
-        if ([bestWords count] > 0)
-            self.bigCandidateDisplay.text = [self getFormattedUserText];
-        else self.bigCandidateDisplay.text = @"";
-    }
-    else self.bigCandidateDisplay.text = @"";
-    [self spacePressed];
-//	[self.brain clearLiveTouches];
-}
-
-- (IBAction)dumpPressed {
-    NSString *dumpText = @"";
-    for (int i = 0; i < [self.brain.liveTouches count]; i++) {
-        CGPoint touch =  [self.brain getTouchAtIndex:i];
-        dumpText = [dumpText stringByAppendingString:[NSString stringWithFormat:@"(%f,%f),", touch.x, touch.y]];
-    }
-    NSLog(@"%@", dumpText);
 }
 
 - (NSString *)getFormattedUserText {

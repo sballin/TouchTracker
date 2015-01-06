@@ -20,5 +20,4 @@
 + (NSString *)binaryVerticalPathFor:(NSMutableArray *)touchSequence;
 + (NSMutableSet *)horizontalExpansion:(NSString *)path;
 + (NSMutableSet *)verticalExpansion:(NSString *)path;
-- (NSString *)rowSequence:(NSMutableArray *)touchSequence;
 @end
