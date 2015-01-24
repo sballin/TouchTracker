@@ -54,7 +54,7 @@
 
 - (void)spacePressed {
     // Get ranked words if enough touches have been made
-    if ([self.brain.liveTouches count] > 2) {
+    if ([self.brain.liveTouches count] >= 2) {
         NSArray *bestWords = [self.brain getFilteredRankedCandidates];
         self.rankedMatchesDisplay.text = [bestWords description];
         
@@ -114,12 +114,11 @@
         }
     }
     
-    // Multiple fingers -> backspace
-    else {
+    // 3 fingers -> backspace
+    else if ([[event allTouches] count] == 3) {
         [self backspacePressed];
-        NSArray *touches = [event.allTouches allObjects];
-        [self addGrowingCircleAtPoint:[touches[0] locationInView:self.view] withColor:[UIColor redColor]];
-        [self addGrowingCircleAtPoint:[touches[1] locationInView:self.view] withColor:[UIColor redColor]];
+        for (UITouch *touch in [event.allTouches allObjects])
+            [self addGrowingCircleAtPoint:[touch locationInView:self.view] withColor:[UIColor redColor]];
     }
 }
 

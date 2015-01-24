@@ -26,7 +26,6 @@
 @synthesize fraction = _fraction;
 @synthesize repeat = _repeat;
 @synthesize countDictionary = _countDictionary;
-@synthesize repeatDictionary = _repeatDictionary;
 
 - (NSMutableArray *)liveTouches {
 	if (!_liveTouches) _liveTouches = [[NSMutableArray alloc] init];
@@ -53,6 +52,8 @@
     return _repeat;
 }
 
+#pragma mark -
+
 /**
  Load word length dictionary from file.
  */
@@ -67,9 +68,9 @@
 /**
  Load letter repetition dictionary from file.
  */
-- (NSDictionary *)repeatDictionary:(int)tolerance {
+- (NSDictionary *)repeatDictionary {
     if (!_repeatDictionary) {
-        NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"repeatDictionary%d", tolerance] ofType:@"plist"];
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"repeatDictionary10" ofType:@"plist"];
         _repeatDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
     }
     return _repeatDictionary;
@@ -97,8 +98,9 @@
     NSLog(@"vert: %lu", (unsigned long)[vertCandidates count]);
     
     if ([Repeat containsRepeat:self.liveTouches withTolerance:50]) {
-        NSArray *repeatCandidates = [self getRepeatCandidates:50];
+        NSSet *repeatCandidates = [self getRepeatCandidates:50];
         NSLog(@"Repeats: %lu", (unsigned long)[repeatCandidates count]);
+        [horizCandidates intersectSet:repeatCandidates];
     }
     
     [horizCandidates intersectSet:vertCandidates];
@@ -118,10 +120,9 @@
     return [self.fraction twoDimFractionSort:[words mutableCopy] using:self.liveTouches];
 }
 
-- (NSArray *)getRepeatCandidates:(int)tolerance {
+- (NSSet *)getRepeatCandidates:(int)tolerance {
     NSString *map = [Repeat repeatMap:self.liveTouches withTolerance:tolerance];
-    NSMutableArray *repeatWords = self.repeatDictionary[map];
-    return [self.fraction twoDimFractionSort:repeatWords using:self.liveTouches];
+    return [NSSet setWithArray:self.repeatDictionary[map]];
 }
 
 #define TOLERANCE 25

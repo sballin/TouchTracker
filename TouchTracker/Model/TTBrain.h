@@ -17,6 +17,6 @@
 - (CGPoint)getTouchAtIndex:(int)i;
 - (void)clearLiveTouches;
 - (NSArray *)getFilteredRankedCandidates;
-- (NSArray *)getRepeatCandidates:(int)tolerance;
+- (NSSet *)getRepeatCandidates:(int)tolerance;
 - (NSArray *)getCountCandidates;
 @end
