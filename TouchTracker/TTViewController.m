@@ -54,7 +54,7 @@
 
 - (void)spacePressed {
     // Get ranked words if enough touches have been made
-    if ([self.brain.liveTouches count] >= 2) {
+    if ([self.brain.liveTouches count] >= 1) {
         NSArray *bestWords = [self.brain getFilteredRankedCandidates];
         self.rankedMatchesDisplay.text = [bestWords description];
         

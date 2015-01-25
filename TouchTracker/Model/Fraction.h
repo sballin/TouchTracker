@@ -15,4 +15,6 @@
                     against:(NSMutableArray *)touchSequence;
 - (NSMutableArray *)twoDimFractionSort:(NSMutableArray *)words
                                  using:(NSMutableArray *)touchSequence;
+- (NSMutableArray *)angleSort:(NSArray *)words
+                        using:(NSArray *)touchSequence;
 @end

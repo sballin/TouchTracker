@@ -22,4 +22,6 @@
 + (CGPoint)displace:(CGPoint)point
 				   :(int)spread
 				   :(int)direction;
++ (float)lastAngleFor:(NSArray *)touchSequence;
+- (float)lastAngleFor:(NSString *)word;
 @end

@@ -97,11 +97,23 @@
     NSLog(@"horiz: %lu", (unsigned long)[horizCandidates count]);
     NSLog(@"vert: %lu", (unsigned long)[vertCandidates count]);
     
+    if ([self.liveTouches count] == 1) {
+        return @[@"0.0000 a"];
+    }
+    
+    if ([self.liveTouches count] == 2) {
+        NSArray *candidates = @[@"if", @"or", @"we", @"on", @"go", @"hi", @"at", @"is", @"an", @"it", @"no", @"of", @"my", @"to", @"up", @"in", @"us"];
+        return [self.fraction angleSort:candidates using:self.liveTouches];
+    }
+    
     if ([Repeat containsRepeat:self.liveTouches withTolerance:50]) {
         NSSet *repeatCandidates = [self getRepeatCandidates:50];
         NSLog(@"Repeats: %lu", (unsigned long)[repeatCandidates count]);
         [horizCandidates intersectSet:repeatCandidates];
+        // TODO: Early return
     }
+    
+    // TODO: use angle of two taps in longer words
     
     [horizCandidates intersectSet:vertCandidates];
     NSLog(@"Intersect: %lu", (unsigned long)[horizCandidates count]);

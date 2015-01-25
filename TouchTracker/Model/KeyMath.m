@@ -124,4 +124,16 @@
 	return point;
 }
 
++ (float)lastAngleFor:(NSArray *)touchSequence {
+    CGPoint firstPoint, secondPoint;
+    [touchSequence[0] getValue:&firstPoint];
+    [touchSequence[1] getValue:&secondPoint];
+    return atan2f(secondPoint.x-firstPoint.x, secondPoint.y-firstPoint.y);
+}
+
+- (float)lastAngleFor:(NSString *)word {
+    NSArray *touchSequence = [self modelTouchSequenceFor:word];
+    return [KeyMath lastAngleFor:touchSequence];
+}
+
 @end

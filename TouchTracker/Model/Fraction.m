@@ -116,15 +116,26 @@
 // TODO: optimize sorting
 - (NSMutableArray *)twoDimFractionSort:(NSMutableArray *)words
                                  using:(NSMutableArray *)touchSequence {
-	float leastError = INFINITY;
-	NSString *bestMatch;
     NSMutableArray *bestMatches = [[NSMutableArray alloc] init];
 	for (NSString *word in words) {
 		float error = [self twoDimErrorForWord:word against:touchSequence];
         [bestMatches addObject:[NSString stringWithFormat:@"%.4f %@", error, word]];
 	}
-    [bestMatches sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    [bestMatches sortUsingSelector:@selector(localizedCompare:)];
     return bestMatches;
 }
+
+- (NSMutableArray *)angleSort:(NSArray *)words
+                        using:(NSArray *)touchSequence {
+    float angle = [KeyMath lastAngleFor:touchSequence];
+    NSMutableArray *bestMatches = [[NSMutableArray alloc] init];
+    for (NSString *word in words) {
+        float error = fabs(angle - [self.keyboard lastAngleFor:word]);
+        [bestMatches addObject:[NSString stringWithFormat:@"%.4f %@", error, word]];
+    }
+    [bestMatches sortUsingSelector:@selector(localizedCompare:)];
+    return bestMatches;
+}
+
 
 @end
