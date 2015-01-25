@@ -9,12 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface Fraction : NSObject
-- (float)errorForWord:(NSString *)word
-              against:(NSMutableArray *)touchSequence;
 - (float)twoDimErrorForWord:(NSString *)word
-                    against:(NSMutableArray *)touchSequence;
-- (NSMutableArray *)twoDimFractionSort:(NSMutableArray *)words
-                                 using:(NSMutableArray *)touchSequence;
+                    against:(NSArray *)touchSequence;
+- (NSMutableArray *)twoDimFractionSort:(NSArray *)words
+                                 using:(NSArray *)touchSequence;
 - (NSMutableArray *)angleSort:(NSArray *)words
                         using:(NSArray *)touchSequence;
 @end

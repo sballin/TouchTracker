@@ -11,9 +11,8 @@
 
 @interface Fraction ()
 @property (nonatomic, strong) KeyMath *keyboard;
-- (NSArray *)fractionPath:(NSMutableArray *)touchSequence;
-- (NSArray *)horizontalFractionPath:(NSMutableArray *)touchSequence;
-- (NSArray *)verticalFractionPath:(NSMutableArray *)touchSequence;
+- (NSArray *)horizontalFractionPath:(NSArray *)touchSequence;
+- (NSArray *)verticalFractionPath:(NSArray *)touchSequence;
 @end
 
 @implementation Fraction
@@ -25,25 +24,7 @@
     return _keyboard;
 }
 
-- (NSArray *)fractionPath:(NSMutableArray *)touchSequence {
-	float total = 0.0;
-	NSMutableArray *path = [[NSMutableArray alloc] init];
-	for (int i = 0; i < [touchSequence count] - 1; i++) {
-        CGPoint firstPoint, secondPoint;
-        [touchSequence[i] getValue:&firstPoint];
-        [touchSequence[i+1] getValue:&secondPoint];
-		float distance =  [KeyMath distanceBetween:firstPoint and:secondPoint];
-		[path addObject:@(distance)];
-		total += distance;
-	}
-	for (int i = 0; i < [path count]; i++) {
-		float fraction = [path[i] floatValue] / total;
-		path[i] = @(fraction);
-	}
-	return [path copy];
-}
-
-- (NSArray *)horizontalFractionPath:(NSMutableArray *)touchSequence {
+- (NSArray *)horizontalFractionPath:(NSArray *)touchSequence {
 	float total = 0.0;
 	NSMutableArray *path = [[NSMutableArray alloc] init];
 	for (int i = 0; i < [touchSequence count] - 1; i++) {
@@ -63,7 +44,7 @@
 	return [path copy];
 }
 
-- (NSArray *)verticalFractionPath:(NSMutableArray *)touchSequence {
+- (NSArray *)verticalFractionPath:(NSArray *)touchSequence {
 	float total = 0.0;
 	NSMutableArray *path = [[NSMutableArray alloc] init];
 	for (int i = 0; i < [touchSequence count] - 1; i++) {
@@ -83,20 +64,12 @@
 	return [path copy];
 }
 
-- (float)errorForWord:(NSString *)word
-              against:(NSMutableArray *)touchSequence {
-	NSArray *touchPath = [self fractionPath:touchSequence];
-    NSArray *wordPath = [self fractionPath:[self.keyboard modelTouchSequenceFor:word]];
-    
-    // Add errors in quadrature
-	float totalError = 0.0;
-	for (int i = 0; i < [touchPath count]; i++)
-        totalError += powf([KeyMath errorBetween:[touchPath[i] floatValue] and:[wordPath[i] floatValue]], 2.0);
-	return sqrtf(totalError);
-}
-
+/**
+ *  Total error between word and touchSequence as the sum, in
+ *  quadrature, of differences between horizontal and vertical paths.
+ */
 - (float)twoDimErrorForWord:(NSString *)word
-                    against:(NSMutableArray *)touchSequence {
+                    against:(NSArray *)touchSequence {
 	NSArray *horizontalPath = [self horizontalFractionPath:touchSequence];
 	NSArray *verticalPath = [self verticalFractionPath:touchSequence];
     NSArray *horizontalWordPath = [self horizontalFractionPath:[self.keyboard modelTouchSequenceFor:word]];
@@ -109,13 +82,17 @@
         verticalError += powf([KeyMath errorBetween:[verticalPath[i] floatValue] and:[verticalWordPath[i] floatValue]], 2.0);
     }
     
-    // Add total errors in quadrature
-    return sqrtf(horizontalError+verticalError);
+    // Add total errors in quadrature. Note errors are already squared.
+    return sqrtf(horizontalError + verticalError);
 }
 
-// TODO: optimize sorting
-- (NSMutableArray *)twoDimFractionSort:(NSMutableArray *)words
-                                 using:(NSMutableArray *)touchSequence {
+// TODO: Optimize sorting. Only need top few results, pure float sorting.
+/**
+ *  Sort words by proximity of fraction paths in each direction to
+ *  fraction path of touchSequence.
+ */
+- (NSMutableArray *)twoDimFractionSort:(NSArray *)words
+                                 using:(NSArray *)touchSequence {
     NSMutableArray *bestMatches = [[NSMutableArray alloc] init];
 	for (NSString *word in words) {
 		float error = [self twoDimErrorForWord:word against:touchSequence];
@@ -125,6 +102,10 @@
     return bestMatches;
 }
 
+/**
+ *  Sort words by proximity to angle of vector between last two taps in
+ *  touchSequence.
+ */
 - (NSMutableArray *)angleSort:(NSArray *)words
                         using:(NSArray *)touchSequence {
     float angle = [KeyMath lastAngleFor:touchSequence];
@@ -136,6 +117,5 @@
     [bestMatches sortUsingSelector:@selector(localizedCompare:)];
     return bestMatches;
 }
-
 
 @end

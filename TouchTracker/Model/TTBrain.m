@@ -110,6 +110,7 @@
         NSSet *repeatCandidates = [self getRepeatCandidates:50];
         NSLog(@"Repeats: %lu", (unsigned long)[repeatCandidates count]);
         [horizCandidates intersectSet:repeatCandidates];
+        return [self.fraction twoDimFractionSort:[[horizCandidates allObjects] mutableCopy] using:self.liveTouches];
         // TODO: Early return
     }
     
