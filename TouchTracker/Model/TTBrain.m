@@ -111,10 +111,9 @@
         NSLog(@"Repeats: %lu", (unsigned long)[repeatCandidates count]);
         [horizCandidates intersectSet:repeatCandidates];
         return [self.fraction twoDimFractionSort:[[horizCandidates allObjects] mutableCopy] using:self.liveTouches];
-        // TODO: Early return
     }
     
-    // TODO: use angle of two taps in longer words
+    // TODO: Use angle of two taps in longer words
     
     [horizCandidates intersectSet:vertCandidates];
     NSLog(@"Intersect: %lu", (unsigned long)[horizCandidates count]);
@@ -130,7 +129,7 @@
             NSLog(@"Letter count: %lu", (unsigned long)[words count]);
         }
     }
-    return [self.fraction twoDimFractionSort:[words mutableCopy] using:self.liveTouches];
+    return  [self.fraction twoDimFractionSort:[words mutableCopy] using:self.liveTouches];
 }
 
 - (NSSet *)getRepeatCandidates:(int)tolerance {

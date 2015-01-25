@@ -45,6 +45,11 @@
     return _userText;
 }
 
+- (NSMutableArray *)rankedCandidates {
+    if (!_rankedCandidates) _rankedCandidates = [[NSMutableArray alloc] init];
+    return _rankedCandidates;
+}
+
 - (NSString *)getFormattedUserText {
     NSString *outputText = @"";
     for (NSString *word in self.userText)
@@ -55,12 +60,12 @@
 - (void)spacePressed {
     // Get ranked words if enough touches have been made
     if ([self.brain.liveTouches count] >= 1) {
-        NSArray *bestWords = [self.brain getFilteredRankedCandidates];
-        self.rankedMatchesDisplay.text = [bestWords description];
+        self.rankedCandidates = [[self.brain getFilteredRankedCandidates] mutableCopy];
+        self.rankedMatchesDisplay.text = [self.rankedCandidates description];
         
         // Add top candidate to user text
-        if ([bestWords count] > 0) {
-            [self.userText addObject:[bestWords[0] substringWithRange:NSMakeRange(7, [bestWords[0] length]-7)]];
+        if ([self.rankedCandidates count] > 0) {
+            [self.userText addObject:[self.rankedCandidates[0] substringWithRange:NSMakeRange(7, [self.rankedCandidates[0] length]-7)]];
             [self.brain.touchHistory addObject:self.brain.liveTouches];
             NSLog(@"Latest word: %@", [[self.userText lastObject] description]);
         }
@@ -77,7 +82,7 @@
 	[self.brain clearLiveTouches];
 }
 
-- (void)backspacePressed {
+- (void)deleteLastWord {
     // Remove unwanted word from user text
     [self.userText removeLastObject];
     [self.brain.touchHistory removeLastObject];
@@ -88,6 +93,15 @@
     // Reset display
     self.bigCandidateDisplay.text = [self getFormattedUserText];
     self.rankedMatchesDisplay.text = @"";
+}
+
+- (void)pickNextCandidate {
+    // Remove last word printed
+    [self.userText removeLastObject];
+    [self.rankedCandidates removeObjectAtIndex:0];
+    [self.userText addObject:[self.rankedCandidates[0] substringWithRange:NSMakeRange(7, [self.rankedCandidates[0] length]-7)]];
+    // Update text.
+    self.bigCandidateDisplay.text = [self getFormattedUserText];
 }
 
 #define THUMB_THRESHOLD 40
@@ -114,9 +128,15 @@
         }
     }
     
-    // 3 fingers -> backspace
-    else if ([[event allTouches] count] == 3) {
-        [self backspacePressed];
+    else if ([[event allTouches] count] == 2) {
+        [self pickNextCandidate];
+        for (UITouch *touch in [event.allTouches allObjects])
+            [self addGrowingCircleAtPoint:[touch locationInView:self.view] withColor:[UIColor purpleColor]];
+    }
+    
+    // 3 or more fingers -> backspace
+    else if ([[event allTouches] count] >= 3) {
+        [self deleteLastWord];
         for (UITouch *touch in [event.allTouches allObjects])
             [self addGrowingCircleAtPoint:[touch locationInView:self.view] withColor:[UIColor redColor]];
     }

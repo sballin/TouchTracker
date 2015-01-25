@@ -14,5 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *rankedMatchesDisplay;
 @property (weak, nonatomic) IBOutlet UILabel *bigCandidateDisplay;
 @property (nonatomic, strong) NSMutableArray *userText;
+@property (nonatomic, strong) NSMutableArray *rankedCandidates;
 
 @end

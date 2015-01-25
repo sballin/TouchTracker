@@ -26,7 +26,7 @@
 
 - (NSArray *)horizontalFractionPath:(NSArray *)touchSequence {
 	float total = 0.0;
-	NSMutableArray *path = [[NSMutableArray alloc] init];
+    NSMutableArray *path = [NSMutableArray arrayWithCapacity:[touchSequence count] - 1];
 	for (int i = 0; i < [touchSequence count] - 1; i++) {
         CGPoint firstPoint, secondPoint;
         [touchSequence[i] getValue:&firstPoint];
@@ -34,7 +34,7 @@
         firstPoint.y = 0.0;
         secondPoint.y = 0.0;
 		float distance =  [KeyMath distanceBetween:firstPoint and:secondPoint];
-		[path addObject:@(distance)];
+		path[i] = @(distance);
 		total += distance;
 	}
 	for (int i = 0; i < [path count]; i++) {
@@ -46,7 +46,7 @@
 
 - (NSArray *)verticalFractionPath:(NSArray *)touchSequence {
 	float total = 0.0;
-	NSMutableArray *path = [[NSMutableArray alloc] init];
+    NSMutableArray *path = [NSMutableArray arrayWithCapacity:[touchSequence count] - 1];
 	for (int i = 0; i < [touchSequence count] - 1; i++) {
         CGPoint firstPoint, secondPoint;
         [touchSequence[i] getValue:&firstPoint];
@@ -54,7 +54,7 @@
         firstPoint.x = 0.0;
         secondPoint.x = 0.0;
 		float distance =  [KeyMath distanceBetween:firstPoint and:secondPoint];
-		[path addObject:@(distance)];
+		path[i] = @(distance);
 		total += distance;
 	}
 	for (int i = 0; i < [path count]; i++) {
