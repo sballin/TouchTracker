@@ -31,11 +31,9 @@
         CGPoint firstPoint, secondPoint;
         [touchSequence[i] getValue:&firstPoint];
         [touchSequence[i+1] getValue:&secondPoint];
-        firstPoint.y = 0.0;
-        secondPoint.y = 0.0;
-		float distance =  [KeyMath distanceBetween:firstPoint and:secondPoint];
-		path[i] = @(distance);
-		total += distance;
+        float distance = fabs(firstPoint.x - firstPoint.y);
+        path[i] = @(distance);
+        total += distance;
 	}
 	for (int i = 0; i < [path count]; i++) {
 		float fraction = [path[i] floatValue] / total;
@@ -51,9 +49,7 @@
         CGPoint firstPoint, secondPoint;
         [touchSequence[i] getValue:&firstPoint];
         [touchSequence[i+1] getValue:&secondPoint];
-        firstPoint.x = 0.0;
-        secondPoint.x = 0.0;
-		float distance =  [KeyMath distanceBetween:firstPoint and:secondPoint];
+        float distance = fabs(firstPoint.x - firstPoint.y);
 		path[i] = @(distance);
 		total += distance;
 	}
