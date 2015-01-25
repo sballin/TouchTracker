@@ -1,34 +1,22 @@
 ### 🔫 To-Do
 
-- ➽ Repeat dictionary
-- ➽ Live stats on set sizes, score distributions
+- ➽ Live stats on score distributions
 - Adaptive coordinates
     - How to fill in blanks for letters that haven't been typed yet?
     - Iterate moving by sum of error vectors to position keypresses to be compared
-- Determine most costly operation for long lists
+- Determine bottlenecks for long lists
 - Make settings page and make tolerance, result count tweakable
     - Make tolerance a property instead of passing from argument to argument
-- AsyncDisplayKit
 
 ---
 
 ### ☁ Ideas
    
 - Center of gravity could be defined as origin
-- Hundreds of tiny invisible views to support faster input
+- Hundreds of tiny invisible __views__ to support faster input
     - Rearrangement on orientation change
 - Guess __finger__ behind each tap using radius
 - Put a ball corresponding to the location of each letter, have them all attract each other and cluster together, then see which ones are touching and use that graph to look up. Will work. 4sho. 
-
----
-
-### 🔴 Brain 
-
-- Combines several analyses
-    - Snake path: +1 if unbashed path has best of anything
-    - Fraction path: take top N from each list
-    - TwoDim: 
-    - Mountains: ???
 
 ---
 
@@ -52,15 +40,12 @@
 
 ### ⚡️ Optimizations
 
-- Can make plist format dictionaries using __Python__
-- Use __NSSet__ in snakeDictionary instead of NSMutableArray to do intersection stuff and maybe speedup
-- __Average__ fraction paths for words and keep in an __NSMutableDictionary__
+- Speed up sorting for large lists by discarding everything with a score below average.
 
 ---
 
 ### 🚀 THE FUTURE
 
-- 🔴 Short words
 - Combined score
     - Touch data interpretation
     - Frequency
