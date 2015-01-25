@@ -25,39 +25,43 @@
 }
 
 - (NSArray *)horizontalFractionPath:(NSArray *)touchSequence {
-	float total = 0.0;
-    NSMutableArray *path = [NSMutableArray arrayWithCapacity:[touchSequence count] - 1];
-	for (int i = 0; i < [touchSequence count] - 1; i++) {
-        CGPoint firstPoint, secondPoint;
-        [touchSequence[i] getValue:&firstPoint];
-        [touchSequence[i+1] getValue:&secondPoint];
-        float distance = fabs(firstPoint.x - firstPoint.y);
-        path[i] = @(distance);
-        total += distance;
-	}
-	for (int i = 0; i < [path count]; i++) {
-		float fraction = [path[i] floatValue] / total;
-		path[i] = @(fraction);
-	}
-	return [path copy];
+    float total = 0.0;
+    NSMutableArray *path = [[NSMutableArray alloc] init];
+    for (int i = 1; i < [touchSequence count]; i++) {
+        for (int j = 0; j < i; j++) {
+            CGPoint firstPoint, secondPoint;
+            [touchSequence[i] getValue:&firstPoint];
+            [touchSequence[j] getValue:&secondPoint];
+            float distance = fabs(firstPoint.x - secondPoint.x);
+            [path addObject:@(distance)];
+            total += distance;
+        }
+    }
+    for (int i = 0; i < [path count]; i++) {
+        float fraction = [path[i] floatValue] / total;
+        path[i] = @(fraction*1000);
+    }
+    return [path copy];
 }
 
 - (NSArray *)verticalFractionPath:(NSArray *)touchSequence {
-	float total = 0.0;
-    NSMutableArray *path = [NSMutableArray arrayWithCapacity:[touchSequence count] - 1];
-	for (int i = 0; i < [touchSequence count] - 1; i++) {
-        CGPoint firstPoint, secondPoint;
-        [touchSequence[i] getValue:&firstPoint];
-        [touchSequence[i+1] getValue:&secondPoint];
-        float distance = fabs(firstPoint.x - firstPoint.y);
-		path[i] = @(distance);
-		total += distance;
-	}
-	for (int i = 0; i < [path count]; i++) {
-		float fraction = [path[i] floatValue] / total;
-		path[i] = @(fraction);
-	}
-	return [path copy];
+    float total = 0.0;
+    NSMutableArray *path = [[NSMutableArray alloc] init];
+    for (int i = 1; i < [touchSequence count]; i++) {
+        for (int j = 0; j < i; j++) {
+            CGPoint firstPoint, secondPoint;
+            [touchSequence[i] getValue:&firstPoint];
+            [touchSequence[j] getValue:&secondPoint];
+            float distance = fabs(firstPoint.y - secondPoint.y);
+            [path addObject:@(distance)];
+            total += distance;
+        }
+    }
+    for (int i = 0; i < [path count]; i++) {
+        float fraction = [path[i] floatValue] / total;
+        path[i] = @(fraction*1000);
+    }
+    return [path copy];
 }
 
 /**
