@@ -22,7 +22,7 @@
 @implementation TouchTrackerViewController
 
 @synthesize rankedMatchesDisplay = _rankedMatchesDisplay;
-@synthesize bigCandidateDisplay = _bigCandidateDisplay;
+@synthesize textDisplay = _textDisplay;
 @synthesize brain = _brain;
 @synthesize dictBuild = _dictBuild;
 
@@ -70,13 +70,13 @@
             NSLog(@"Latest word: %@", [[self.userText lastObject] description]);
         }
         else {
-            self.bigCandidateDisplay.text = [self.bigCandidateDisplay.text stringByAppendingString: @"[empty]"];
+            self.textDisplay.text = [self.textDisplay.text stringByAppendingString: @"[empty]"];
         }
         
         // Rewrite display
-        self.bigCandidateDisplay.text = [self getFormattedUserText];
+        self.textDisplay.text = [self getFormattedUserText];
     }
-    else self.bigCandidateDisplay.text = [self.bigCandidateDisplay.text stringByAppendingString:@"ntouches"];
+    else self.textDisplay.text = [self.textDisplay.text stringByAppendingString:@"ntouches"];
     
     // Clear slate for live touches
 	[self.brain clearLiveTouches];
@@ -91,17 +91,19 @@
     [self.brain clearLiveTouches];
     
     // Reset display
-    self.bigCandidateDisplay.text = [self getFormattedUserText];
+    self.textDisplay.text = [self getFormattedUserText];
     self.rankedMatchesDisplay.text = @"";
 }
 
 - (void)pickNextCandidate {
-    // Remove last word printed
-    [self.userText removeLastObject];
-    [self.rankedCandidates removeObjectAtIndex:0];
-    [self.userText addObject:[self.rankedCandidates[0] substringWithRange:NSMakeRange(7, [self.rankedCandidates[0] length]-7)]];
-    // Update text.
-    self.bigCandidateDisplay.text = [self getFormattedUserText];
+    if ([self.rankedCandidates count] > 1) {
+        // Replace last word printed with one popped off rankedCandidates
+        [self.userText removeLastObject];
+        [self.rankedCandidates removeObjectAtIndex:0];
+        [self.userText addObject:[self.rankedCandidates[0] substringWithRange:NSMakeRange(7, [self.rankedCandidates[0] length]-7)]];
+        // Update text.
+        self.textDisplay.text = [self getFormattedUserText];
+    }
 }
 
 #define THUMB_THRESHOLD 40
