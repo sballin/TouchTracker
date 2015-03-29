@@ -118,13 +118,13 @@
             // Non-thumb finger -> letter
             if (thickness < THUMB_THRESHOLD) {
                 [self.brain addToLiveTouches:point];
-                [self addGrowingCircleAtPoint:[[touches anyObject] locationInView:self.view] withColor:[UIColor blueColor]];
+                [self addGrowingCircleAtPoint:[[touches anyObject] locationInView:self.view] withColor:[UIColor cyanColor]];
             }
             
             // Thumb -> space
             else {
                 [self spacePressed];
-                [self addGrowingCircleAtPoint:[[touches anyObject] locationInView:self.view] withColor:[UIColor greenColor]];
+                [self addGrowingCircleAtPoint:[[touches anyObject] locationInView:self.view] withColor:[UIColor whiteColor]];
             }
             
         }
@@ -133,7 +133,7 @@
     else if ([[event allTouches] count] == 2) {
         [self pickNextCandidate];
         for (UITouch *touch in [event.allTouches allObjects])
-            [self addGrowingCircleAtPoint:[touch locationInView:self.view] withColor:[UIColor purpleColor]];
+            [self addGrowingCircleAtPoint:[touch locationInView:self.view] withColor:[UIColor greenColor]];
     }
     
     // 3 or more fingers -> backspace

@@ -153,7 +153,7 @@
                                  using:(NSArray *)touchSequence {
     NSMutableArray *bestMatches = [[NSMutableArray alloc] init];
 	for (NSString *word in words) {
-		float error = [self twoDimPathErrorFor:word against:touchSequence];
+		float error = [self twoDimGraphErrorFor:word against:touchSequence];
         [bestMatches addObject:[NSString stringWithFormat:@"%.4f %@", error, word]];
 	}
     [bestMatches sortUsingSelector:@selector(localizedCompare:)];
