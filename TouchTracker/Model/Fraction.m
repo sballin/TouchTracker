@@ -13,6 +13,8 @@
 @property (nonatomic, strong) KeyMath *keyboard;
 - (NSArray *)horizontalFractionPath:(NSArray *)touchSequence;
 - (NSArray *)verticalFractionPath:(NSArray *)touchSequence;
+- (NSArray *)horizontalFractionGraph:(NSArray *)touchSequence;
+- (NSArray *)verticalFractionGraph:(NSArray *)touchSequence;
 @end
 
 @implementation Fraction
@@ -25,6 +27,42 @@
 }
 
 - (NSArray *)horizontalFractionPath:(NSArray *)touchSequence {
+	float total = 0.0;
+    NSMutableArray *path = [NSMutableArray arrayWithCapacity:[touchSequence count] - 1];
+	for (int i = 0; i < [touchSequence count] - 1; i++) {
+        CGPoint firstPoint, secondPoint;
+        [touchSequence[i] getValue:&firstPoint];
+        [touchSequence[i+1] getValue:&secondPoint];
+        float distance = fabs(firstPoint.x - firstPoint.y);
+        path[i] = @(distance);
+        total += distance;
+	}
+	for (int i = 0; i < [path count]; i++) {
+		float fraction = [path[i] floatValue] / total;
+		path[i] = @(fraction);
+	}
+	return [path copy];
+}
+
+- (NSArray *)verticalFractionPath:(NSArray *)touchSequence {
+    float total = 0.0;
+    NSMutableArray *path = [NSMutableArray arrayWithCapacity:[touchSequence count] - 1];
+    for (int i = 0; i < [touchSequence count] - 1; i++) {
+        CGPoint firstPoint, secondPoint;
+        [touchSequence[i] getValue:&firstPoint];
+        [touchSequence[i+1] getValue:&secondPoint];
+        float distance = fabs(firstPoint.x - firstPoint.y);
+        path[i] = @(distance);
+        total += distance;
+    }
+    for (int i = 0; i < [path count]; i++) {
+        float fraction = [path[i] floatValue] / total;
+        path[i] = @(fraction);
+    }
+    return [path copy];
+}
+
+- (NSArray *)horizontalFractionGraph:(NSArray *)touchSequence {
     float total = 0.0;
     NSMutableArray *path = [[NSMutableArray alloc] init];
     for (int i = 1; i < [touchSequence count]; i++) {
@@ -44,7 +82,7 @@
     return [path copy];
 }
 
-- (NSArray *)verticalFractionPath:(NSArray *)touchSequence {
+- (NSArray *)verticalFractionGraph:(NSArray *)touchSequence {
     float total = 0.0;
     NSMutableArray *path = [[NSMutableArray alloc] init];
     for (int i = 1; i < [touchSequence count]; i++) {
@@ -68,34 +106,54 @@
  *  Total error between word and touchSequence as the sum, in
  *  quadrature, of differences between horizontal and vertical paths.
  */
-- (float)twoDimErrorForWord:(NSString *)word
+- (float)twoDimPathErrorFor:(NSString *)word
                     against:(NSArray *)touchSequence {
-	NSArray *horizontalPath = [self horizontalFractionPath:touchSequence];
-	NSArray *verticalPath = [self verticalFractionPath:touchSequence];
+    NSArray *horizontalPath = [self horizontalFractionPath:touchSequence];
+    NSArray *verticalPath = [self verticalFractionPath:touchSequence];
     NSArray *horizontalWordPath = [self horizontalFractionPath:[self.keyboard modelTouchSequenceFor:word]];
     NSArray *verticalWordPath = [self verticalFractionPath:[self.keyboard modelTouchSequenceFor:word]];
-	float horizontalError = 0.0;
-	float verticalError = 0.0;
+    float horizontalError = 0.0;
+    float verticalError = 0.0;
     // Add individual errors in quadrature.
-	for (int i = 0; i < [horizontalPath count]; i++) {
+    for (int i = 0; i < [horizontalPath count]; i++) {
         horizontalError += powf([KeyMath errorBetween:[horizontalPath[i] floatValue] and:[horizontalWordPath[i] floatValue]], 2.0);
         verticalError += powf([KeyMath errorBetween:[verticalPath[i] floatValue] and:[verticalWordPath[i] floatValue]], 2.0);
     }
-    
     // Add total errors in quadrature. Note errors are already squared.
     return sqrtf(horizontalError + verticalError);
 }
 
-// TODO: Optimize sorting. Only need top few results, pure float sorting.
+/**
+ *  Total error between word and touchSequence as the sum, in
+ *  quadrature, of differences between horizontal and vertical graphs.
+ */
+- (float)twoDimGraphErrorFor:(NSString *)word
+                     against:(NSArray *)touchSequence {
+    NSArray *horizontalGraph = [self horizontalFractionGraph:touchSequence];
+    NSArray *verticalGraph = [self verticalFractionGraph:touchSequence];
+    NSArray *horizontalWordGraph = [self horizontalFractionGraph:[self.keyboard modelTouchSequenceFor:word]];
+    NSArray *verticalWordGraph = [self verticalFractionGraph:[self.keyboard modelTouchSequenceFor:word]];
+    float horizontalError = 0.0;
+    float verticalError = 0.0;
+    // Add individual errors in quadrature.
+    for (int i = 0; i < [horizontalGraph count]; i++) {
+        horizontalError += powf([KeyMath errorBetween:[horizontalGraph[i] floatValue] and:[horizontalWordGraph[i] floatValue]], 2.0);
+        verticalError += powf([KeyMath errorBetween:[verticalGraph[i] floatValue] and:[verticalWordGraph[i] floatValue]], 2.0);
+    }
+    // Add total errors in quadrature. Note errors are already squared.
+    return sqrtf(horizontalError + verticalError);
+}
+
 /**
  *  Sort words by proximity of fraction paths in each direction to
  *  fraction path of touchSequence.
+ *  TODO: Optimize sorting. Only need top few results, pure float sorting.
  */
 - (NSMutableArray *)twoDimFractionSort:(NSArray *)words
                                  using:(NSArray *)touchSequence {
     NSMutableArray *bestMatches = [[NSMutableArray alloc] init];
 	for (NSString *word in words) {
-		float error = [self twoDimErrorForWord:word against:touchSequence];
+		float error = [self twoDimPathErrorFor:word against:touchSequence];
         [bestMatches addObject:[NSString stringWithFormat:@"%.4f %@", error, word]];
 	}
     [bestMatches sortUsingSelector:@selector(localizedCompare:)];
