@@ -118,13 +118,13 @@
             // Non-thumb finger -> letter
             if (thickness < THUMB_THRESHOLD) {
                 [self.brain addToLiveTouches:point];
-                [self addGrowingCircleAtPoint:[[touches anyObject] locationInView:self.view] withColor:[UIColor cyanColor]];
+                [self addGrowingCircleAtPoint:[[touches anyObject] locationInView:self.view] withColor:[UIColor colorWithRed:0 green:.7490 blue:1 alpha:1]];
             }
             
             // Thumb -> space
             else {
                 [self spacePressed];
-                [self addGrowingCircleAtPoint:[[touches anyObject] locationInView:self.view] withColor:[UIColor whiteColor]];
+                [self addGrowingCircleAtPoint:[[touches anyObject] locationInView:self.view] withColor:[UIColor purpleColor]];
             }
             
         }
