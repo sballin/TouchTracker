@@ -70,13 +70,13 @@
             NSLog(@"Latest word: %@", [[self.userText lastObject] description]);
         }
         else {
-            self.textDisplay.text = [self.textDisplay.text stringByAppendingString: @"[empty]"];
+            self.textDisplay.text = [self.textDisplay.text stringByAppendingString: @"∅"];
         }
         
         // Rewrite display
         self.textDisplay.text = [self getFormattedUserText];
     }
-    else self.textDisplay.text = [self.textDisplay.text stringByAppendingString:@"ntouches"];
+    else self.textDisplay.text = [self.textDisplay.text stringByAppendingString:@"∅"];
     
     // Clear slate for live touches
 	[self.brain clearLiveTouches];
@@ -124,7 +124,7 @@
             // Thumb -> space
             else {
                 [self spacePressed];
-                [self addGrowingCircleAtPoint:[[touches anyObject] locationInView:self.view] withColor:[UIColor purpleColor]];
+                [self addGrowingCircleAtPoint:[[touches anyObject] locationInView:self.view] withColor:[UIColor greenColor]];
             }
             
         }
@@ -133,7 +133,7 @@
     else if ([[event allTouches] count] == 2) {
         [self pickNextCandidate];
         for (UITouch *touch in [event.allTouches allObjects])
-            [self addGrowingCircleAtPoint:[touch locationInView:self.view] withColor:[UIColor greenColor]];
+            [self addGrowingCircleAtPoint:[touch locationInView:self.view] withColor:[UIColor colorWithRed:.678431373 green:.517647059 blue:1 alpha:1]];
     }
     
     // 3 or more fingers -> backspace
