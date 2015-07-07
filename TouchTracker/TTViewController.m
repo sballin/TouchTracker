@@ -11,12 +11,10 @@
 #import "TTAppDelegate.h"
 #import "TTBrain.h"
 #import "DictionaryBuilder.h"
-#import "TypingSpace.h"
 
 @interface TouchTrackerViewController ()
 @property (nonatomic, strong) TouchTrackerBrain *brain;
 @property (nonatomic, strong) DictionaryBuilder *dictBuild;
-@property (weak, nonatomic) IBOutlet TypingSpace *typingSpace;
 @end
 
 @implementation TouchTrackerViewController

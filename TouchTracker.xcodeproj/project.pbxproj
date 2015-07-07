@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1412490D194F9FF7007785EE /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 1412490C194F9FF7007785EE /* README.md */; };
 		143BCA9719F6155F0022897D /* repeatDictionary10.plist in Resources */ = {isa = PBXBuildFile; fileRef = 143BCA9619F6155F0022897D /* repeatDictionary10.plist */; };
-		1451B977198092A600C221BE /* TypingSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 1451B976198092A600C221BE /* TypingSpace.m */; };
 		145DD966196A5FF20088243D /* Repeat.m in Sources */ = {isa = PBXBuildFile; fileRef = 145DD965196A5FF20088243D /* Repeat.m */; };
 		146129FD19B6CE1B004DC904 /* binaryVerticalDictionary.plist in Resources */ = {isa = PBXBuildFile; fileRef = 146129FC19B6CE1B004DC904 /* binaryVerticalDictionary.plist */; };
 		146CEF44193F18E5002E5220 /* dict.txt in Resources */ = {isa = PBXBuildFile; fileRef = 146CEF43193F18E5002E5220 /* dict.txt */; };
@@ -55,8 +54,6 @@
 /* Begin PBXFileReference section */
 		1412490C194F9FF7007785EE /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		143BCA9619F6155F0022897D /* repeatDictionary10.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = repeatDictionary10.plist; sourceTree = "<group>"; };
-		1451B975198092A600C221BE /* TypingSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypingSpace.h; sourceTree = "<group>"; };
-		1451B976198092A600C221BE /* TypingSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TypingSpace.m; sourceTree = "<group>"; };
 		145DD964196A5FF20088243D /* Repeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Repeat.h; sourceTree = "<group>"; };
 		145DD965196A5FF20088243D /* Repeat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Repeat.m; sourceTree = "<group>"; };
 		146129FC19B6CE1B004DC904 /* binaryVerticalDictionary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = binaryVerticalDictionary.plist; sourceTree = "<group>"; };
@@ -163,8 +160,6 @@
 				14B72290193AF6250059E7BD /* TouchDrawView.m */,
 				14B72266193AF2830059E7BD /* Main_iPhone.storyboard */,
 				14B72269193AF2830059E7BD /* Main_iPad.storyboard */,
-				1451B975198092A600C221BE /* TypingSpace.h */,
-				1451B976198092A600C221BE /* TypingSpace.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -363,7 +358,6 @@
 				145DD966196A5FF20088243D /* Repeat.m in Sources */,
 				14B72298193B37C50059E7BD /* TTBrain.m in Sources */,
 				14C606ED1947FC39002D4E4E /* KeyMath.m in Sources */,
-				1451B977198092A600C221BE /* TypingSpace.m in Sources */,
 				14D0F18F196F9B87003BB7C2 /* Fraction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
