@@ -57,7 +57,17 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
     [indicator startAnimating];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self.dictBuild writeHorizontalDictionary:25];
+        switch (self.dictTypeControl.selectedSegmentIndex) {
+            case 0:
+                [self.dictBuild writeHorizontalDictionary:25];
+                break;
+            case 1:
+                [self.dictBuild writeBinaryVerticalDictionary];
+                break;
+            case 2:
+                [self.dictBuild writeRepeatDictionary:25];
+                break;
+        }
         dispatch_async(dispatch_get_main_queue(), ^{
             [indicator stopAnimating];
         });

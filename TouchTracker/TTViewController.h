@@ -12,7 +12,9 @@
 @interface TouchTrackerViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UILabel *rankedMatchesDisplay;
 @property (weak, nonatomic) IBOutlet UILabel *textDisplay;
+
 @property (nonatomic, strong) NSMutableArray *userText;
 @property (nonatomic, strong) NSMutableArray *rankedCandidates;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *dictTypeControl;
 - (IBAction)createButton:(id)sender;
 @end
