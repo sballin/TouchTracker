@@ -14,9 +14,9 @@
 
 - (NSDictionary *)alphabetCoordinates {
     if (!_alphabetCoordinates) {
-        float r1 = 1269, r2 = 1099, r3 = 926; //y-coordinates of entire rows
-    	float k1 = 182,  k2 = 184,  k3 = 186; //key+space width on different rows
-    	float d1 = 274,  d2 = 167,  d3 = 91;  //offset of rows with respect to left margin
+        float r1 = 1269, r2 = 1099, r3 = 926; // y-coordinates of entire rows
+    	float k1 = 182,  k2 = 184,  k3 = 186; // key + space width on different rows
+    	float d1 = 274,  d2 = 167,  d3 = 91;  // offset of rows with respect to left margin
     	CGPoint a;    a.x = d2;         a.y = r2;
     	CGPoint b;    b.x = d1+4*k1;    b.y = r1;
     	CGPoint c;    c.x = d1+2*k1;    c.y = r1;

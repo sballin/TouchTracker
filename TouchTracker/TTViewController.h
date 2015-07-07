@@ -14,4 +14,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *textDisplay;
 @property (nonatomic, strong) NSMutableArray *userText;
 @property (nonatomic, strong) NSMutableArray *rankedCandidates;
+- (IBAction)createButton:(id)sender;
 @end

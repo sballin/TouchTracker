@@ -48,6 +48,22 @@
     return _rankedCandidates;
 }
 
+- (IBAction)createButton:(id)sender {
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    indicator.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
+    indicator.center = self.view.center;
+    [self.view addSubview:indicator];
+    [indicator bringSubviewToFront:self.view];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
+    [indicator startAnimating];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self.dictBuild writeHorizontalDictionary:25];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [indicator stopAnimating];
+        });
+    });
+}
+
 - (NSString *)getFormattedUserText {
     NSString *outputText = @"";
     for (NSString *word in self.userText)
