@@ -15,6 +15,7 @@
 @interface TouchTrackerViewController ()
 @property (nonatomic, strong) TouchTrackerBrain *brain;
 @property (nonatomic, strong) DictionaryBuilder *dictBuild;
+@property (nonatomic, strong) UIView *uncertaintyLength;
 @end
 
 @implementation TouchTrackerViewController
@@ -32,6 +33,15 @@
 - (TouchTrackerBrain *)brain {
 	if (!_brain) _brain = [[TouchTrackerBrain alloc] init];
 	return _brain;
+}
+
+- (UIView *)uncertaintyLength {
+    if (!_uncertaintyLength) {
+        _uncertaintyLength = [[UIView alloc] init];
+        _uncertaintyLength.backgroundColor = [UIColor lightGrayColor];
+        [self.uncertaintySlider addSubview:_uncertaintyLength];
+    }
+    return _uncertaintyLength;
 }
 
 - (NSMutableArray *)userText {
@@ -52,6 +62,7 @@
     int sliderInt = (int)roundf(self.uncertaintySlider.value);
     self.uncertaintySlider.value = (float)sliderInt;
     self.uncertaintyLabel.text = [NSString stringWithFormat:@"%d", sliderInt];
+    self.uncertaintyLength.frame = CGRectMake(2, 40, self.uncertaintySlider.value, 1);
 }
 
 - (IBAction)createPressed:(id)sender {
