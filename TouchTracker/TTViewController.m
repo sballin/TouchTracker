@@ -24,10 +24,6 @@
 @synthesize brain = _brain;
 @synthesize dictBuild = _dictBuild;
 
-- (IBAction)swipeLeft:(UISwipeGestureRecognizer *)sender {
-    [self spacePressed];
-}
-
 - (DictionaryBuilder *)dictBuild {
 	if (!_dictBuild) _dictBuild = [[DictionaryBuilder alloc] init];
 	return _dictBuild;
@@ -48,7 +44,17 @@
     return _rankedCandidates;
 }
 
-- (IBAction)createButton:(id)sender {
+- (IBAction)swipeLeft:(UISwipeGestureRecognizer *)sender {
+    [self spacePressed];
+}
+
+- (IBAction)sliderValueChanged:(id)sender {
+    int sliderInt = (int)roundf(self.uncertaintySlider.value);
+    self.uncertaintySlider.value = (float)sliderInt;
+    self.uncertaintyLabel.text = [NSString stringWithFormat:@"%d", sliderInt];
+}
+
+- (IBAction)createPressed:(id)sender {
     UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     indicator.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
     indicator.center = self.view.center;
@@ -56,16 +62,16 @@
     [indicator bringSubviewToFront:self.view];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
     [indicator startAnimating];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         switch (self.dictTypeControl.selectedSegmentIndex) {
             case 0:
-                [self.dictBuild writeHorizontalDictionary:25];
+                [self.dictBuild writeHorizontalDictionary:(int)self.uncertaintySlider.value];
                 break;
             case 1:
                 [self.dictBuild writeBinaryVerticalDictionary];
                 break;
             case 2:
-                [self.dictBuild writeRepeatDictionary:25];
+                [self.dictBuild writeRepeatDictionary:(int)self.uncertaintySlider.value];
                 break;
         }
         dispatch_async(dispatch_get_main_queue(), ^{
