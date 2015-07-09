@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UISlider *uncertaintySlider;
 @property (weak, nonatomic) IBOutlet UILabel *uncertaintyLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *dictTypeControl;
+@property (weak, nonatomic) IBOutlet UIProgressView *dictProgress;
 - (IBAction)sliderValueChanged:(id)sender;
 - (IBAction)createPressed:(id)sender;
 @end

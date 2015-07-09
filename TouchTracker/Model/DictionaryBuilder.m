@@ -113,6 +113,7 @@
 }
 
 - (void)writeHorizontalDictionary:(int)tolerance {
+    [self dictUpdateProgress:.75];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *dictName = [[@"horizontalDictionary" stringByAppendingString:[NSString stringWithFormat:@"%d", tolerance]] stringByAppendingString:@".plist"];
     NSString *dictPath = [paths[0] stringByAppendingPathComponent:dictName];
@@ -170,6 +171,11 @@
     }
     [self.binaryVerticalDictionary writeToFile:dictPath atomically:YES];
     NSLog(@"%@", dictPath);
+}
+
+- (void)dictUpdateProgress:(float)progress {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ProgressUpdated"
+                                                        object:[NSNumber numberWithFloat:progress]];
 }
 
 @end

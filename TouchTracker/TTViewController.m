@@ -35,6 +35,18 @@
 	return _brain;
 }
 
+- (void)viewDidLoad {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(changeProgress:)
+                                                 name:@"ProgressUpdated"
+                                               object:nil];
+}
+
+- (void)changeProgress:(NSNotification *)notification {
+    if ([notification.object isKindOfClass:[NSNumber class]])
+        self.dictProgress.progress = [[notification object] floatValue];
+}
+
 - (UIView *)uncertaintyLength {
     if (!_uncertaintyLength) {
         _uncertaintyLength = [[UIView alloc] init];
