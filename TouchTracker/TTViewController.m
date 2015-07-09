@@ -36,15 +36,13 @@
 }
 
 - (void)viewDidLoad {
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(changeProgress:)
-                                                 name:@"ProgressUpdated"
-                                               object:nil];
+    [super viewDidLoad];
+    self.dictProgress.progress = 0;
+    self.dictBuild.delegate = self;
 }
 
-- (void)changeProgress:(NSNotification *)notification {
-    if ([notification.object isKindOfClass:[NSNumber class]])
-        self.dictProgress.progress = [[notification object] floatValue];
+- (void)setProgress:(NSNumber *)amount {
+    [self.dictProgress setProgress:[amount floatValue]];
 }
 
 - (UIView *)uncertaintyLength {
@@ -78,14 +76,7 @@
 }
 
 - (IBAction)createPressed:(id)sender {
-    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    indicator.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
-    indicator.center = self.view.center;
-    [self.view addSubview:indicator];
-    [indicator bringSubviewToFront:self.view];
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
-    [indicator startAnimating];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         switch (self.dictTypeControl.selectedSegmentIndex) {
             case 0:
                 [self.dictBuild writeHorizontalDictionary:(int)self.uncertaintySlider.value];
@@ -98,7 +89,7 @@
                 break;
         }
         dispatch_async(dispatch_get_main_queue(), ^{
-            [indicator stopAnimating];
+            [self setProgress:[NSNumber numberWithFloat:0]];
         });
     });
 }

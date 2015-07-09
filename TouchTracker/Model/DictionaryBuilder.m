@@ -27,6 +27,7 @@
 @synthesize horizontalDictionary = _horizontalDictionary;
 @synthesize binaryHorizontalDictionary = _binaryHorizontalDictionary;
 @synthesize binaryVerticalDictionary = _binaryVerticalDictionary;
+@synthesize delegate;
 
 - (Repeat *)repeat {
     if (!_repeat) _repeat = [[Repeat alloc] init];
@@ -74,6 +75,12 @@
 	return _dictionaryWords;
 }
 
+- (void)sendProgressUpdate:(float)progress {
+    if([delegate respondsToSelector:@selector(setProgress:)]) {
+        [delegate performSelectorOnMainThread:@selector(setProgress:) withObject:[NSNumber numberWithFloat:progress] waitUntilDone:NO];
+    }
+}
+
 #define MAX_WORD_LENGTH 30
 - (void)writeCountDictionary {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -113,13 +120,14 @@
 }
 
 - (void)writeHorizontalDictionary:(int)tolerance {
-    [self dictUpdateProgress:.75];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *dictName = [[@"horizontalDictionary" stringByAppendingString:[NSString stringWithFormat:@"%d", tolerance]] stringByAppendingString:@".plist"];
     NSString *dictPath = [paths[0] stringByAppendingPathComponent:dictName];
-    
+    int i = 0;
+    float wordCount = (float)[self.dictionaryWords count];
     _horizontalDictionary = [NSMutableDictionary dictionaryWithCapacity:[self.dictionaryWords count]];
     for (NSString *word in self.dictionaryWords) {
+        if (i++ % 1000 == 0) [self sendProgressUpdate:i/wordCount];
 		if ([word length] >= 2) {
             NSMutableArray *touchSequence = [self.keyboard modelTouchSequenceFor:word];
             NSString *path = [TwoDim horizontalPathFor:touchSequence withTolerance:tolerance];
@@ -171,11 +179,6 @@
     }
     [self.binaryVerticalDictionary writeToFile:dictPath atomically:YES];
     NSLog(@"%@", dictPath);
-}
-
-- (void)dictUpdateProgress:(float)progress {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ProgressUpdated"
-                                                        object:[NSNumber numberWithFloat:progress]];
 }
 
 @end
