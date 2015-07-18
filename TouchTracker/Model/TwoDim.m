@@ -7,43 +7,22 @@
 //
 
 #import "TwoDim.h"
+#import "KeyMath.h"
 
 @interface TwoDim ()
+@property (nonatomic, strong) KeyMath *keyboard;
 + (NSString *)upDownFrom:(CGPoint)firstTouch
                       to:(CGPoint)secondTouch
            withTolerance:(int)pixels;
 + (NSString *)leftRightFrom:(CGPoint)firstTouch
                          to:(CGPoint)secondTouch
               withTolerance:(int)pixels;
-+ (NSString *)leftRightFrom:(CGPoint)firstTouch
-                         to:(CGPoint)secondTouch;
-+ (NSString *)upDownFrom:(CGPoint)firstTouch
-                      to:(CGPoint)secondTouch;
++ (BOOL)repeatFor:(CGPoint)firstTouch
+              and:(CGPoint)secondTouch
+    withTolerance:(int)pixels;
 @end
 
 @implementation TwoDim
-
-/**
- Lazy instantiation of horizontal dictionary with no undefined direction.
- */
-- (NSDictionary *)harshLeftRightDictionary {
-    if (!_harshLeftRightDictionary) {
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"binaryHorizontalDictionary" ofType:@"plist"];
-        _harshLeftRightDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
-    }
-    return _harshLeftRightDictionary;
-}
-
-/**
- Lazy instantiation of vertical dictionary with no undefined direction.
- */
-- (NSDictionary *)harshUpDownDictionary {
-    if (!_harshUpDownDictionary) {
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"binaryVerticalDictionary" ofType:@"plist"];
-        _harshUpDownDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
-    }
-    return _harshUpDownDictionary;
-}
 
 /**
  Vertical direction including undefined.
@@ -60,15 +39,6 @@
 }
 
 /**
- Vertical direction with no undefined. For use in dictionary creation.
- */
-+ (NSString *)upDownFrom:(CGPoint)firstTouch
-                      to:(CGPoint)secondTouch {
-    if (firstTouch.y - secondTouch.y > 0) return @"d";
-    return @"u";
-}
-
-/**
  Horizontal direction including undefined.
  */
 + (NSString *)leftRightFrom:(CGPoint)firstTouch
@@ -82,98 +52,82 @@
     return @"x";
 }
 
-/**
- Horizontal direction with no undefined. For use in dictionary creation.
- */
-+ (NSString *)leftRightFrom:(CGPoint)firstTouch
-                         to:(CGPoint)secondTouch {
-    if (firstTouch.x-secondTouch.x > 0) return @"l";
-    return @"r";
-}
-
-#define DEFAULT_TOLERANCE 25
 + (NSString *)horizontalPathFor:(NSMutableArray *)touchSequence
-                  withTolerance:(int)pixels {
+                  withTolerance:(NSNumber *)pixels {
+    int pixelValue = (int)[pixels integerValue];
     NSString *path = @"";
     for (int i = 0; i < [touchSequence count] - 1; i++) {
         CGPoint firstTouch, secondTouch;
         [touchSequence[i] getValue:&firstTouch];
         [touchSequence[i+1] getValue:&secondTouch];
-        path = [path stringByAppendingString:[TwoDim leftRightFrom:firstTouch to:secondTouch withTolerance:pixels]];
-    }
-    return path;
-}
-
-/**
- For use in dictionary creation.
- */
-+ (NSString *)binaryHorizontalPathFor:(NSMutableArray *)touchSequence {
-    NSString *path = @"";
-    for (int i = 0; i < [touchSequence count] - 1; i++) {
-        CGPoint firstTouch, secondTouch;
-        [touchSequence[i] getValue:&firstTouch];
-        [touchSequence[i+1] getValue:&secondTouch];
-        path = [path stringByAppendingString:[TwoDim leftRightFrom:firstTouch to:secondTouch]];
+        path = [path stringByAppendingString:[TwoDim leftRightFrom:firstTouch to:secondTouch withTolerance:pixelValue]];
     }
     return path;
 }
 
 + (NSString *)verticalPathFor:(NSMutableArray *)touchSequence
-                withTolerance:(int)pixels {
+                withTolerance:(NSNumber *)pixels {
+    int pixelValue = (int)[pixels integerValue];
     NSString *path = @"";
     for (int i = 0; i < [touchSequence count] - 1; i++) {
         CGPoint firstTouch, secondTouch;
         [touchSequence[i] getValue:&firstTouch];
         [touchSequence[i+1] getValue:&secondTouch];
-        path = [path stringByAppendingString:[TwoDim upDownFrom:firstTouch to:secondTouch withTolerance:pixels]];
+        path = [path stringByAppendingString:[TwoDim upDownFrom:firstTouch to:secondTouch withTolerance:pixelValue]];
     }
     return path;
 }
 
-/**
- For use in dictionary creation.
- */
-+ (NSString *)binaryVerticalPathFor:(NSMutableArray *)touchSequence {
-    NSString *path = @"";
-    for (int i = 0; i < [touchSequence count] - 1; i++) {
-        CGPoint firstTouch, secondTouch;
++ (NSString *)repeatPathFor:(NSMutableArray *)touchSequence
+              withTolerance:(NSNumber *)pixelValue {
+    int pixels;
+    [pixelValue getValue:&pixels];
+    NSString *map = @"";
+    for (int i = 0; i < [touchSequence count]-1; i++) {
+        CGPoint firstTouch;
         [touchSequence[i] getValue:&firstTouch];
+        CGPoint secondTouch;
         [touchSequence[i+1] getValue:&secondTouch];
-        path = [path stringByAppendingString:[TwoDim upDownFrom:firstTouch to:secondTouch]];
+        if ([TwoDim repeatFor:firstTouch and:secondTouch withTolerance:pixels])
+            map = [map stringByAppendingString:@"r"];
+        else map = [map stringByAppendingString:@"x"];
     }
-    return path;
+    return map;
 }
 
-/**
- Replace all xs in a path with l/r directions.
- @param path direction sequence to analyze
- @return NSSet of all possible paths
- */
-+ (NSMutableSet *)horizontalExpansion:(NSString *)path {
-    NSMutableSet *set = [[NSMutableSet alloc] init]; // get rid of alloc/init
+- (NSString *)repeatMapForWord:(NSString *)word
+                 withTolerance:(NSNumber *)pixels {
+    return [TwoDim repeatPathFor:[self.keyboard modelTouchSequenceFor:word] withTolerance:pixels];
+}
+
++ (BOOL)repeatFor:(CGPoint)firstTouch
+              and:(CGPoint)secondTouch
+    withTolerance:(int)pixels {
+    if ([KeyMath distanceBetween:firstTouch and:secondTouch] < pixels)
+        return YES;
+    return NO;
+}
+
++ (BOOL)containsRepeat:(NSMutableArray *)touchSequence
+         withTolerance:(NSNumber *)pixelValue {
+    NSString *map = [TwoDim repeatPathFor:touchSequence withTolerance:pixelValue];
+    if ([map rangeOfString:@"r"].location != NSNotFound)
+        return YES;
+    return NO;
+}
+
++ (NSMutableSet *)expand:(NSString *)path
+             inDirection:(NSString *)direction {
+    NSMutableSet *set = [[NSMutableSet alloc] init];
+    NSArray *sides;
+    if ([direction isEqualToString:@"horizontal"]) sides = [NSArray arrayWithObjects:@"l", @"r", nil];
+    else if ([direction isEqualToString:@"vertical"]) sides = [NSArray arrayWithObjects:@"u", @"d", nil];
     if ([path rangeOfString:@"x"].location == NSNotFound)
         set = [NSMutableSet setWithObject:path];
     else {
         NSRange range = [path rangeOfString:@"x"];
-        [set unionSet:[TwoDim horizontalExpansion:[path stringByReplacingCharactersInRange:range withString:@"l"]]];
-        [set unionSet:[TwoDim horizontalExpansion:[path stringByReplacingCharactersInRange:range withString:@"r"]]];
-    }
-    return set;
-}
-
-/**
- Replace all xs in a path with u/d directions.
- @param path direction sequence to analyze
- @return NSSet of all possible paths
- */
-+ (NSMutableSet *)verticalExpansion:(NSString *)path {
-    NSMutableSet *set = [[NSMutableSet alloc] init]; // get rid of alloc/init
-    if ([path rangeOfString:@"x"].location == NSNotFound)
-        set = [NSMutableSet setWithObject:path];
-    else {
-        NSRange range = [path rangeOfString:@"x"];
-        [set unionSet:[TwoDim verticalExpansion:[path stringByReplacingCharactersInRange:range withString:@"u"]]];
-        [set unionSet:[TwoDim verticalExpansion:[path stringByReplacingCharactersInRange:range withString:@"d"]]];
+        [set unionSet:[TwoDim expand:[path stringByReplacingCharactersInRange:range withString:sides[0]] inDirection:direction]];
+        [set unionSet:[TwoDim expand:[path stringByReplacingCharactersInRange:range withString:sides[1]] inDirection:direction]];
     }
     return set;
 }

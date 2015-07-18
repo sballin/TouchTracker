@@ -10,11 +10,11 @@
 #import "TouchDrawView.h"
 #import "TTAppDelegate.h"
 #import "TTBrain.h"
-#import "DictionaryBuilder.h"
+#import "Dictionary.h"
 
 @interface TouchTrackerViewController ()
 @property (nonatomic, strong) TouchTrackerBrain *brain;
-@property (nonatomic, strong) DictionaryBuilder *dictBuild;
+@property (nonatomic, strong) Dictionary *dictBuild;
 @property (nonatomic, strong) UIView *uncertaintyLength;
 @end
 
@@ -25,8 +25,8 @@
 @synthesize brain = _brain;
 @synthesize dictBuild = _dictBuild;
 
-- (DictionaryBuilder *)dictBuild {
-	if (!_dictBuild) _dictBuild = [[DictionaryBuilder alloc] init];
+- (Dictionary *)dictBuild {
+	if (!_dictBuild) _dictBuild = [[Dictionary alloc] init];
 	return _dictBuild;
 }
 
@@ -42,7 +42,7 @@
 }
 
 - (void)setProgress:(NSNumber *)amount {
-    [self.dictProgress setProgress:[amount floatValue]];
+    [self.dictProgress setProgress:[amount floatValue] animated:YES];
 }
 
 - (UIView *)uncertaintyLength {
@@ -79,17 +79,17 @@
    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         switch (self.dictTypeControl.selectedSegmentIndex) {
             case 0:
-                [self.dictBuild writeHorizontalDictionary:(int)self.uncertaintySlider.value];
+                [self.dictBuild writeDictionary:@"horizontal" withTolerance:[NSNumber numberWithInteger:(int)self.uncertaintySlider.value]];
                 break;
             case 1:
-                [self.dictBuild writeBinaryVerticalDictionary];
+                [self.dictBuild writeDictionary:@"vertical" withTolerance:0];
                 break;
             case 2:
-                [self.dictBuild writeRepeatDictionary:(int)self.uncertaintySlider.value];
+                [self.dictBuild writeDictionary:@"repeat" withTolerance:[NSNumber numberWithInteger:(int)self.uncertaintySlider.value]];
                 break;
         }
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self setProgress:[NSNumber numberWithFloat:0]];
+            [self.dictProgress setProgress:0];
         });
     });
 }
@@ -104,7 +104,7 @@
 - (void)spacePressed {
     // Get ranked words if enough touches have been made
     if ([self.brain.liveTouches count] >= 1) {
-        self.rankedCandidates = [[self.brain getFilteredRankedCandidates] mutableCopy];
+        self.rankedCandidates = [[self.brain getFilteredRankedCandidates:[NSNumber numberWithInteger:(int)self.uncertaintySlider.value]] mutableCopy];
         self.rankedMatchesDisplay.text = [self.rankedCandidates description];
         
         // Add top candidate to user text

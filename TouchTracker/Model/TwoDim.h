@@ -9,15 +9,16 @@
 #import <Foundation/Foundation.h>
 
 @interface TwoDim : NSObject
-@property (nonatomic, strong) NSDictionary *horizontalDictionary;
-@property (nonatomic, strong) NSDictionary *harshLeftRightDictionary;
-@property (nonatomic, strong) NSDictionary *harshUpDownDictionary;
 + (NSString *)horizontalPathFor:(NSMutableArray *)touchSequence
-                  withTolerance:(int)pixels;
-+ (NSString *)binaryHorizontalPathFor:(NSMutableArray *)touchSequence;
+                  withTolerance:(NSNumber *)pixels;
 + (NSString *)verticalPathFor:(NSMutableArray *)touchSequence
-                withTolerance:(int)pixels;
-+ (NSString *)binaryVerticalPathFor:(NSMutableArray *)touchSequence;
-+ (NSMutableSet *)horizontalExpansion:(NSString *)path;
-+ (NSMutableSet *)verticalExpansion:(NSString *)path;
+                  withTolerance:(NSNumber *)pixels;
++ (NSString *)repeatPathFor:(NSMutableArray *)touchSequence
+              withTolerance:(NSNumber *)pixels;
+- (NSString *)repeatMapForWord:(NSString *)word
+                 withTolerance:(NSNumber *)pixels;
++ (BOOL)containsRepeat:(NSMutableArray *)touchSequence
+         withTolerance:(NSNumber *)pixels;
++ (NSMutableSet *)expand:(NSString *)path
+             inDirection:(NSString *)direction;
 @end

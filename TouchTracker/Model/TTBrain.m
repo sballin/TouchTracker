@@ -9,13 +9,13 @@
 #import "TTBrain.h"
 #import "TwoDim.h"
 #import "Fraction.h"
+#import "Dictionary.h"
 #import "KeyMath.h"
-#import "Repeat.h"
 
 @interface TouchTrackerBrain ()
 @property (nonatomic, strong) TwoDim *twodim;
 @property (nonatomic, strong) Fraction *fraction;
-@property (nonatomic, strong) Repeat *repeat;
+@property (nonatomic, strong) Dictionary *dict;
 @end
 
 @implementation TouchTrackerBrain
@@ -24,7 +24,7 @@
 @synthesize touchHistory = _touchHistory;
 @synthesize twodim = _twodim;
 @synthesize fraction = _fraction;
-@synthesize repeat = _repeat;
+@synthesize dict = _dict;
 @synthesize countDictionary = _countDictionary;
 
 - (NSMutableArray *)liveTouches {
@@ -47,11 +47,6 @@
     return _fraction;
 }
 
-- (Repeat *)repeat {
-    if (!_repeat) _repeat = [[Repeat alloc] init];
-    return _repeat;
-}
-
 #pragma mark -
 
 /**
@@ -63,17 +58,6 @@
         _countDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
     }
     return _countDictionary;
-}
-
-/**
- Load letter repetition dictionary from file.
- */
-- (NSDictionary *)repeatDictionary {
-    if (!_repeatDictionary) {
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"repeatDictionary10" ofType:@"plist"];
-        _repeatDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
-    }
-    return _repeatDictionary;
 }
 
 - (void)addToLiveTouches:(CGPoint)touch {
@@ -90,9 +74,9 @@
 	self.liveTouches = nil;
 }
 
-- (NSArray *)getFilteredRankedCandidates {
-    NSMutableSet *horizCandidates = [self getHorizontalCandidates];
-    NSSet *vertCandidates = [self getVerticalCandidates];
+- (NSArray *)getFilteredRankedCandidates:(NSNumber *)tolerance {
+    NSMutableSet *horizCandidates = [self getCandidatesFor:@"horizontal" withTolerance:tolerance];
+    NSSet *vertCandidates = [self getCandidatesFor:@"vertical" withTolerance:tolerance];
     NSMutableSet *horizCandidatesCopy = [horizCandidates mutableCopy];
     NSLog(@"horiz: %lu", (unsigned long)[horizCandidates count]);
     NSLog(@"vert: %lu", (unsigned long)[vertCandidates count]);
@@ -106,8 +90,8 @@
         return [self.fraction angleSort:candidates using:self.liveTouches];
     }
     
-    if ([Repeat containsRepeat:self.liveTouches withTolerance:50]) {
-        NSSet *repeatCandidates = [self getRepeatCandidates:50];
+    if ([TwoDim containsRepeat:self.liveTouches withTolerance:tolerance]) {
+        NSSet *repeatCandidates = [self getRepeatCandidates:tolerance];
         NSLog(@"Repeats: %lu", (unsigned long)[repeatCandidates count]);
         [horizCandidates intersectSet:repeatCandidates];
         return [self.fraction twoDimFractionSort:[[horizCandidates allObjects] mutableCopy] using:self.liveTouches];
@@ -132,28 +116,26 @@
     return  [self.fraction twoDimFractionSort:[words mutableCopy] using:self.liveTouches];
 }
 
-- (NSSet *)getRepeatCandidates:(int)tolerance {
-    NSString *map = [Repeat repeatMap:self.liveTouches withTolerance:tolerance];
-    return [NSSet setWithArray:self.repeatDictionary[map]];
+- (NSSet *)getRepeatCandidates:(NSNumber *)tolerance {
+    NSString *map = [TwoDim repeatPathFor:self.liveTouches withTolerance:tolerance];
+    return [NSSet setWithArray:self.dict.dictionaries[[NSString stringWithFormat:@"repeat, tolerance %@px", tolerance]][map]];
 }
 
-#define TOLERANCE 25
-- (NSMutableSet *)getHorizontalCandidates {
-    NSString *horizpath = [TwoDim horizontalPathFor:self.liveTouches withTolerance:TOLERANCE];
-    NSMutableSet *horizontalNeighborPaths = [TwoDim horizontalExpansion:horizpath];
-    NSMutableSet *horizontalNeighborWords = [[NSMutableSet alloc] init];
-    for (NSString *neighborPath in horizontalNeighborPaths)
-        [horizontalNeighborWords addObjectsFromArray:[self.twodim.harshLeftRightDictionary[neighborPath] copy]];
-    return horizontalNeighborWords;
-}
-
-- (NSMutableSet *)getVerticalCandidates {
-    NSString *vertpath = [TwoDim verticalPathFor:self.liveTouches withTolerance:TOLERANCE];
-    NSMutableSet *verticalNeighborPaths = [TwoDim verticalExpansion:vertpath];
-    NSMutableSet *verticalNeighborWords = [[NSMutableSet alloc] init];
-    for (NSString *neighborPath in verticalNeighborPaths)
-        [verticalNeighborWords addObjectsFromArray:[self.twodim.harshUpDownDictionary[neighborPath] copy]];
-    return verticalNeighborWords;
+- (NSMutableSet *)getCandidatesFor:(NSString *)direction
+                     withTolerance:(NSNumber *)pixels {
+    NSString *path; NSMutableSet *neighborPaths;
+    if ([direction isEqualToString:@"horizontal"]) {
+        path = [TwoDim horizontalPathFor:self.liveTouches withTolerance:pixels];
+        neighborPaths = [TwoDim expand:path inDirection:direction];
+    }
+    else if ([direction isEqualToString:@"vertical"]) {
+        path = [TwoDim verticalPathFor:self.liveTouches withTolerance:pixels];
+        neighborPaths = [TwoDim expand:path inDirection:direction];
+    }
+    NSMutableSet *neighborWords = [[NSMutableSet alloc] init];
+    for (NSString *neighborPath in neighborPaths)
+        [neighborWords addObjectsFromArray:[self.dict.dictionaries[[NSString stringWithFormat:@"%@, tolerance 0px", direction]][neighborPath] copy]];
+    return neighborWords;
 }
 
 - (NSArray *)getCountCandidates {
