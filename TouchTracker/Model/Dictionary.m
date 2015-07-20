@@ -83,7 +83,7 @@
         if (++i % 3000 == 0) [self sendProgressUpdate:i/wordCount];
     }
     self.dictionaries[dictName.stringByDeletingPathExtension] = dictionary;
-    NSLog(@"%@", dictionary.allKeys);
+    [dictionary writeToFile:dictPath atomically:YES];
 }
 
 #define MAX_WORD_LENGTH 30
