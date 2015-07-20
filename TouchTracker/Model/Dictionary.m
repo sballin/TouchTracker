@@ -27,7 +27,21 @@
 }
 
 - (NSMutableDictionary *)dictionaries {
-    if (!_dictionaries) _dictionaries = [[NSMutableDictionary alloc] init];
+    if (!_dictionaries) {
+        _dictionaries = [[NSMutableDictionary alloc] init];
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSArray *contentPaths = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:paths[0] error:nil];
+        for (NSString *path in contentPaths) {
+            if ([path hasSuffix:@".plist"] && [path containsString:@"Dict"] && ![path containsString:@"Dictionary"])
+                _dictionaries[path.stringByDeletingPathExtension] = [NSDictionary dictionaryWithContentsOfFile:[paths[0] stringByAppendingPathComponent:path]];
+        }
+        NSString *mainPath = [[NSBundle mainBundle] resourcePath];
+        contentPaths = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:mainPath error:nil];
+        for (NSString *path in contentPaths) {
+            if ([path hasSuffix:@".plist"] && [path containsString:@"Dict"] && ![path containsString:@"Dictionary"])
+                _dictionaries[path.stringByDeletingPathExtension] = [NSDictionary dictionaryWithContentsOfFile:[mainPath stringByAppendingPathComponent:path]];
+        }
+    }
     return _dictionaries;
 }
 
@@ -49,6 +63,10 @@
 
 - (void)writeDictionary:(NSString *)direction
           withTolerance:(NSNumber *)pixels {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *dictName = [NSString stringWithFormat:@"%@Dict%@.plist", direction, pixels];
+    NSString *dictPath = [paths[0] stringByAppendingPathComponent:dictName];
+    
     int i = 0; float wordCount = (float)[self.dictionaryWords count];
     SEL pathMaker = NSSelectorFromString([NSString stringWithFormat:@"%@PathFor:withTolerance:", direction]);
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithCapacity:(int)wordCount];
@@ -62,17 +80,17 @@
             [list addObject:word];
             dictionary[path] = list;
         }
-        if (i++ % 1000 == 0) [self sendProgressUpdate:i/wordCount];
+        if (++i % 3000 == 0) [self sendProgressUpdate:i/wordCount];
     }
-    [self.dictionaries setValue:dictionary forKey:[NSString stringWithFormat:@"%@, tolerance %@px", direction, pixels]];
+    self.dictionaries[dictName.stringByDeletingPathExtension] = dictionary;
+    NSLog(@"%@", dictionary.allKeys);
 }
 
 #define MAX_WORD_LENGTH 30
 - (void)writeCountDictionary {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *dictName = @"countDictionary.plist";
+    NSString *dictName = @"countDict.plist";
     NSString *dictPath = [paths[0] stringByAppendingPathComponent:dictName];
-    
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithCapacity:[self.dictionaryWords count]];
     for (int i = 1; i < MAX_WORD_LENGTH; i++)
         dictionary[[NSString stringWithFormat:@"%d", i]] = [[NSMutableArray alloc] init];
@@ -83,8 +101,7 @@
         dictionary[length] = list;
     }
     [dictionary writeToFile:dictPath atomically:YES];
-    [self.dictionaries setValue:dictionary forKey:@"word count"];
-    NSLog(@"%@", dictPath);
+    [self.dictionaries setValue:dictionary forKey:@"countDict"];
 }
 
 @end

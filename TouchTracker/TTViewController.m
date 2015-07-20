@@ -15,7 +15,8 @@
 @interface TouchTrackerViewController ()
 @property (nonatomic, strong) TouchTrackerBrain *brain;
 @property (nonatomic, strong) Dictionary *dictBuild;
-@property (nonatomic, strong) UIView *uncertaintyLength;
+@property (nonatomic, strong) UIView *toleranceLength;
+@property (nonatomic, strong) NSArray *pickerData;
 @end
 
 @implementation TouchTrackerViewController
@@ -25,6 +26,8 @@
 @synthesize brain = _brain;
 @synthesize dictBuild = _dictBuild;
 
+#pragma mark - Lazy instantiations
+
 - (Dictionary *)dictBuild {
 	if (!_dictBuild) _dictBuild = [[Dictionary alloc] init];
 	return _dictBuild;
@@ -33,25 +36,6 @@
 - (TouchTrackerBrain *)brain {
 	if (!_brain) _brain = [[TouchTrackerBrain alloc] init];
 	return _brain;
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.dictProgress.progress = 0;
-    self.dictBuild.delegate = self;
-}
-
-- (void)setProgress:(NSNumber *)amount {
-    [self.dictProgress setProgress:[amount floatValue] animated:YES];
-}
-
-- (UIView *)uncertaintyLength {
-    if (!_uncertaintyLength) {
-        _uncertaintyLength = [[UIView alloc] init];
-        _uncertaintyLength.backgroundColor = [UIColor lightGrayColor];
-        [self.uncertaintySlider addSubview:_uncertaintyLength];
-    }
-    return _uncertaintyLength;
 }
 
 - (NSMutableArray *)userText {
@@ -64,35 +48,89 @@
     return _rankedCandidates;
 }
 
+#pragma mark - View setup
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.dictProgress.progress = 0;
+    self.dictBuild.delegate = self;
+    self.pickerData = [self.dictBuild.dictionaries allKeys];
+    self.dictPicker.dataSource = self;
+    self.dictPicker.delegate = self;
+}
+
 - (IBAction)swipeLeft:(UISwipeGestureRecognizer *)sender {
     [self spacePressed];
 }
 
+#pragma mark - Dictionary creation interface
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 2;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return self.pickerData.count;
+}
+
+- (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return self.pickerData[row];
+}
+
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
+    UILabel* tView = (UILabel*)view;
+    if (!tView) {
+        tView = [[UILabel alloc] init];
+        [tView setFont:[UIFont fontWithName:@"Helvetica" size:14]];
+        tView.numberOfLines = 2;
+    }
+    // Fill the label text here
+    tView.text = self.pickerData[row];
+    return tView;
+}
+
+- (UIView *)toleranceLength {
+    if (!_toleranceLength) {
+        _toleranceLength = [[UIView alloc] init];
+        _toleranceLength.backgroundColor = [UIColor lightGrayColor];
+        [self.toleranceSlider addSubview:_toleranceLength];
+    }
+    return _toleranceLength;
+}
+
 - (IBAction)sliderValueChanged:(id)sender {
-    int sliderInt = (int)roundf(self.uncertaintySlider.value);
-    self.uncertaintySlider.value = (float)sliderInt;
-    self.uncertaintyLabel.text = [NSString stringWithFormat:@"%d", sliderInt];
-    self.uncertaintyLength.frame = CGRectMake(2, 40, self.uncertaintySlider.value, 1);
+    int sliderInt = (int)roundf(self.toleranceSlider.value);
+    self.toleranceSlider.value = (float)sliderInt;
+    self.toleranceLabel.text = [NSString stringWithFormat:@"%d", sliderInt];
+    self.toleranceLength.frame = CGRectMake(2, 40, self.toleranceSlider.value, 1);
 }
 
 - (IBAction)createPressed:(id)sender {
-   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         switch (self.dictTypeControl.selectedSegmentIndex) {
             case 0:
-                [self.dictBuild writeDictionary:@"horizontal" withTolerance:[NSNumber numberWithInteger:(int)self.uncertaintySlider.value]];
+                [self.dictBuild writeDictionary:@"horizontal" withTolerance:[NSNumber numberWithInteger:(int)self.toleranceSlider.value]];
                 break;
             case 1:
                 [self.dictBuild writeDictionary:@"vertical" withTolerance:0];
                 break;
             case 2:
-                [self.dictBuild writeDictionary:@"repeat" withTolerance:[NSNumber numberWithInteger:(int)self.uncertaintySlider.value]];
+                [self.dictBuild writeDictionary:@"repeat" withTolerance:[NSNumber numberWithInteger:(int)self.toleranceSlider.value]];
                 break;
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.dictProgress setProgress:0];
+            self.pickerData = [self.dictBuild.dictionaries allKeys];
+            [self.dictPicker reloadAllComponents];
         });
     });
 }
+
+- (void)setProgress:(NSNumber *)amount {
+    [self.dictProgress setProgress:[amount floatValue] animated:YES];
+}
+
+#pragma mark - Typing interface
 
 - (NSString *)getFormattedUserText {
     NSString *outputText = @"";
@@ -104,7 +142,7 @@
 - (void)spacePressed {
     // Get ranked words if enough touches have been made
     if ([self.brain.liveTouches count] >= 1) {
-        self.rankedCandidates = [[self.brain getFilteredRankedCandidates:[NSNumber numberWithInteger:(int)self.uncertaintySlider.value]] mutableCopy];
+        self.rankedCandidates = [[self.brain getFilteredRankedCandidates:[NSNumber numberWithInteger:(int)self.toleranceSlider.value]] mutableCopy];
         self.rankedMatchesDisplay.text = [self.rankedCandidates description];
         
         // Add top candidate to user text
