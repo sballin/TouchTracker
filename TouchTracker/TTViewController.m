@@ -11,6 +11,7 @@
 #import "TTAppDelegate.h"
 #import "TTBrain.h"
 #import "Dictionary.h"
+#import "KeyMath.h"
 
 @interface TouchTrackerViewController ()
 @property (nonatomic, strong) TouchTrackerBrain *brain;
@@ -25,8 +26,6 @@
 @synthesize textDisplay = _textDisplay;
 @synthesize brain = _brain;
 @synthesize dictBuild = _dictBuild;
-
-#pragma mark - Lazy instantiations
 
 - (Dictionary *)dictBuild {
 	if (!_dictBuild) _dictBuild = [[Dictionary alloc] init];
@@ -57,13 +56,15 @@
     self.pickerData = [self.dictBuild.dictionaries allKeys];
     self.dictPicker.dataSource = self;
     self.dictPicker.delegate = self;
+    [self.dictPicker selectRow:[self.pickerData indexOfObject:@"horizontalDict0"] inComponent:0 animated:NO];
+    [self.dictPicker selectRow:[self.pickerData indexOfObject:@"verticalDict0"] inComponent:1 animated:NO];
 }
 
 - (IBAction)swipeLeft:(UISwipeGestureRecognizer *)sender {
     [self spacePressed];
 }
 
-#pragma mark - Dictionary creation interface
+#pragma mark - Dictionary interface
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 2;
@@ -73,8 +74,17 @@
     return self.pickerData.count;
 }
 
-- (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     return self.pickerData[row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    // This method is triggered whenever the user makes a change to the picker selection.
+    if (component == 0)
+        self.brain.primary = self.pickerData[row];
+    else if (component == 1)
+        self.brain.secondary = self.pickerData[row];
 }
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
@@ -114,9 +124,6 @@
             case 1:
                 [self.dictBuild writeDictionary:@"vertical" withTolerance:0];
                 break;
-            case 2:
-                [self.dictBuild writeDictionary:@"repeat" withTolerance:[NSNumber numberWithInteger:(int)self.toleranceSlider.value]];
-                break;
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.dictProgress setProgress:0];
@@ -141,12 +148,12 @@
 
 - (void)spacePressed {
     // Get ranked words if enough touches have been made
-    if ([self.brain.liveTouches count] >= 1) {
-        self.rankedCandidates = [[self.brain getFilteredRankedCandidates:[NSNumber numberWithInteger:(int)self.toleranceSlider.value]] mutableCopy];
+    if (self.brain.liveTouches.count >= 1) {
+        self.rankedCandidates = [[self.brain rankedCandidates:[NSNumber numberWithInteger:(int)self.toleranceSlider.value]] mutableCopy];
         self.rankedMatchesDisplay.text = [self.rankedCandidates description];
         
         // Add top candidate to user text
-        if ([self.rankedCandidates count] > 0) {
+        if (self.rankedCandidates.count > 0) {
             [self.userText addObject:[self.rankedCandidates[0] substringWithRange:NSMakeRange(7, [self.rankedCandidates[0] length]-7)]];
             [self.brain.touchHistory addObject:self.brain.liveTouches];
             NSLog(@"Latest word: %@", [[self.userText lastObject] description]);
@@ -178,7 +185,7 @@
 }
 
 - (void)pickNextCandidate {
-    if ([self.rankedCandidates count] > 1) {
+    if (self.rankedCandidates.count > 1) {
         // Replace last word printed with one popped off rankedCandidates
         [self.userText removeLastObject];
         [self.rankedCandidates removeObjectAtIndex:0];
@@ -191,8 +198,9 @@
 #define THUMB_THRESHOLD 40
 - (void)touchesBegan:(NSSet *)touches
            withEvent:(UIEvent *)event {
+    // TODO: switch/case
     // One finger -> letter or space
-    if ([[event allTouches] count] == 1) {
+    if (event.allTouches.count == 1) {
         for (UITouch *t in touches) {
             CGPoint point = [t locationInView:self.view];
             float thickness = [[t valueForKey:@"pathMajorRadius"] floatValue];
@@ -212,14 +220,14 @@
         }
     }
     
-    else if ([[event allTouches] count] == 2) {
+    else if (event.allTouches.count == 2) {
         [self pickNextCandidate];
         for (UITouch *touch in [event.allTouches allObjects])
             [self addGrowingCircleAtPoint:[touch locationInView:self.view] withColor:[UIColor colorWithRed:.678431373 green:.517647059 blue:1 alpha:1]];
     }
     
     // 3 or more fingers -> backspace
-    else if ([[event allTouches] count] >= 3) {
+    else if (event.allTouches.count >= 3) {
         [self deleteLastWord];
         for (UITouch *touch in [event.allTouches allObjects])
             [self addGrowingCircleAtPoint:[touch locationInView:self.view] withColor:[UIColor redColor]];

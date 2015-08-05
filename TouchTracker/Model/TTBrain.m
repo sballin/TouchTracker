@@ -10,7 +10,6 @@
 #import "TwoDim.h"
 #import "Fraction.h"
 #import "Dictionary.h"
-#import "KeyMath.h"
 
 @interface TouchTrackerBrain ()
 @property (nonatomic, strong) TwoDim *twodim;
@@ -20,22 +19,13 @@
 
 @implementation TouchTrackerBrain
 
-@synthesize liveTouches = _liveTouches;
-@synthesize touchHistory = _touchHistory;
 @synthesize twodim = _twodim;
 @synthesize fraction = _fraction;
 @synthesize dict = _dict;
-@synthesize countDictionary = _countDictionary;
-
-- (NSMutableArray *)liveTouches {
-	if (!_liveTouches) _liveTouches = [[NSMutableArray alloc] init];
-	return _liveTouches;
-}
-
-- (NSMutableArray *)touchHistory {
-    if (!_touchHistory) _touchHistory = [[NSMutableArray alloc] init];
-    return _touchHistory;
-}
+@synthesize liveTouches = _liveTouches;
+@synthesize touchHistory = _touchHistory;
+@synthesize primary = _primary;
+@synthesize secondary = _secondary;
 
 - (TwoDim *)twodim {
 	if (!_twodim) _twodim = [[TwoDim alloc] init];
@@ -47,99 +37,149 @@
     return _fraction;
 }
 
-#pragma mark -
-
-/**
- Load word length dictionary from file.
- */
-- (NSDictionary *)countDictionary {
-    if (!_countDictionary) {
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"countDictionary" ofType:@"plist"];
-        _countDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
-    }
-    return _countDictionary;
+- (Dictionary *)dict {
+    if (!_dict) _dict = [[Dictionary alloc] init];
+    return _dict;
 }
+
+- (NSMutableArray *)liveTouches {
+	if (!_liveTouches) _liveTouches = [[NSMutableArray alloc] init];
+	return _liveTouches;
+}
+
+- (NSMutableArray *)touchHistory {
+    if (!_touchHistory) _touchHistory = [[NSMutableArray alloc] init];
+    return _touchHistory;
+}
+
+- (NSString *)primary {
+    if (!_primary) _primary = @"horizontalDict0";
+    return _primary;
+}
+
+- (NSString *)secondary {
+    if (!_secondary) _secondary = @"verticalDict0";
+    return _secondary;
+}
+
+#pragma mark -
 
 - (void)addToLiveTouches:(CGPoint)touch {
 	[self.liveTouches addObject:[NSValue value:&touch withObjCType:@encode(CGPoint)]];
-}
-
-- (CGPoint)getTouchAtIndex:(int)i {
-	CGPoint touch;
-	[(self.liveTouches)[i] getValue:&touch];
-	return touch;
 }
 
 - (void)clearLiveTouches {
 	self.liveTouches = nil;
 }
 
-- (NSArray *)getFilteredRankedCandidates:(NSNumber *)tolerance {
-    NSMutableSet *horizCandidates = [self getCandidatesFor:@"horizontal" withTolerance:tolerance];
-    NSSet *vertCandidates = [self getCandidatesFor:@"vertical" withTolerance:tolerance];
-    NSMutableSet *horizCandidatesCopy = [horizCandidates mutableCopy];
-    NSLog(@"horiz: %lu", (unsigned long)[horizCandidates count]);
-    NSLog(@"vert: %lu", (unsigned long)[vertCandidates count]);
-    
-    if ([self.liveTouches count] == 1) {
+- (NSArray *)oldRankedCandidates:(NSNumber *)tolerance {
+    if (self.liveTouches.count == 1)
         return @[@"0.0000 a"];
-    }
-    
-    if ([self.liveTouches count] == 2) {
+    else if (self.liveTouches.count == 2) {
         NSArray *candidates = @[@"if", @"or", @"we", @"on", @"go", @"hi", @"at", @"is", @"an", @"it", @"no", @"of", @"my", @"to", @"up", @"in", @"us"];
         return [self.fraction angleSort:candidates using:self.liveTouches];
     }
-    
+
+    NSMutableSet *horizCandidates = [self candidatesInDirection:@"horizontal" withTolerance:tolerance].mutableCopy;
+    NSSet *vertCandidates = [self candidatesInDirection:@"vertical" withTolerance:tolerance];
+    NSMutableSet *horizCandidatesCopy = horizCandidates.mutableCopy;
+    NSLog(@"horiz: %lu", (unsigned long)horizCandidates.count);
+    NSLog(@"vert: %lu", (unsigned long)vertCandidates.count);
+
     if ([TwoDim containsRepeat:self.liveTouches withTolerance:tolerance]) {
-        NSSet *repeatCandidates = [self getRepeatCandidates:tolerance];
-        NSLog(@"Repeats: %lu", (unsigned long)[repeatCandidates count]);
+        NSSet *repeatCandidates = [self repeatCandidates:tolerance];
+        NSLog(@"Repeats: %lu", (unsigned long)repeatCandidates.count);
         [horizCandidates intersectSet:repeatCandidates];
-        return [self.fraction twoDimFractionSort:[[horizCandidates allObjects] mutableCopy] using:self.liveTouches];
+        return [self.fraction twoDimFractionSort:horizCandidates.allObjects.mutableCopy using:self.liveTouches];
     }
-    
-    // TODO: Use angle of two taps in longer words
-    
+
     [horizCandidates intersectSet:vertCandidates];
-    NSLog(@"Intersect: %lu", (unsigned long)[horizCandidates count]);
-    
+    NSLog(@"Intersect: %lu", (unsigned long)horizCandidates.count);
+
     NSArray *words = [horizCandidates allObjects];
     if ([words count] == 0) {
         [horizCandidatesCopy unionSet:vertCandidates];
-        words = [horizCandidatesCopy copy];
-        NSLog(@"Union: %lu", (unsigned long)[horizCandidatesCopy count]);
-        
+        words = horizCandidatesCopy.copy;
+        NSLog(@"Union: %lu", (unsigned long)horizCandidatesCopy.count);
+
         if ([words count] < 5) {
-            words = [self getCountCandidates];
+            words = [self countCandidates];
             NSLog(@"Letter count: %lu", (unsigned long)[words count]);
         }
     }
-    return  [self.fraction twoDimFractionSort:[words mutableCopy] using:self.liveTouches];
+    return  [self.fraction twoDimFractionSort:words.mutableCopy using:self.liveTouches];
 }
 
-- (NSSet *)getRepeatCandidates:(NSNumber *)tolerance {
-    NSString *map = [TwoDim repeatPathFor:self.liveTouches withTolerance:tolerance];
-    return [NSSet setWithArray:self.dict.dictionaries[[NSString stringWithFormat:@"repeat, tolerance %@px", tolerance]][map]];
+- (NSArray *)rankedCandidates:(NSNumber *)tolerance {
+    if (self.liveTouches.count == 1)
+        return @[@"0.0000 a"];
+    else if (self.liveTouches.count == 2) {
+        NSArray *candidates = @[@"if", @"or", @"we", @"on", @"go", @"hi", @"at", @"is", @"an", @"it", @"no", @"of", @"my", @"to", @"up", @"in", @"us"];
+        return [self.fraction angleSort:candidates using:self.liveTouches];
+    }
+
+    NSMutableSet *primaries = [self candidatesForDictionary:self.primary withTolerance:tolerance].mutableCopy;
+    NSSet *secondaries = [self candidatesForDictionary:self.secondary withTolerance:tolerance];
+    NSMutableSet *primariesCopy = primaries.mutableCopy;
+    NSLog(@"Primary: %lu", (unsigned long)primaries.count);
+    NSLog(@"Secondary: %lu", (unsigned long)secondaries.count);
+
+    [primaries intersectSet:secondaries];
+    NSLog(@"Intersect: %lu", (unsigned long)primaries.count);
+
+    NSArray *finalWords = primaries.allObjects;
+    if (finalWords.count == 0) {
+        [primariesCopy unionSet:secondaries];
+        finalWords = primariesCopy.allObjects;
+        NSLog(@"Union: %lu", (unsigned long)primariesCopy.count);
+        if (finalWords.count == 0) {
+            finalWords = [self countCandidates];
+            NSLog(@"Letter count: %lu", (unsigned long)finalWords.count);
+        }
+    }
+    return  [self.fraction twoDimFractionSort:finalWords.mutableCopy using:self.liveTouches];
 }
 
-- (NSMutableSet *)getCandidatesFor:(NSString *)direction
+- (NSSet *)candidatesForDictionary:(NSString *)name
                      withTolerance:(NSNumber *)pixels {
-    NSString *path; NSMutableSet *neighborPaths;
+    if ([name containsString:@"horizontal"]) {
+        if ([name containsString:@"Dict0"]) return [self candidatesInDirection:@"horizontal" withTolerance:pixels];
+        else return [NSSet setWithArray:self.dict.dictionaries[name][[TwoDim horizontalPathFor:self.liveTouches withTolerance:pixels]]];
+    }
+    else if ([name containsString:@"vertical"]) {
+        if ([name containsString:@"Dict0"]) return [self candidatesInDirection:@"vertical" withTolerance:pixels];
+        else return [NSSet setWithArray:self.dict.dictionaries[name][[TwoDim verticalPathFor:self.liveTouches withTolerance:pixels]]];
+    }
+    else if ([name containsString:@"count"])
+        return [NSSet setWithArray:self.dict.dictionaries[@"countDict"][[NSString stringWithFormat:@"%lu", (unsigned long)self.liveTouches.count]]];
+    else return [self repeatCandidates:pixels];
+}
+
+
+- (NSSet *)candidatesInDirection:(NSString *)direction
+                   withTolerance:(NSNumber *)pixels {
+    NSString *path;
+    NSMutableSet *neighborPaths;
     if ([direction isEqualToString:@"horizontal"]) {
         path = [TwoDim horizontalPathFor:self.liveTouches withTolerance:pixels];
-        neighborPaths = [TwoDim expand:path inDirection:direction];
-    }
-    else if ([direction isEqualToString:@"vertical"]) {
+        neighborPaths = [TwoDim horizontalExpansion:path];
+    } else {
         path = [TwoDim verticalPathFor:self.liveTouches withTolerance:pixels];
-        neighborPaths = [TwoDim expand:path inDirection:direction];
+        neighborPaths = [TwoDim verticalExpansion:path];
     }
     NSMutableSet *neighborWords = [[NSMutableSet alloc] init];
     for (NSString *neighborPath in neighborPaths)
-        [neighborWords addObjectsFromArray:[self.dict.dictionaries[[NSString stringWithFormat:@"%@, tolerance 0px", direction]][neighborPath] copy]];
+        [neighborWords addObjectsFromArray:[self.dict.dictionaries[[NSString stringWithFormat:@"%@Dict0", direction]][neighborPath] copy]];
     return neighborWords;
 }
 
-- (NSArray *)getCountCandidates {
-    return self.countDictionary[[NSString stringWithFormat:@"%lu", (unsigned long)[self.liveTouches count]]];
+- (NSSet *)repeatCandidates:(NSNumber *)tolerance {
+    NSString *path = [TwoDim repeatPathFor:self.liveTouches withTolerance:tolerance];
+    return [NSSet setWithArray:self.dict.dictionaries[@"repeatDict"][path]];
+}
+
+- (NSArray *)countCandidates {
+    return self.dict.dictionaries[@"countDict"][[NSString stringWithFormat:@"%lu", (unsigned long)self.liveTouches.count]];
 }
 
 @end

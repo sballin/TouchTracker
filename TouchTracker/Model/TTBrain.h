@@ -11,12 +11,10 @@
 @interface TouchTrackerBrain : NSObject
 @property (nonatomic, strong) NSMutableArray *liveTouches;
 @property (nonatomic, strong) NSMutableArray *touchHistory;
-@property (nonatomic, strong) NSDictionary *countDictionary;
-@property (nonatomic, strong) NSDictionary *repeatDictionary;
+@property (nonatomic, strong) NSString *primary;
+@property (nonatomic, strong) NSString *secondary;
 - (void)addToLiveTouches:(CGPoint)touch;
-- (CGPoint)getTouchAtIndex:(int)i;
 - (void)clearLiveTouches;
-- (NSArray *)getFilteredRankedCandidates:(NSNumber *)tolerance;
-- (NSSet *)getRepeatCandidates:(NSNumber *)tolerance;
-- (NSArray *)getCountCandidates;
+- (NSArray *)oldRankedCandidates:(NSNumber *)tolerance;
+- (NSArray *)rankedCandidates:(NSNumber *)tolerance;
 @end

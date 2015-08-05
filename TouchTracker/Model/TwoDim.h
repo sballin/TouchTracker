@@ -19,6 +19,6 @@
                  withTolerance:(NSNumber *)pixels;
 + (BOOL)containsRepeat:(NSMutableArray *)touchSequence
          withTolerance:(NSNumber *)pixels;
-+ (NSMutableSet *)expand:(NSString *)path
-             inDirection:(NSString *)direction;
++ (NSMutableSet *)horizontalExpansion:(NSString *)path;
++ (NSMutableSet *)verticalExpansion:(NSString *)path;
 @end

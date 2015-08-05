@@ -116,18 +116,36 @@
     return NO;
 }
 
-+ (NSMutableSet *)expand:(NSString *)path
-             inDirection:(NSString *)direction {
-    NSMutableSet *set = [[NSMutableSet alloc] init];
-    NSArray *sides;
-    if ([direction isEqualToString:@"horizontal"]) sides = [NSArray arrayWithObjects:@"l", @"r", nil];
-    else if ([direction isEqualToString:@"vertical"]) sides = [NSArray arrayWithObjects:@"u", @"d", nil];
-    if ([path containsString:@"x"])
+/**
+ Replace all xs in a path with l/r directions.
+ @param path direction sequence to analyze
+ @return NSSet of all possible paths
+ */
++ (NSMutableSet *)horizontalExpansion:(NSString *)path {
+    NSMutableSet *set = [[NSMutableSet alloc] init]; // get rid of alloc/init
+    if ([path rangeOfString:@"x"].location == NSNotFound)
         set = [NSMutableSet setWithObject:path];
     else {
         NSRange range = [path rangeOfString:@"x"];
-        [set unionSet:[TwoDim expand:[path stringByReplacingCharactersInRange:range withString:sides[0]] inDirection:direction]];
-        [set unionSet:[TwoDim expand:[path stringByReplacingCharactersInRange:range withString:sides[1]] inDirection:direction]];
+        [set unionSet:[TwoDim horizontalExpansion:[path stringByReplacingCharactersInRange:range withString:@"l"]]];
+        [set unionSet:[TwoDim horizontalExpansion:[path stringByReplacingCharactersInRange:range withString:@"r"]]];
+    }
+    return set;
+}
+
+/**
+ Replace all xs in a path with u/d directions.
+ @param path direction sequence to analyze
+ @return NSSet of all possible paths
+ */
++ (NSMutableSet *)verticalExpansion:(NSString *)path {
+    NSMutableSet *set = [[NSMutableSet alloc] init]; // get rid of alloc/init
+    if ([path rangeOfString:@"x"].location == NSNotFound)
+        set = [NSMutableSet setWithObject:path];
+    else {
+        NSRange range = [path rangeOfString:@"x"];
+        [set unionSet:[TwoDim verticalExpansion:[path stringByReplacingCharactersInRange:range withString:@"u"]]];
+        [set unionSet:[TwoDim verticalExpansion:[path stringByReplacingCharactersInRange:range withString:@"d"]]];
     }
     return set;
 }

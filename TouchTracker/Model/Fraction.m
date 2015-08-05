@@ -28,8 +28,8 @@
 
 - (NSArray *)horizontalFractionPath:(NSArray *)touchSequence {
 	float total = 0.0;
-    NSMutableArray *path = [NSMutableArray arrayWithCapacity:[touchSequence count] - 1];
-	for (int i = 0; i < [touchSequence count] - 1; i++) {
+    NSMutableArray *path = [NSMutableArray arrayWithCapacity:touchSequence.count - 1];
+	for (int i = 0; i < touchSequence.count - 1; i++) {
         CGPoint firstPoint, secondPoint;
         [touchSequence[i] getValue:&firstPoint];
         [touchSequence[i+1] getValue:&secondPoint];
@@ -46,8 +46,8 @@
 
 - (NSArray *)verticalFractionPath:(NSArray *)touchSequence {
     float total = 0.0;
-    NSMutableArray *path = [NSMutableArray arrayWithCapacity:[touchSequence count] - 1];
-    for (int i = 0; i < [touchSequence count] - 1; i++) {
+    NSMutableArray *path = [NSMutableArray arrayWithCapacity:touchSequence.count - 1];
+    for (int i = 0; i < touchSequence.count - 1; i++) {
         CGPoint firstPoint, secondPoint;
         [touchSequence[i] getValue:&firstPoint];
         [touchSequence[i+1] getValue:&secondPoint];
@@ -65,7 +65,7 @@
 - (NSArray *)horizontalFractionGraph:(NSArray *)touchSequence {
     float total = 0.0;
     NSMutableArray *path = [[NSMutableArray alloc] init];
-    for (int i = 1; i < [touchSequence count]; i++) {
+    for (int i = 1; i < touchSequence.count; i++) {
         for (int j = 0; j < i; j++) {
             CGPoint firstPoint, secondPoint;
             [touchSequence[i] getValue:&firstPoint];
@@ -85,7 +85,7 @@
 - (NSArray *)verticalFractionGraph:(NSArray *)touchSequence {
     float total = 0.0;
     NSMutableArray *path = [[NSMutableArray alloc] init];
-    for (int i = 1; i < [touchSequence count]; i++) {
+    for (int i = 1; i < touchSequence.count; i++) {
         for (int j = 0; j < i; j++) {
             CGPoint firstPoint, secondPoint;
             [touchSequence[i] getValue:&firstPoint];
@@ -115,7 +115,7 @@
     float horizontalError = 0.0;
     float verticalError = 0.0;
     // Add individual errors in quadrature.
-    for (int i = 0; i < [horizontalPath count]; i++) {
+    for (int i = 0; i < horizontalPath.count; i++) {
         horizontalError += powf([KeyMath errorBetween:[horizontalPath[i] floatValue] and:[horizontalWordPath[i] floatValue]], 2.0);
         verticalError += powf([KeyMath errorBetween:[verticalPath[i] floatValue] and:[verticalWordPath[i] floatValue]], 2.0);
     }
@@ -124,8 +124,7 @@
 }
 
 /**
- *  Total error between word and touchSequence as the sum, in
- *  quadrature, of differences between horizontal and vertical graphs.
+ *  TODO: actually compute graph (currently identical to path)
  */
 - (float)twoDimGraphErrorFor:(NSString *)word
                      against:(NSArray *)touchSequence {
@@ -136,7 +135,7 @@
     float horizontalError = 0.0;
     float verticalError = 0.0;
     // Add individual errors in quadrature.
-    for (int i = 0; i < [horizontalGraph count]; i++) {
+    for (int i = 0; i < horizontalGraph.count; i++) {
         horizontalError += powf([KeyMath errorBetween:[horizontalGraph[i] floatValue] and:[horizontalWordGraph[i] floatValue]], 2.0);
         verticalError += powf([KeyMath errorBetween:[verticalGraph[i] floatValue] and:[verticalWordGraph[i] floatValue]], 2.0);
     }
@@ -151,10 +150,10 @@
  */
 - (NSMutableArray *)twoDimFractionSort:(NSArray *)words
                                  using:(NSArray *)touchSequence {
-    NSMutableArray *bestMatches = [[NSMutableArray alloc] init];
-	for (NSString *word in words) {
-		float error = [self twoDimGraphErrorFor:word against:touchSequence];
-        [bestMatches addObject:[NSString stringWithFormat:@"%.4f %@", error, word]];
+    NSMutableArray *bestMatches = words.mutableCopy;
+	for (int i = 0; i < words.count; i++) {
+		float error = [self twoDimPathErrorFor:words[i] against:touchSequence];
+        bestMatches[i] = [NSString stringWithFormat:@"%.4f %@", error, words[i]];
 	}
     [bestMatches sortUsingSelector:@selector(localizedCompare:)];
     return bestMatches;
@@ -167,10 +166,10 @@
 - (NSMutableArray *)angleSort:(NSArray *)words
                         using:(NSArray *)touchSequence {
     float angle = [KeyMath lastAngleFor:touchSequence];
-    NSMutableArray *bestMatches = [[NSMutableArray alloc] init];
-    for (NSString *word in words) {
-        float error = fabs(angle - [self.keyboard lastAngleFor:word]);
-        [bestMatches addObject:[NSString stringWithFormat:@"%.4f %@", error, word]];
+    NSMutableArray *bestMatches = words.mutableCopy;
+    for (int i = 0; i < words.count; i++) {
+        float error = fabs(angle - [self.keyboard lastAngleFor:words[i]]);
+        bestMatches[i] = [NSString stringWithFormat:@"%.4f %@", error, words[i]];
     }
     [bestMatches sortUsingSelector:@selector(localizedCompare:)];
     return bestMatches;
