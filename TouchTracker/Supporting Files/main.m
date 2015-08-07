@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "TouchTrackerAppDelegate.h"
+#import "TTAppDelegate.h"
 
 int main(int argc, char * argv[])
 {
