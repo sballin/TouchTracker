@@ -108,11 +108,17 @@
     return _toleranceLength;
 }
 
-- (IBAction)sliderValueChanged:(id)sender {
+- (IBAction)toleranceChanged:(id)sender {
     int sliderInt = (int)roundf(self.toleranceSlider.value);
     self.toleranceSlider.value = (float)sliderInt;
     self.toleranceLabel.text = [NSString stringWithFormat:@"%d", sliderInt];
     self.toleranceLength.frame = CGRectMake(2, 40, self.toleranceSlider.value, 1);
+}
+
+- (IBAction)thumbChanged:(id)sender {
+    int sliderInt = (int)roundf(self.thumbSlider.value);
+    self.thumbSlider.value = (float)sliderInt;
+    self.thumbLabel.text = [NSString stringWithFormat:@"%d", sliderInt];
 }
 
 - (IBAction)createPressed:(id)sender {
@@ -195,7 +201,6 @@
     }
 }
 
-#define THUMB_THRESHOLD 40
 - (void)touchesBegan:(NSSet *)touches
            withEvent:(UIEvent *)event {
     // TODO: switch/case
@@ -206,7 +211,7 @@
             float thickness = [[t valueForKey:@"pathMajorRadius"] floatValue];
             
             // Non-thumb finger -> letter
-            if (thickness < THUMB_THRESHOLD) {
+            if (thickness < (int)self.thumbSlider.value) {
                 [self.brain addToLiveTouches:point];
                 [self addGrowingCircleAtPoint:[[touches anyObject] locationInView:self.view] withColor:[UIColor colorWithRed:0 green:.7490 blue:1 alpha:1]];
             }

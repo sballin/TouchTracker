@@ -14,14 +14,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ranked matches" lineBreakMode="tailTruncation" numberOfLines="15" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Rgj-8c-PMu">
-                                <rect key="frame" x="487.99999945091474" y="430.00000007476535" width="264" height="574"/>
+                                <rect key="frame" x="487.99999945091474" y="430.00000038354636" width="264" height="574"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="17"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="type something!" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UT2-dD-nBV">
-                                <rect key="frame" x="20" y="145" width="728" height="205"/>
+                                <rect key="frame" x="20" y="191" width="728" height="205"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="32"/>
                                 <nil key="highlightedColor"/>
@@ -38,7 +38,7 @@
                                 <rect key="frame" x="18" y="43" width="108" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <action selector="sliderValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="R0Q-xB-JGI"/>
+                                    <action selector="toleranceChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="nBG-L2-KeZ"/>
                                 </connections>
                             </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UJ1-cB-JAo">
@@ -70,14 +70,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DIRECTION TO ANALYZE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UO8-NB-dUO">
-                                <rect key="frame" x="175" y="20" width="235" height="21"/>
+                                <rect key="frame" x="175" y="20" width="155" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                 <color key="textColor" red="0.5741509199" green="0.5741509199" blue="0.5741509199" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5o4-EJ-ih3">
-                                <rect key="frame" x="20" y="81" width="125" height="30"/>
+                                <rect key="frame" x="20" y="91" width="125" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Create dictionary">
@@ -88,13 +88,34 @@
                                 </connections>
                             </button>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" id="19J-WO-y3M">
-                                <rect key="frame" x="20" y="108" width="119" height="2"/>
+                                <rect key="frame" x="20" y="118" width="119" height="2"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </progressView>
                             <pickerView multipleTouchEnabled="YES" contentMode="scaleToFill" id="7bq-LU-vC6">
                                 <rect key="frame" x="479" y="35" width="273" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                             </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="40" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="F5P-2D-3Ri">
+                                <rect key="frame" x="595" y="217" width="35" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="THUMB RADIUS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0bi-dh-1U6">
+                                <rect key="frame" x="479" y="191" width="155" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                                <color key="textColor" red="0.5741509199" green="0.5741509199" blue="0.5741509199" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="40" minValue="10" maxValue="100" id="d6J-Q8-B0r">
+                                <rect key="frame" x="477" y="213" width="112" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="thumbChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="oJ1-kz-NHe"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -107,6 +128,8 @@
                         <outlet property="dictTypeControl" destination="4Py-6A-HZ6" id="upB-Sy-d41"/>
                         <outlet property="rankedMatchesDisplay" destination="Rgj-8c-PMu" id="02l-Vw-QNo"/>
                         <outlet property="textDisplay" destination="UT2-dD-nBV" id="pUU-wK-sqc"/>
+                        <outlet property="thumbLabel" destination="F5P-2D-3Ri" id="Fju-zg-bfM"/>
+                        <outlet property="thumbSlider" destination="d6J-Q8-B0r" id="9ks-nc-6MN"/>
                         <outlet property="toleranceLabel" destination="UJ1-cB-JAo" id="xyn-tA-P7s"/>
                         <outlet property="toleranceSlider" destination="tOA-Ii-vQe" id="asK-cB-GRA"/>
                     </connections>

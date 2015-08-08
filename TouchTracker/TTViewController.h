@@ -15,11 +15,19 @@
 
 @property (nonatomic, strong) NSMutableArray *userText;
 @property (nonatomic, strong) NSMutableArray *rankedCandidates;
+
 @property (weak, nonatomic) IBOutlet UISlider *toleranceSlider;
 @property (weak, nonatomic) IBOutlet UILabel *toleranceLabel;
+- (IBAction)toleranceChanged:(id)sender;
+
+@property (weak, nonatomic) IBOutlet UISlider *thumbSlider;
+@property (weak, nonatomic) IBOutlet UILabel *thumbLabel;
+- (IBAction)thumbChanged:(id)sender;
+
 @property (weak, nonatomic) IBOutlet UISegmentedControl *dictTypeControl;
+
 @property (weak, nonatomic) IBOutlet UIProgressView *dictProgress;
-@property (weak, nonatomic) IBOutlet UIPickerView *dictPicker;
-- (IBAction)sliderValueChanged:(id)sender;
 - (IBAction)createPressed:(id)sender;
+
+@property (weak, nonatomic) IBOutlet UIPickerView *dictPicker;
 @end
