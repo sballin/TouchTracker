@@ -52,23 +52,23 @@
 		146129FC19B6CE1B004DC904 /* verticalDict0.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = verticalDict0.plist; sourceTree = "<group>"; };
 		146CEF43193F18E5002E5220 /* dict.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dict.txt; sourceTree = "<group>"; };
 		14ADAD3819F4DD1300702CD1 /* countDict.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = countDict.plist; sourceTree = "<group>"; };
-		14B72251193AF2830059E7BD /* TouchTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TouchTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		14B72251193AF2830059E7BD /* Lokey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lokey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14B72254193AF2830059E7BD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		14B72256193AF2830059E7BD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		14B72258193AF2830059E7BD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		14B7225C193AF2830059E7BD /* TouchTracker-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TouchTracker-Info.plist"; sourceTree = "<group>"; };
+		14B7225C193AF2830059E7BD /* Lokey-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Lokey-Info.plist"; sourceTree = "<group>"; };
 		14B7225E193AF2830059E7BD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		14B72260193AF2830059E7BD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		14B72262193AF2830059E7BD /* TouchTracker-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TouchTracker-Prefix.pch"; sourceTree = "<group>"; };
+		14B72262193AF2830059E7BD /* Lokey-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Lokey-Prefix.pch"; sourceTree = "<group>"; };
 		14B72263193AF2830059E7BD /* TTAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTAppDelegate.h; sourceTree = "<group>"; };
 		14B72264193AF2830059E7BD /* TTAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTAppDelegate.m; sourceTree = "<group>"; };
 		14B7226A193AF2830059E7BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		14B7226C193AF2830059E7BD /* TTViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTViewController.h; sourceTree = "<group>"; };
 		14B7226D193AF2830059E7BD /* TTViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTViewController.m; sourceTree = "<group>"; };
 		14B7226F193AF2830059E7BD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		14B72275193AF2830059E7BD /* TouchTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TouchTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		14B72275193AF2830059E7BD /* LokeyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LokeyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		14B72276193AF2830059E7BD /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		14B7227E193AF2830059E7BD /* TouchTrackerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TouchTrackerTests-Info.plist"; sourceTree = "<group>"; };
+		14B7227E193AF2830059E7BD /* LokeyTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LokeyTests-Info.plist"; sourceTree = "<group>"; };
 		14B72280193AF2830059E7BD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		14B72282193AF2830059E7BD /* TouchTrackerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouchTrackerTests.m; sourceTree = "<group>"; };
 		14B7228F193AF6250059E7BD /* TouchDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchDrawView.h; sourceTree = "<group>"; };
@@ -163,8 +163,8 @@
 		14B72252193AF2830059E7BD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				14B72251193AF2830059E7BD /* TouchTracker.app */,
-				14B72275193AF2830059E7BD /* TouchTrackerTests.xctest */,
+				14B72251193AF2830059E7BD /* Lokey.app */,
+				14B72275193AF2830059E7BD /* LokeyTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -199,10 +199,10 @@
 			children = (
 				14B72263193AF2830059E7BD /* TTAppDelegate.h */,
 				14B72264193AF2830059E7BD /* TTAppDelegate.m */,
-				14B7225C193AF2830059E7BD /* TouchTracker-Info.plist */,
+				14B7225C193AF2830059E7BD /* Lokey-Info.plist */,
 				14B7225D193AF2830059E7BD /* InfoPlist.strings */,
 				14B72260193AF2830059E7BD /* main.m */,
-				14B72262193AF2830059E7BD /* TouchTracker-Prefix.pch */,
+				14B72262193AF2830059E7BD /* Lokey-Prefix.pch */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -219,7 +219,7 @@
 		14B7227D193AF2830059E7BD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				14B7227E193AF2830059E7BD /* TouchTrackerTests-Info.plist */,
+				14B7227E193AF2830059E7BD /* LokeyTests-Info.plist */,
 				14B7227F193AF2830059E7BD /* InfoPlist.strings */,
 			);
 			path = "Supporting Files";
@@ -228,9 +228,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		14B72250193AF2830059E7BD /* TouchTracker */ = {
+		14B72250193AF2830059E7BD /* Lokey */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 14B72286193AF2830059E7BD /* Build configuration list for PBXNativeTarget "TouchTracker" */;
+			buildConfigurationList = 14B72286193AF2830059E7BD /* Build configuration list for PBXNativeTarget "Lokey" */;
 			buildPhases = (
 				14B7224D193AF2830059E7BD /* Sources */,
 				14B7224E193AF2830059E7BD /* Frameworks */,
@@ -240,14 +240,14 @@
 			);
 			dependencies = (
 			);
-			name = TouchTracker;
+			name = Lokey;
 			productName = TouchTracker;
-			productReference = 14B72251193AF2830059E7BD /* TouchTracker.app */;
+			productReference = 14B72251193AF2830059E7BD /* Lokey.app */;
 			productType = "com.apple.product-type.application";
 		};
-		14B72274193AF2830059E7BD /* TouchTrackerTests */ = {
+		14B72274193AF2830059E7BD /* LokeyTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 14B72289193AF2830059E7BD /* Build configuration list for PBXNativeTarget "TouchTrackerTests" */;
+			buildConfigurationList = 14B72289193AF2830059E7BD /* Build configuration list for PBXNativeTarget "LokeyTests" */;
 			buildPhases = (
 				14B72271193AF2830059E7BD /* Sources */,
 				14B72272193AF2830059E7BD /* Frameworks */,
@@ -258,9 +258,9 @@
 			dependencies = (
 				14B7227B193AF2830059E7BD /* PBXTargetDependency */,
 			);
-			name = TouchTrackerTests;
+			name = LokeyTests;
 			productName = TouchTrackerTests;
-			productReference = 14B72275193AF2830059E7BD /* TouchTrackerTests.xctest */;
+			productReference = 14B72275193AF2830059E7BD /* LokeyTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -273,12 +273,15 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Sean;
 				TargetAttributes = {
+					14B72250193AF2830059E7BD = {
+						DevelopmentTeam = ATCB85PJR3;
+					};
 					14B72274193AF2830059E7BD = {
 						TestTargetID = 14B72250193AF2830059E7BD;
 					};
 				};
 			};
-			buildConfigurationList = 14B7224C193AF2830059E7BD /* Build configuration list for PBXProject "TouchTracker" */;
+			buildConfigurationList = 14B7224C193AF2830059E7BD /* Build configuration list for PBXProject "Lokey" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -291,8 +294,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				14B72250193AF2830059E7BD /* TouchTracker */,
-				14B72274193AF2830059E7BD /* TouchTrackerTests */,
+				14B72250193AF2830059E7BD /* Lokey */,
+				14B72274193AF2830059E7BD /* LokeyTests */,
 			);
 		};
 /* End PBXProject section */
@@ -355,7 +358,7 @@
 /* Begin PBXTargetDependency section */
 		14B7227B193AF2830059E7BD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 14B72250193AF2830059E7BD /* TouchTracker */;
+			target = 14B72250193AF2830059E7BD /* Lokey */;
 			targetProxy = 14B7227A193AF2830059E7BD /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -465,11 +468,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "TouchTracker/Supporting Files/TouchTracker-Prefix.pch";
+				GCC_PREFIX_HEADER = "TouchTracker/Supporting Files/Lokey-Prefix.pch";
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "TouchTracker/Supporting Files/TouchTracker-Info.plist";
-				PRODUCT_NAME = TouchTracker;
+				INFOPLIST_FILE = "TouchTracker/Supporting Files/Lokey-Info.plist";
+				PRODUCT_NAME = Lokey;
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
@@ -480,11 +486,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "TouchTracker/Supporting Files/TouchTracker-Prefix.pch";
+				GCC_PREFIX_HEADER = "TouchTracker/Supporting Files/Lokey-Prefix.pch";
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "TouchTracker/Supporting Files/TouchTracker-Info.plist";
-				PRODUCT_NAME = TouchTracker;
+				INFOPLIST_FILE = "TouchTracker/Supporting Files/Lokey-Info.plist";
+				PRODUCT_NAME = Lokey;
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
@@ -505,8 +514,8 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "TouchTrackerTests/Supporting Files/TouchTrackerTests-Info.plist";
-				PRODUCT_NAME = TouchTrackerTests;
+				INFOPLIST_FILE = "TouchTrackerTests/Supporting Files/LokeyTests-Info.plist";
+				PRODUCT_NAME = LokeyTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -523,8 +532,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TouchTracker/Supporting Files/TouchTracker-Prefix.pch";
-				INFOPLIST_FILE = "TouchTrackerTests/Supporting Files/TouchTrackerTests-Info.plist";
-				PRODUCT_NAME = TouchTrackerTests;
+				INFOPLIST_FILE = "TouchTrackerTests/Supporting Files/LokeyTests-Info.plist";
+				PRODUCT_NAME = LokeyTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -533,7 +542,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		14B7224C193AF2830059E7BD /* Build configuration list for PBXProject "TouchTracker" */ = {
+		14B7224C193AF2830059E7BD /* Build configuration list for PBXProject "Lokey" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				14B72284193AF2830059E7BD /* Debug */,
@@ -542,7 +551,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		14B72286193AF2830059E7BD /* Build configuration list for PBXNativeTarget "TouchTracker" */ = {
+		14B72286193AF2830059E7BD /* Build configuration list for PBXNativeTarget "Lokey" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				14B72287193AF2830059E7BD /* Debug */,
@@ -551,7 +560,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		14B72289193AF2830059E7BD /* Build configuration list for PBXNativeTarget "TouchTrackerTests" */ = {
+		14B72289193AF2830059E7BD /* Build configuration list for PBXNativeTarget "LokeyTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				14B7228A193AF2830059E7BD /* Debug */,
