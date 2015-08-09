@@ -29,5 +29,7 @@
 @property (weak, nonatomic) IBOutlet UIProgressView *dictProgress;
 - (IBAction)createPressed:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UILabel *candidatesLabel;
+
 @property (weak, nonatomic) IBOutlet UIPickerView *dictPicker;
 @end

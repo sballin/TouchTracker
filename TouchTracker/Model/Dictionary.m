@@ -58,9 +58,8 @@
 }
 
 - (void)sendProgressUpdate:(float)progress {
-    if([delegate respondsToSelector:@selector(setProgress:)]) {
+    if([delegate respondsToSelector:@selector(setProgress:)])
         [delegate performSelectorOnMainThread:@selector(setProgress:) withObject:[NSNumber numberWithFloat:progress] waitUntilDone:NO];
-    }
 }
 
 - (void)writeDictionary:(NSString *)direction

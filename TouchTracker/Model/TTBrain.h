@@ -8,11 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol statsDelegate
+- (void)setCandidatesLabelText:(NSString *)text;
+@end
+
 @interface TouchTrackerBrain : NSObject
 @property (nonatomic, strong) NSMutableArray *liveTouches;
 @property (nonatomic, strong) NSMutableArray *touchHistory;
 @property (nonatomic, strong) NSString *primary;
 @property (nonatomic, strong) NSString *secondary;
+@property (nonatomic,assign) id delegate;
 - (void)addToLiveTouches:(CGPoint)touch;
 - (void)clearLiveTouches;
 - (NSArray *)oldRankedCandidates:(NSNumber *)tolerance;

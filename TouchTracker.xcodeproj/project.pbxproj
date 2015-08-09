@@ -19,7 +19,6 @@
 		14B7225F193AF2830059E7BD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14B7225D193AF2830059E7BD /* InfoPlist.strings */; };
 		14B72261193AF2830059E7BD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B72260193AF2830059E7BD /* main.m */; };
 		14B72265193AF2830059E7BD /* TTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B72264193AF2830059E7BD /* TTAppDelegate.m */; };
-		14B72268193AF2830059E7BD /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14B72266193AF2830059E7BD /* Main_iPhone.storyboard */; };
 		14B7226B193AF2830059E7BD /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14B72269193AF2830059E7BD /* Main_iPad.storyboard */; };
 		14B7226E193AF2830059E7BD /* TTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B7226D193AF2830059E7BD /* TTViewController.m */; };
 		14B72270193AF2830059E7BD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14B7226F193AF2830059E7BD /* Images.xcassets */; };
@@ -63,7 +62,6 @@
 		14B72262193AF2830059E7BD /* TouchTracker-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TouchTracker-Prefix.pch"; sourceTree = "<group>"; };
 		14B72263193AF2830059E7BD /* TTAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTAppDelegate.h; sourceTree = "<group>"; };
 		14B72264193AF2830059E7BD /* TTAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTAppDelegate.m; sourceTree = "<group>"; };
-		14B72267193AF2830059E7BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		14B7226A193AF2830059E7BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		14B7226C193AF2830059E7BD /* TTViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTViewController.h; sourceTree = "<group>"; };
 		14B7226D193AF2830059E7BD /* TTViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTViewController.m; sourceTree = "<group>"; };
@@ -146,7 +144,6 @@
 			children = (
 				14B7228F193AF6250059E7BD /* TouchDrawView.h */,
 				14B72290193AF6250059E7BD /* TouchDrawView.m */,
-				14B72266193AF2830059E7BD /* Main_iPhone.storyboard */,
 				14B72269193AF2830059E7BD /* Main_iPad.storyboard */,
 			);
 			path = View;
@@ -310,7 +307,6 @@
 				143BCA9719F6155F0022897D /* repeatDict.plist in Resources */,
 				14B72270193AF2830059E7BD /* Images.xcassets in Resources */,
 				14ADAD3919F4DD1300702CD1 /* countDict.plist in Resources */,
-				14B72268193AF2830059E7BD /* Main_iPhone.storyboard in Resources */,
 				1412490D194F9FF7007785EE /* README.md in Resources */,
 				14B7225F193AF2830059E7BD /* InfoPlist.strings in Resources */,
 				146CEF44193F18E5002E5220 /* dict.txt in Resources */,
@@ -350,7 +346,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14E696CE1940FE9C00E3764A /* Snake.m in Sources */,
 				14B72283193AF2830059E7BD /* TouchTrackerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -372,14 +367,6 @@
 				14B7225E193AF2830059E7BD /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		14B72266193AF2830059E7BD /* Main_iPhone.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				14B72267193AF2830059E7BD /* Base */,
-			);
-			name = Main_iPhone.storyboard;
 			sourceTree = "<group>";
 		};
 		14B72269193AF2830059E7BD /* Main_iPad.storyboard */ = {
@@ -483,6 +470,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "TouchTracker/Supporting Files/TouchTracker-Info.plist";
 				PRODUCT_NAME = TouchTracker;
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -497,6 +485,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "TouchTracker/Supporting Files/TouchTracker-Info.plist";
 				PRODUCT_NAME = TouchTracker;
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

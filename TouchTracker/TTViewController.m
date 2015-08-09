@@ -15,7 +15,7 @@
 
 @interface TouchTrackerViewController ()
 @property (nonatomic, strong) TouchTrackerBrain *brain;
-@property (nonatomic, strong) Dictionary *dictBuild;
+@property (nonatomic, strong) Dictionary *dict;
 @property (nonatomic, strong) UIView *toleranceLength;
 @property (nonatomic, strong) NSArray *pickerData;
 @end
@@ -25,11 +25,11 @@
 @synthesize rankedMatchesDisplay = _rankedMatchesDisplay;
 @synthesize textDisplay = _textDisplay;
 @synthesize brain = _brain;
-@synthesize dictBuild = _dictBuild;
+@synthesize dict = _dict;
 
-- (Dictionary *)dictBuild {
-	if (!_dictBuild) _dictBuild = [[Dictionary alloc] init];
-	return _dictBuild;
+- (Dictionary *)dict {
+	if (!_dict) _dict = [[Dictionary alloc] init];
+	return _dict;
 }
 
 - (TouchTrackerBrain *)brain {
@@ -51,9 +51,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.dict.delegate = self;
+    self.brain.delegate = self;
+    
     self.dictProgress.progress = 0;
-    self.dictBuild.delegate = self;
-    self.pickerData = [self.dictBuild.dictionaries allKeys];
+    
+    self.pickerData = [self.dict.dictionaries allKeys];
     self.dictPicker.dataSource = self;
     self.dictPicker.delegate = self;
     [self.dictPicker selectRow:[self.pickerData indexOfObject:@"horizontalDict0"] inComponent:0 animated:NO];
@@ -64,7 +67,7 @@
     [self spacePressed];
 }
 
-#pragma mark - Dictionary interface
+#pragma mark - Dictionary selection
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 2;
@@ -99,6 +102,8 @@
     return tView;
 }
 
+#pragma mark - User controls and dictionary creation
+
 - (UIView *)toleranceLength {
     if (!_toleranceLength) {
         _toleranceLength = [[UIView alloc] init];
@@ -122,18 +127,18 @@
 }
 
 - (IBAction)createPressed:(id)sender {
-   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         switch (self.dictTypeControl.selectedSegmentIndex) {
             case 0:
-                [self.dictBuild writeDictionary:@"horizontal" withTolerance:[NSNumber numberWithInteger:(int)self.toleranceSlider.value]];
+                [self.dict writeDictionary:@"horizontal" withTolerance:[NSNumber numberWithInteger:(int)self.toleranceSlider.value]];
                 break;
             case 1:
-                [self.dictBuild writeDictionary:@"vertical" withTolerance:0];
+                [self.dict writeDictionary:@"vertical" withTolerance:0];
                 break;
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.dictProgress setProgress:0];
-            self.pickerData = [self.dictBuild.dictionaries allKeys];
+            self.pickerData = [self.dict.dictionaries allKeys];
             [self.dictPicker reloadAllComponents];
         });
     });
@@ -141,6 +146,12 @@
 
 - (void)setProgress:(NSNumber *)amount {
     [self.dictProgress setProgress:[amount floatValue] animated:YES];
+}
+
+#pragma mark - Statistics interface
+
+- (void)setCandidatesLabelText:(NSString *)text {
+    self.candidatesLabel.text = text;
 }
 
 #pragma mark - Typing interface
@@ -157,22 +168,17 @@
     if (self.brain.liveTouches.count >= 1) {
         self.rankedCandidates = [[self.brain rankedCandidates:[NSNumber numberWithInteger:(int)self.toleranceSlider.value]] mutableCopy];
         self.rankedMatchesDisplay.text = [self.rankedCandidates description];
-        
+
         // Add top candidate to user text
         if (self.rankedCandidates.count > 0) {
             [self.userText addObject:[self.rankedCandidates[0] substringWithRange:NSMakeRange(7, [self.rankedCandidates[0] length]-7)]];
             [self.brain.touchHistory addObject:self.brain.liveTouches];
-            NSLog(@"Latest word: %@", [[self.userText lastObject] description]);
-        }
-        else {
-            self.textDisplay.text = [self.textDisplay.text stringByAppendingString: @"∅"];
         }
         
         // Rewrite display
         self.textDisplay.text = [self getFormattedUserText];
     }
-    else self.textDisplay.text = [self.textDisplay.text stringByAppendingString:@"∅"];
-    
+
     // Clear slate for live touches
 	[self.brain clearLiveTouches];
 }
@@ -181,10 +187,10 @@
     // Remove unwanted word from user text
     [self.userText removeLastObject];
     [self.brain.touchHistory removeLastObject];
-    
+
     // Clear liveTouches
     [self.brain clearLiveTouches];
-    
+
     // Reset display
     self.textDisplay.text = [self getFormattedUserText];
     self.rankedMatchesDisplay.text = @"";
@@ -209,28 +215,28 @@
         for (UITouch *t in touches) {
             CGPoint point = [t locationInView:self.view];
             float thickness = [[t valueForKey:@"pathMajorRadius"] floatValue];
-            
+
             // Non-thumb finger -> letter
             if (thickness < (int)self.thumbSlider.value) {
                 [self.brain addToLiveTouches:point];
                 [self addGrowingCircleAtPoint:[[touches anyObject] locationInView:self.view] withColor:[UIColor colorWithRed:0 green:.7490 blue:1 alpha:1]];
             }
-            
+
             // Thumb -> space
             else {
                 [self spacePressed];
                 [self addGrowingCircleAtPoint:[[touches anyObject] locationInView:self.view] withColor:[UIColor greenColor]];
             }
-            
+
         }
     }
-    
+
     else if (event.allTouches.count == 2) {
         [self pickNextCandidate];
         for (UITouch *touch in [event.allTouches allObjects])
             [self addGrowingCircleAtPoint:[touch locationInView:self.view] withColor:[UIColor colorWithRed:.678431373 green:.517647059 blue:1 alpha:1]];
     }
-    
+
     // 3 or more fingers -> backspace
     else if (event.allTouches.count >= 3) {
         [self deleteLastWord];
@@ -251,21 +257,21 @@
     // Create circle path
     CGMutablePathRef circlePath = CGPathCreateMutable();
     CGPathAddArc(circlePath, NULL, 0.f, 0.f, 20.f, 0.f, (float)2.f*M_PI, true);
-    
+
     // Create shape layer
     CAShapeLayer* layer = [[CAShapeLayer alloc] init];
     layer.path = circlePath;
-    
+
     // Don't leak
     CGPathRelease(circlePath);
     layer.delegate = self;
-    
+
     // Set up attributes of shape layer and add it to our view's layer
     layer.fillColor = [color CGColor];
     layer.position = point;
     layer.anchorPoint = CGPointMake(.5f, .5f);
     [self.view.layer addSublayer:layer];
-    
+
     CABasicAnimation *grow = [CABasicAnimation animationWithKeyPath:@"transform"];
     grow.fromValue = [layer valueForKey:@"transform"];
     CATransform3D t = CATransform3DMakeScale(12.f, 12.f, 1.f);
@@ -276,7 +282,7 @@
     [grow setValue:@"grow" forKey:@"name"];
     [grow setValue:layer forKey:@"layer"];
     [layer addAnimation:grow forKey:@"transform"];
-    
+
     CABasicAnimation *fade = [CABasicAnimation animationWithKeyPath:@"opacity"];
     fade.fromValue = [layer valueForKey:@"opacity"];
     fade.toValue = [NSNumber numberWithFloat:0.f];

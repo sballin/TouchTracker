@@ -26,6 +26,7 @@
 @synthesize touchHistory = _touchHistory;
 @synthesize primary = _primary;
 @synthesize secondary = _secondary;
+@synthesize delegate;
 
 - (TwoDim *)twodim {
 	if (!_twodim) _twodim = [[TwoDim alloc] init];
@@ -83,31 +84,30 @@
     NSMutableSet *horizCandidates = [self candidatesInDirection:@"horizontal" withTolerance:tolerance].mutableCopy;
     NSSet *vertCandidates = [self candidatesInDirection:@"vertical" withTolerance:tolerance];
     NSMutableSet *horizCandidatesCopy = horizCandidates.mutableCopy;
-    NSLog(@"horiz: %lu", (unsigned long)horizCandidates.count);
-    NSLog(@"vert: %lu", (unsigned long)vertCandidates.count);
 
     if ([TwoDim containsRepeat:self.liveTouches withTolerance:tolerance]) {
         NSSet *repeatCandidates = [self repeatCandidates:tolerance];
-        NSLog(@"Repeats: %lu", (unsigned long)repeatCandidates.count);
         [horizCandidates intersectSet:repeatCandidates];
         return [self.fraction twoDimFractionSort:horizCandidates.allObjects.mutableCopy using:self.liveTouches];
     }
 
     [horizCandidates intersectSet:vertCandidates];
-    NSLog(@"Intersect: %lu", (unsigned long)horizCandidates.count);
 
     NSArray *words = [horizCandidates allObjects];
     if ([words count] == 0) {
         [horizCandidatesCopy unionSet:vertCandidates];
         words = horizCandidatesCopy.copy;
-        NSLog(@"Union: %lu", (unsigned long)horizCandidatesCopy.count);
 
         if ([words count] < 5) {
             words = [self countCandidates];
-            NSLog(@"Letter count: %lu", (unsigned long)[words count]);
         }
     }
     return  [self.fraction twoDimFractionSort:words.mutableCopy using:self.liveTouches];
+}
+
+- (void)sendCandidatesUpdate:(NSString *)text {
+    if([delegate respondsToSelector:@selector(setCandidatesLabelText:)])
+        [delegate performSelectorOnMainThread:@selector(setCandidatesLabelText:) withObject:text waitUntilDone:NO];
 }
 
 - (NSArray *)rankedCandidates:(NSNumber *)tolerance {
@@ -121,23 +121,20 @@
     NSMutableSet *primaries = [self candidatesForDictionary:self.primary withTolerance:tolerance].mutableCopy;
     NSSet *secondaries = [self candidatesForDictionary:self.secondary withTolerance:tolerance];
     NSMutableSet *primariesCopy = primaries.mutableCopy;
-    NSLog(@"Primary: %lu", (unsigned long)primaries.count);
-    NSLog(@"Secondary: %lu", (unsigned long)secondaries.count);
+    int primariesCount = primaries.count;
 
     [primaries intersectSet:secondaries];
-    NSLog(@"Intersect: %lu", (unsigned long)primaries.count);
+    [self sendCandidatesUpdate:[NSString stringWithFormat:@"Primary:\t\t%d\nSecondary:\t%d\nIntersect:\t%d", primariesCount, secondaries.count, primaries.count]];
 
     NSArray *finalWords = primaries.allObjects;
     if (finalWords.count == 0) {
         [primariesCopy unionSet:secondaries];
         finalWords = primariesCopy.allObjects;
-        NSLog(@"Union: %lu", (unsigned long)primariesCopy.count);
         if (finalWords.count == 0) {
             finalWords = [self countCandidates];
-            NSLog(@"Letter count: %lu", (unsigned long)finalWords.count);
         }
     }
-    return  [self.fraction twoDimFractionSort:finalWords.mutableCopy using:self.liveTouches];
+    return [self.fraction twoDimFractionSort:finalWords.mutableCopy using:self.liveTouches];
 }
 
 - (NSSet *)candidatesForDictionary:(NSString *)name

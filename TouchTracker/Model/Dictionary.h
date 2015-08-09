@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @protocol ProgressDelegate
--(void)setProgress:(NSNumber *)amount;
+- (void)setProgress:(NSNumber *)amount;
 @end
 
 @interface Dictionary : NSObject
